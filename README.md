@@ -1,7 +1,7 @@
 # fun activities with freecodecamp
 
 ## Projects on CODEPEN:
-* [Tribute Page](https://codepen.io/niktechnopro/pen/KQRwXV{:target="_blank"})
+* [Tribute Page](https://codepen.io/niktechnopro/pen/KQRwXV)
 * [Survey Form](https://codepen.io/niktechnopro/pen/NzQeYe)
 * [Product Landing Page](https://codepen.io/niktechnopro/pen/QVdMoy)
 * [Technical Documentation Page](https://codepen.io/niktechnopro/pen/LJzaEz)
