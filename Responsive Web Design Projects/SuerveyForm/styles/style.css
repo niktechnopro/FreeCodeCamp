@@ -1,0 +1,130 @@
+body{
+	display: flex;
+	justify-content: center;
+	background-color: lightblue;
+}
+
+#title{
+	text-align: center;
+}
+
+#description{
+	font-size: 1rem;
+}
+
+input{
+	display: inline-block;
+	border-radius: 5px;
+	font-size: 1rem;
+}
+
+ #dropdown, #like{
+ 	font-size: 1rem;
+ }
+
+[for="name"],[for="email"],[for="age"]{
+	display: block;
+}
+
+[id="name-block"],[id="email-block"],[id="age-block"],#role-block,#about-us{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: 0.5rem 0;
+}
+
+#name, #email, #number{
+	width:12rem;
+}
+
+
+#wrapper{
+	width: 100%;
+	min-height: 100vh;
+	border: 2px solid black;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	border-radius: 5px;
+	background-color: #eaeef0;
+}
+
+#content{
+	display: flex;
+	flex: 1;
+	justify-content: center;
+}
+
+
+label{
+	padding: 0 1rem;
+}
+
+textarea {resize: none} /*to remove resizable text area*/
+
+header h2, footer{
+	text-align: center;
+}
+
+p{
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+::-webkit-input-placeholder {
+    color: blue;
+    text-align: center;
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+  color: blue;
+  text-align: center;
+}
+
+textarea{
+	width: 98%;
+	height: 3rem;
+	font-size: 1rem;
+	border-radius: 5px;
+}
+
+p{
+	margin: 0.5rem;
+}
+
+
+button[type="submit"]{
+	padding: 1rem;
+    margin: 0.5rem 0 0 0;
+    border: 3px solid black;
+    border-radius: 5px;
+    background-color: lightgreen;
+    width: 10rem;
+    font-size: 1rem;
+}
+
+#button{
+	text-align: center;
+}
+
+fieldset{
+	border-radius: 5px;
+	font-size: 1.2rem;
+}
+
+
+@media only screen and (min-width: 600px) {
+    #wrapper {
+        width: 80%;
+    }
+    label{
+		padding: 0 3rem;
+	}
+	#name, #email, #number{
+		width:15rem;
+	}
+	#description{
+		font-size: 1.5rem;
+	}
+}
+

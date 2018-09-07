@@ -1,0 +1,273 @@
+/*sanity check*/
+body{
+	margin: 0;
+	padding: 0;
+	background-image: url('../images/bckg.jpg');
+	background-size: cover;/*to stretch for full screen*/
+	background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+   }
+
+#wrapper{
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;	
+}
+
+/*navbar portion*/
+#navbar{
+	/*position: sticky;
+  	top: 0;
+  	width: 100%;*/
+	display: flex;
+	justify-content: space-between;
+	background-color: blue;
+	flex-direction: row;
+	/*border-radius: 1rem;*/
+}
+
+.navigation{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	padding: 1rem;
+	align-items: center;
+}
+
+#me{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	text-decoration: none;
+}
+
+a{
+	font-size: 1.5rem;
+	text-decoration: none;
+	padding: 0.5rem;
+	color: white;
+}
+
+.navigation>a:hover{
+	text-decoration: underline overline;
+}
+/*end of navbar portion*/
+
+/*about me section*/
+#aboutme article{
+	font-size: 1.0rem;
+	text-align: justify;
+	font-family: Lobster, Sans-Serif;
+	padding: 1rem;
+}
+
+section p{
+	font-size: 2rem;
+	margin: 0;
+	text-align: center;
+}
+
+.topsection{
+	display: flex;
+	flex-direction: row;
+	padding: 0 2rem;
+	align-items: center;
+}
+
+.topsection img{
+	align-self: center;/*to make sure the image is not squashed*/
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	padding: 2px;
+	border: 1px;
+}
+
+hr{
+	border: none;
+	height: 4px;
+	background-color: #333;
+	width: 90%;
+	vertical-align: center;
+}
+
+#aboutme{
+	background-color: rgba(20, 250, 250, 0.5);
+	padding-top: 1rem;
+}
+/*end of about me section*/
+
+
+/*start of portfolio section*/
+#portfolio{
+	margin-top: 1rem;
+}
+
+#projects{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: space-around;
+}
+
+#projects img{
+	margin: 2rem;
+	width: 350px;
+	height: 250px;
+	border: 3px solid;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: 400ms;
+}
+
+#projects>img:hover {
+	border: 3px solid lightblue;
+}
+/*end of portfolio section*/
+
+/*start of contact section*/
+#contactsection{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	background-color: lightblue;
+	border-radius: 1rem;
+}
+
+.leftsection{
+	padding: 3rem 3rem 0 3rem;
+	width: 80%;
+	display: flex;
+	text-align: center;
+}
+
+.rightsection{
+	padding: 3rem;
+	width: 80%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.rightsection input{
+	height: 2rem;
+	border-radius: 1rem;
+	outline: none;
+	font-size: 1.1rem;
+}
+
+.rightsection input:focus {
+	text-align: center;
+}
+
+[type="submit"]{
+	width: 25%;
+	margin: 0 auto;
+	cursor: pointer;
+	box-shadow: 0px 1px 3px black;
+	cursor: pointer;
+	transition: 300ms;
+}
+
+[type="submit"]:hover {
+	background-color: lightgreen;
+}
+
+#textarea{
+	height: 4rem;
+}
+
+::-webkit-input-placeholder{
+	font-size: 1.2rem;
+	text-align: center;
+}
+
+.leftsection article{
+	font-size: 1.0rem;
+	text-align: justify;
+}
+/*end of contact section*/
+
+section{
+	/*border-radius: 1rem;*/
+}
+
+#contact_bottom{
+	text-align: center;
+	margin-bottom: 2rem;
+}
+
+#contact_bottom ul{
+	list-style: none;
+	display: inline;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	padding: 1rem;
+}
+
+
+i.fa{
+	display: inline-block;
+    border-radius: 48px;
+    box-shadow: 0px 1px 3px black;
+    padding: 0.3rem 1rem;
+    transition: 300ms;
+}
+
+.fa{
+	font-size: 36px !important;
+}
+
+i.fa:hover {
+	box-shadow: 0px 0px 0px white;
+	cursor: pointer;
+}
+
+p .scroll{
+	color: black;
+}
+
+p .scroll:hover {
+	color: white;
+}
+
+/*footer*/
+footer{
+	/*the following sticks footer on the bottom*/
+	margin-top: auto; 
+	text-align: center;
+	background-color: lightgrey;
+	padding: 1rem;
+}
+/*end of footer*/
+
+@media screen and (min-width: 768px) {
+	#contactsection{
+		flex-direction: row;
+	}
+	a{
+		font-size: 2rem;
+		padding: 1.5rem;
+	}
+	li{
+		display: inline;
+		padding: 2rem;
+	}
+	#contact_bottom ul{
+		justify-content: center;
+	}
+
+	#aboutme article {
+		font-size: 1.5rem;
+	}
+
+	.leftsection article{
+		font-size: 1.5rem;
+		padding: 3rem;
+	}
+}
+

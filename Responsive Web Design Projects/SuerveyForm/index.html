@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Survey Form (freecodecampchallenge)</title>
+	<link rel="stylesheet" type="text/css" href="./styles/style.css" />
+</head>
+<body>
+	<div id="wrapper">
+	<header>
+		<h1 id="title">Survey Form</h1>
+		<h2 id="description">Please be so kind and fill in the form below</h2>
+	</header>
+		<main id="content">
+			<div>
+			<form action="#" id="survey form" method="post">
+				<fieldset>
+					<legend>Information about You</legend>
+					<div id="name-block"><label id="name-label" for="name">Your Name: </label><input type="text" id="name" name="name" placeholder="Enter your name" required autofocus /></div>
+					<div id="email-block"><label id="email-label" for="email">Your email: </label><span> </span><input type="email" id="email" name="email" placeholder="Enter your email" required/></div>
+					<div id="age-block"><label id="number-label" for="number">Your Age: </label><input type="number" id="number" name="age" min="1" max="125" placeholder="Enter your age" required/></div>
+					<div id="role-block">
+					<label for="role">Your current role?</label>
+					<select id="dropdown" required>
+						<option value>select one</option>
+						<option value="student">student</option>
+						<option value="professional">professional</option>
+						<option value="homemaker">homemaker</option>
+						<option value="other">other</option>
+					</select>
+					</div>
+					<div id="about-us">
+					<label for=like>What do you like about us?</label>
+					<select id="like" required>
+						<option value>select one</option>
+						<option value="projects">Projects</option>
+						<option value="community">Community</option>
+						<option value="something-else">Something else</option>
+					</select>
+					</div>
+				</fieldset>
+				
+				<p><label for="for_something_else">If you selected "Something else"</label></p>
+				<textarea id="for_something_else" type="text" placeholder="briefly describe your response" wrap="hard" cols='40' rows="4"></textarea>
+				<br/>
+				<fieldset>
+					<legend>Would you recommed us to your friend?</legend>
+					<label for="radio1"><input type="radio" name="recommendation" id="radio1" checked value="yes">Yes</label>
+					<label for="radio2"><input type="radio" name="recommendation" id="radio2" value="no">Maybe</label>
+					<label for="radio3"><input type="radio" name="recommendation" id="radio3" value="maybe">Not sure</label>
+				</fieldset>
+				<br/>
+				<fieldset>
+					<legend>Things for us to improve on, select all that apply</legend>
+					<div><label for="checkbox1"><input type="checkbox" name="improvement" id="checkbox1" value="more content"/>more content</label></div>
+					<div><label for="checkbox2"><input type="checkbox" name="improvement" id="checkbox2" value="faster response"/>faster response</label></div>
+					<div><label for="checkbox3"><input type="checkbox" name="improvement" id="checkbox3" value="videos"/>videos</label></div>
+					<div><label for="checkbox4"><input type="checkbox" name="improvement" id="checkbox4" value="forum"/>forum</label></div>
+					<div><label for="checkbox5"><input type="checkbox" name="improvement" id="checkbox5" value="more challenges"/>more challenges</label></div>
+				</fieldset>
+				<p><label for="suggestions">Any comments or suggestions</label></p>
+				<textarea id="suggestions" placeholder="your comments or suggestions"></textarea>
+				<div id="button"><button type="submit" id="submit">Submit Survey</button></div>
+			</form>
+			</div>
+		</main>
+		<footer>
+			<h5>&copy; &nbsp; This is Survey coding challenge from FreeCodeCamp Curriculum</h5>
+		</footer>
+	</div>
+	<script defer type="text/javascript" src="./scripts/script.js"></script>
+</body>
+</html>

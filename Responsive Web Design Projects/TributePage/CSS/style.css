@@ -1,0 +1,63 @@
+html{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    font-size: 16px;
+    background-image:    url('https://i2.wp.com/buildwithjon.com/wp-content/uploads/2016/08/White-Texture-HD-Backgrounds-5.jpg?w=1440');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+a{
+    text-decoration: none;
+    color: blue;
+}
+
+a:hover{
+    text-decoration: underline;
+    text-decoration-color: blueviolet;
+    color: blueviolet;
+}
+
+img {
+    width: 100%;
+    margin: 20px 0;
+    border: 10px solid darkgrey;
+    border-radius: 5px;
+    transition: 0.4s;
+}
+
+.hide{
+    display: block;
+}
+
+h1{
+    text-align: center;
+}
+
+img:hover {
+    border-color: blue;
+}
+
+p{
+    text-align: justify;
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+[data-frame] p{
+    text-align: center;
+}
+
+article{
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+footer{
+  font-weight: 600;
+}

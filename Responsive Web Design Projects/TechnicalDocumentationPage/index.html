@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Technical Documentation Page</title>
+	<link rel="stylesheet" type="text/css" href="./CSS/style.css">
+</head>
+<body>
+	<nav id="navbar">
+		<header>Basics of Cisco IOS</header>
+		<ul>
+			<li><a href="#introduction" class="nav-link" rel="internal">Introduction</a></li>
+			<li><a href="#hostname" class="nav-link" rel="internal">How to change Hostname</a></li>
+			<li><a href="#motd" class="nav-link" rel="internal">How to set up MOTD</a></li>
+			<li><a href="#interfaces" class="nav-link" rel="internal">Available interfaces</a></li>
+			<li><a href="#remote_access" class="nav-link" rel="internal">Remote Console Access</a></li>
+			<li><a href="#reference" class="nav-link" rel="internal">Reference</a></li>
+		</ul>
+	</nav>
+	<main id="main-doc">
+		<div id="image"></div>
+		<section class="main-section" id="introduction">
+			<header>Introduction</header>
+			<article>
+				<p>The following describes how to use the Cisco IOS command-line interface (CLI) to perform a basic software configuration for your router or switch.</p>
+				<p>If Cisco Router and Security Device Manager (SDM) is installed on your router, we recommend that you use Cisco SDM instead of the Cisco IOS CLI to perform the initial software configuration. To access SDM, see the quick start guide that shipped with your device.</p>
+			</article>
+		</section>
+		<section class="main-section" id="hostname">
+			<header>How to change the Hostname</header>
+			<article>
+				<p>The hostname is used in CLI prompts and default configuration filenames. If you do not configure the router hostname, the router uses the factory-assigned default hostname “Router.”</p>
+				<p>Do not expect capitalization and lowercasing to be preserved in the hostname. Uppercase and lowercase characters are treated as identical by many Internet software applications. It may seem appropriate to capitalize a name as you would ordinarily do, but conventions dictate that computer names appear in all lowercase characters. For more information, see RFC 1178, Choosing a Name for Your Computer.</p>
+				<p>Summary Steps:</p>
+				<table>
+				<tr>
+					<th>Command</th>
+					<th>Command Line</th>
+					<th>Description</th>
+				</tr>
+				<tr>
+					<td>1.enable</td>
+					<td><code>switch>enable</code></td>
+					<td>this will put you into priviledge EXEC mode</td>
+				</tr>
+				<tr>
+					<td>2.configure terminal</td>
+					<td><code>switch#configure terminal</code></td>
+					<td>enters global configuration mode</td>
+				</tr>
+				<tr>
+					<td>3.hostname &lt;name&gt;</td>
+					<td><code>switch(config)#hostname my_new_switch</code></td>
+					<td>where &lt;my_new_switch&gt; is a new hostname</td>
+				</tr>
+				<tr>
+					<td>4.end</td>
+					<td><code>my_new_switch(config)#end</code></td>
+					<td>exit to EXEC(privilege) mode</td>
+				</tr>
+			</table>	
+			</article>
+		</section>		
+		<section class="main-section" id="motd">
+			<header>How to set up MOTD</header>
+			<article>
+			<p>To configure the message-of-the-day (MOTD) banner that displays when the user logs in to a Cisco switch/router, use the banner motd command. To revert to the default, use the no form of this command.</p>
+			<p>Summary Steps:</p>
+			<table>
+				<tr>
+					<th>Command</th>
+					<th>Command Line</th>
+					<th>Description</th>
+				</tr>
+				<tr>
+					<td>1.enable</td>
+					<td><code>switch>enable</code></td>
+					<td>this will put you into priviledge EXEC mode</td>
+				</tr>
+				<tr>
+					<td>2.configure terminal</td>
+					<td><code>switch#configure terminal</code></td>
+					<td>enters global configuration mode</td>
+				</tr>
+				<tr>
+					<td>3.banner motd &lt;delimiter&gt; message &lt;delimiter&gt;</td>
+					<td><code>switch(config)#banner motd #Welcome#</code></td>
+					<td>where #-indicates the start and end of the message</td>
+				</tr>
+				<tr>
+					<td>4.end</td>
+					<td><code>switch(config)#end</code></td>
+					<td>exit to EXEC(privilege) mode</td>
+				</tr>
+			</table>	
+			</article>
+		</section>
+		<section class="main-section" id="interfaces">
+			<header>Show available interfaces on device</header>
+			<article>
+				<p>The show ip interface command provides tons of useful information about the configuration and status of the IP protocol and its services, on all interfaces. The show ip interface brief command provides a quick status of the interfaces on the router, including their IP address, Layer 2 status, and Layer 3 status.</p>
+				<p>Summary Steps:</p>
+				<table>
+					<tr>
+						<th>Command</th>
+						<th>Command Line</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>1.enable</td>
+						<td><code>switch>enable</code></td>
+						<td>this will put you into priviledge EXEC mode</td>
+					</tr>
+					<tr>
+						<td>2.while at EXEC(privilege) mode</td>
+						<td><code>switch#show ip interface brief</code></td>
+						<td>displays a brief status of the interfaces</td>
+					</tr>
+				</table>		
+			</article>
+		</section>		
+		<section class="main-section" id="remote_access">
+			<header>Configuring Virtual Terminal Lines for Remote Console Access</header>
+			<article>
+				<p>Virtual terminal (vty) lines are used to allow remote access to the router. This section shows you how to configure the virtual terminal lines with a password, so that only authorized users can remotely access the router.
+				The switch has sixteen virtual terminal lines by default.</p>
+				<p>Summary Steps:</p>
+				<table>
+					<tr>
+						<th>Command</th>
+						<th>Command Line</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>1.enable</td>
+						<td><code>switch>enable</code></td>
+						<td>this will put you into priviledge EXEC mode</td>
+					</tr>
+					<tr>
+						<td>2.configure terminal</td>
+						<td><code>switch#configure terminal</code></td>
+						<td>enters global configuration mode</td>
+					</tr>
+					<tr>
+						<td>3.line vty [line-number] [ending-line-number]</td>
+						<td><code>switch(config)#line vty 0 15</code></td>
+						<td>starts the line configuration command collection mode for the virtual terminal lines (vty) for remote console access.</td>
+					</tr>
+					<tr>
+						<td>4.password &lt;password&gt;</td>
+						<td><code>switch(config-line)#password guessagain</code></td>
+						<td>specifies a password on a line.</td>
+					</tr>
+					<tr>
+						<td>4.login</td>
+						<td><code>switch(config-line)#login</code></td>
+						<td>enables password checking at login.</td>
+					</tr>
+					<tr>
+						<td>4.end</td>
+						<td><code>switch(config)#end</code></td>
+						<td>exit to EXEC(privilege) mode</td>
+					</tr>
+				</table>	
+			</article>
+		</section>
+		<section class="main-section" id="reference">
+		    <header>Reference</header>
+		    <article>
+				<li><a href="https://www.cisco.com" target="_blank">All the documentation in this page is taken from Cisco</a></li>
+				<li><a href="https://www.cisco.com/c/en/us/td/docs/routers/access/1800/1841/software/configuration/guide/sw/b_cli.pdf" target="_blank">Basic Software Configuration Using the Cisco IOS Command-Line Interface</a></li>
+				<li><a href="https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus3000/sw/command/reference/5_0_3/fund/3k_cmd_ref_fund/3k_cmd_ref_fund_cmds.pdf" target="_blank">Basic System Commands</a></li>
+				<li><a href="https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst4500/15-1/XE_330SG/configuration/guide/config/supcfg.pdf" target="_blank">Configuring the Switch for the First Time</a></li>
+				<li><a href="https://www.cisco.com/c/en/us/td/docs/routers/access/500/520/software/configuration/guide/520_SCG_Book/520scg_basic.pdf" target="_blank">Basic Router Configuration</a></li>
+		    </article>
+    	</section>	
+		<footer>
+		&copy;This page was developed to complete FreeCodeCamp challenge
+		</footer>
+	</main>
+</body>
+</html>
