@@ -1,5 +1,9 @@
 # fun activities with freecodecamp
 
+These projects were completed to earn Responsive Web Design certificate.
+Requirement was to use HTML and CSS only.
+One project also uses Bootstrap and two a touch of JavaScript.
+
 ## Projects on CODEPEN:
 * [Tribute Page](https://codepen.io/niktechnopro/pen/KQRwXV)
 * [Survey Form](https://codepen.io/niktechnopro/pen/NzQeYe)
@@ -18,4 +22,4 @@
     * Bootstrap
     
 * **Programming Languages**:
-	* JavaScript
+    * JavaScript
