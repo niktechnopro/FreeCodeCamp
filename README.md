@@ -1,7 +1,6 @@
 # fun activities with freecodecamp
 
-These projects were completed to earn Responsive Web Design certificate.
-Requirement was to use HTML and CSS only.
+These are simple HTML/CSS projects, that were completed to earn Responsive Web Design certificate.
 One project also uses Bootstrap and two a touch of JavaScript.
 
 ## Projects on CODEPEN:
