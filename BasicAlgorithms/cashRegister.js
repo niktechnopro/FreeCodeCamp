@@ -40,11 +40,8 @@ function checkCashRegister(price, cash, cid) {
       objectToReturn['status'] = 'INSUFFICIENT_FUNDS';
       objectToReturn['change'] = [];
       return objectToReturn;
-    }
-
- 
-    //next we are going to be building what we should return;
-    for (var i = cid.length - 1; i >= 0; i--) {
+    }else{
+      for (var i = cid.length - 1; i >= 0; i--) {
         var coinName = cid[i][0],
             coinTotal = cid[i][1] * 100,
             coinValue = values[coinName],
@@ -55,27 +52,29 @@ function checkCashRegister(price, cash, cid) {
             changeLeft -= coinValue;            
             coinAmount--;
             toReturn++;
+            // console.log(changeLeft);
         }
  
         if (toReturn > 0) {
             changeToReturn.push([coinName, toReturn * (coinValue / 100)]);
         }
+      }
     }
+
  
-    // We make use of the getTotalCid method that we created earlier to see how much money we are actually returning.
+    
+ 
+    // We make use of the cashInRegister method that we created earlier to see how much money we are actually returning.
     // If it's not equal to the original change, it means that we can't return that exact amount with the current cash-in-register.
     if (cashInRegister(changeToReturn) != change) {
         objectToReturn['status'] = 'INSUFFICIENT_FUNDS';
         objectToReturn['change'] = [];
-        return objectToReturn;// Return early.
+        return objectToReturn;
     }
 
     objectToReturn['status'] = 'OPEN';
     objectToReturn['change'] = changeToReturn;
-
-    console.log(objectToReturn);
-
-    return objectToReturn;  // and this is the object we should return!
+    return objectToReturn;  // and this is how much we should return!
 }
 
 //checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])// should return {status: "INSUFFICIENT_FUNDS", change: []}.
