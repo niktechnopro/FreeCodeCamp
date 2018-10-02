@@ -62,7 +62,7 @@ function checkCashRegister(price, cash, cid) {
         }
     }
  
-    // We make use of the getTotalCid method that we created earlier to see how much money we are actually returning.
+    // We make use of the cashInRegister method that we created earlier to see how much money we are actually returning.
     // If it's not equal to the original change, it means that we can't return that exact amount with the current cash-in-register.
     if (cashInRegister(changeToReturn) != change) {
         objectToReturn['status'] = 'INSUFFICIENT_FUNDS';
