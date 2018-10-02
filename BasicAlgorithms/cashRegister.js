@@ -40,29 +40,26 @@ function checkCashRegister(price, cash, cid) {
       objectToReturn['status'] = 'INSUFFICIENT_FUNDS';
       objectToReturn['change'] = [];
       return objectToReturn;
-    }else{
-      for (let i = cid.length - 1; i >= 0; i--) {
-        let coinName = cid[i][0],
-            coinTotal = cid[i][1] * 100,
-            coinValue = values[coinName],
-            coinAmount = coinTotal / coinValue,
-            toReturn = 0;
- 
-        while (changeLeft >= coinValue && coinAmount > 0) {
-            changeLeft -= coinValue;            
-            coinAmount--;
-            toReturn++;
-            // console.log(changeLeft);
-        }
-        
-        if (toReturn > 0) {
-            changeToReturn.push([coinName, toReturn * (coinValue / 100)]);
-        }
-      }
     }
 
- 
-    
+    for (var i = cid.length - 1; i >= 0; i--) {
+      var coinName = cid[i][0],
+          coinTotal = cid[i][1] * 100,
+          coinValue = values[coinName],
+          coinAmount = coinTotal / coinValue,
+          toReturn = 0;
+
+      while (changeLeft >= coinValue && coinAmount > 0) {
+          changeLeft -= coinValue;            
+          coinAmount--;
+          toReturn++;
+          // console.log(changeLeft);
+      }
+
+      if (toReturn > 0) {
+          changeToReturn.push([coinName, toReturn * (coinValue / 100)]);
+      }
+    }
  
     // We make use of the cashInRegister method that we created earlier to see how much money we are actually returning.
     // If it's not equal to the original change, it means that we can't return that exact amount with the current cash-in-register.
