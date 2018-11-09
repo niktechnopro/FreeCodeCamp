@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import Buttons from './Buttons';
 import { connect } from 'react-redux';
-import { getQuote, getTweet } from '../actionCreators/actionCreators';
+import { getQuote, getTweet, getQuotesBlob } from '../actionCreators/actionCreators';
 
 class Wrapper extends Component {
+
+	// error !== "Network Error"
+
+	componentDidMount = () => {
+		//let's get a quote blob
+		this.props.getQuotesBlob();
+	}
 
 	getTweet = () => {
 		console.log('tweet');
@@ -16,6 +23,7 @@ class Wrapper extends Component {
 	}
 
 	render(){
+		console.log(this.props)
 		return(
 			<div id="quote-box">
 				<div id="text">
@@ -31,7 +39,11 @@ class Wrapper extends Component {
 
 const mapStateToProps = (state) => {
 	return{
-		allStates: state
+		allStates: state,
+		newTweet: state.tweet,
+		newQuote: state.quote,
+		error: state.error,
+		allquotes: state.allquotes
 	}
 	
 }
@@ -39,7 +51,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		getTweet: () => dispatch(getTweet()),
-		getQuote: () => dispatch(getQuote())
+		getQuote: () => dispatch(getQuote()),
+		getQuotesBlob: () => dispatch(getQuotesBlob())
 	}
 }
 

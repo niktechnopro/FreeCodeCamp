@@ -8,6 +8,7 @@
 #quote-box{
   height: 25%;
   width: 50%;
+  min-width: 350px;
   background-color: lightblue;
   display: flex;
   text-align: center;
@@ -20,6 +21,7 @@
   justify-content: space-around;
   align-items: flex-end;
   flex: 1;
+  min-width: 350px;
 }
 
 #buttons button{
