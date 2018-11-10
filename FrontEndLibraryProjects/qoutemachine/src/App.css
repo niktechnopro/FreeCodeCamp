@@ -5,23 +5,39 @@
   height: 100vh;
 }
 
+#text{
+  font-size: 1.5rem;
+  text-align: left;
+}
+
 #quote-box{
-  height: 25%;
+  min-height: 25%;
   width: 50%;
   min-width: 350px;
   background-color: lightblue;
   display: flex;
+  flex-direction: column;
   text-align: center;
   padding: 0.5rem;
   border: 3px solid black;
 }
 
+#author{
+  width: 90%;
+  text-align: right;
+}
+
+#authore cite{
+
+}
+
 #buttons{
   display: flex;
   justify-content: space-around;
-  align-items: flex-end;
-  flex: 1;
   min-width: 350px;
+  flex: 1;
+  align-items: flex-end;
+  margin-top: 1rem;
 }
 
 #buttons button{

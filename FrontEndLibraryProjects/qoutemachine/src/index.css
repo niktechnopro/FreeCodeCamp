@@ -6,6 +6,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  outline: none;
+}
+
+/*the following removed all scrolling bars*/
+html, body {
+   overflow:hidden
 }
 
 code {

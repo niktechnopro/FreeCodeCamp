@@ -10,10 +10,19 @@ export function getTweet(){
 	}
 }
 
-export function getQuote(){
+export function getQuote(allquotes){
+	//let's generate a number withing the array index
+	let index = Math.ceil(Math.random()*100);
+	let quote = null;
+	try{
+		quote = allquotes[index];
+	}catch{
+		quote = 'something went wrong, try again'
+	}
+	
 	return{
 		type: GET_NEW_QUOTE,
-		payload: 'some quote'
+		payload: quote
 	}
 }
 
