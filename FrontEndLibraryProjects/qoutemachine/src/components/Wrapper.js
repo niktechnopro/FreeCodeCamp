@@ -4,7 +4,12 @@ import { connect } from 'react-redux';
 import { getQuote, getTweet, getQuotesBlob } from '../actionCreators/actionCreators';
 import {Animated} from "react-animated-css";
 
-const animations=['bounceOutLeft', 'bounceInRight', 'flipInX'];
+const animationsIn=['bounceInLeft', 'bounceInRight', 'flipInX', 'bounceInDown', 
+					'bounceInUp', 'fadeInDownBig', 'rotateInDownLeft', 'rollIn',
+					'zoomInDown', 'slideInUp', 'lightSpeedIn'];
+const animationsOut=['bounceOutLeft', 'bounceOutLeft', 'flipOutX', 'bounceOutDown', 
+					'bounceOutUp', 'fadeOutUpBig', 'rotateOutUpRight', 'rollOut', 'zoomOutUp',
+					'slideOutUp', 'slideOutDown', 'lightSpeedOut']
 
 class Wrapper extends Component {
 	constructor(){
@@ -47,23 +52,27 @@ class Wrapper extends Component {
 	getRandAnimationIn = (min, max) => {
 		//for random number in range:
 	    let index = Math.floor(Math.random() * (max - min + 1)) + min;
+	    return animationsIn[index];
 	}
 
 	getRandAnimationOut = (min, max) => {
 		let index = Math.floor(Math.random() * (max - min + 1)) + min;
+		return animationsOut[index];
 	}
 
 	getQuote = () => {
 		//so wee need to generate random number 0..length of all quotes.length in action creator and select 
 		//and use to select random quote
-		this.setState((prevState)=>{
-			return{
-				animation: !prevState.animation
-			}
-		})
 		let animationIn = this.getRandAnimationIn(0, animationsIn.length-1);
 		let animationOut = this.getRandAnimationOut(0, animationsOut.length-1);
-		console.log(animationIn)
+		console.log(animationIn, animationOut)
+		this.setState((prevState)=>{
+			return{
+				animation: !prevState.animation,
+				animationOut: animationOut,
+				animationIn: animationIn
+			}
+		})
 		setTimeout(()=>{
 			this.setState((prevState)=>{
 				return{
@@ -71,7 +80,7 @@ class Wrapper extends Component {
 				}
 			});
 			this.props.getQuote(this.state.allquotes);
-		}, 400)
+		}, 500)
 	}
 
 	render(){

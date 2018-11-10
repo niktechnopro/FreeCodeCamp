@@ -8,6 +8,8 @@
 #text{
   font-size: 1.5rem;
   text-align: left;
+  text-shadow: 2px 2px #ffbfd;
+  font-weight: 500;
 }
 
 #quote-box{
@@ -20,6 +22,7 @@
   text-align: center;
   padding: 0.5rem;
   border: 3px solid black;
+  border-radius: 5px;
 }
 
 #author{
@@ -28,7 +31,7 @@
 }
 
 #authore cite{
-
+  font-weight: 400;
 }
 
 #buttons{
