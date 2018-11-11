@@ -6,20 +6,20 @@ import {Animated} from "react-animated-css";
 
 const animationsIn=['bounceInLeft', 'bounceInRight', 'flipInX', 'bounceInDown', 
 					'bounceInUp', 'fadeInDownBig', 'rotateInDownLeft', 'rollIn',
-					'zoomInDown', 'slideInUp', 'lightSpeedIn'];
+					'zoomInDown', 'slideInUp', 'lightSpeedIn', 'rotateIn', 'zoomIn', 'flipInY'];
 const animationsOut=['bounceOutLeft', 'bounceOutLeft', 'flipOutX', 'bounceOutDown', 
 					'bounceOutUp', 'fadeOutUpBig', 'rotateOutUpRight', 'rollOut', 'zoomOutUp',
-					'slideOutUp', 'slideOutDown', 'lightSpeedOut']
+					'slideOutUp', 'slideOutDown', 'lightSpeedOut', 'rotateOut', 'zoomOut', 'flipOutY']
 
 class Wrapper extends Component {
 	constructor(){
 		super()
 		this.state = {
 			allquotes: [],
-			firstLoad: true,
 			animation: true,
 			animationIn: 'bounceInRight',
-			animationOut: 'bounceOutLeft' 
+			animationOut: 'bounceOutLeft',
+			newQuote: '' 
 		}
 	}
 
@@ -29,18 +29,13 @@ class Wrapper extends Component {
 				allquotes: nextProps.allquotes
 			})
 		}
-		if(nextProps.newQuote){
-			this.setState({
-				firstLoad: false
-			})
-		}
 	}
 	
 	componentDidMount = () => {
 		//let's get a quote blob
 		this.props.getQuotesBlob();
 		this.setState({
-			animation: true
+			animation: true,
 		})
 	}
 
@@ -89,7 +84,7 @@ class Wrapper extends Component {
 			<div id="quote-box">
 			<Animated animationIn={this.state.animationIn} animationOut={this.state.animationOut} isVisible={this.state.animation}>
 				<div id="quote-wrapper" >
-					<blockquote id="text" style = {{textAlign: this.state.firstLoad ? 'center' : 'left'}}cite="https://gist.githubusercontent.com/">{this.state.firstLoad ? 'Press The Button for a Quote' : this.props.newQuote}</blockquote>
+					<blockquote id="text" style = {{textAlign: !this.props.newQuote ? 'center' : 'left'}}cite="https://gist.githubusercontent.com/">{!this.props.newQuote ? 'Press The Button for a Quote' : this.props.newQuote}</blockquote>
 					<div id="author">
 						<cite>{this.props.author}</cite>
 					</div>
@@ -107,7 +102,7 @@ const mapStateToProps = (state) => {
 	return{
 		allStates: state,
 		newTweet: state.tweet,
-		newQuote: state.quote.quote,
+		newQuote: state.quote ? state.quote.quote : '',
 		error: state.error,
 		allquotes: state.allquotes,
 		author: state.quote.author,

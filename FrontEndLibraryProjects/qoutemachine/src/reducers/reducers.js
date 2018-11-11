@@ -8,14 +8,16 @@ const initialState = {
 }
 
 export default (state=initialState, action) => {
-	console.warn('from reducer', state, action);
+	// console.warn('from reducer', state, action);
 	switch(action.type){
 		case GET_A_TWEET:
 			return {
+				...state,
 				tweet: action.payload
 			};
 		case GET_NEW_QUOTE:
 			return {
+				...state,
 				quote: action.payload
 			};
 		case GET_QUOTES_BLOB_SUCCESS:
