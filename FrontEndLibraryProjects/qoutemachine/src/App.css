@@ -2,14 +2,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 87vh;
+  transform: translateY(-10%)
 }
 
 #text{
   font-size: 1.5rem;
   text-align: left;
-  text-shadow: 2px 2px #ffbfd;
   font-weight: 500;
+  /*text-shadow: -1px -1px 0px #fff, -1px -1px 0px #000;*/
 }
 
 #quote-box{

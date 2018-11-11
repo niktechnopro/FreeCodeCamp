@@ -45,7 +45,6 @@ class Wrapper extends Component {
 	}
 
 	getTweet = () => {
-		console.log('tweet');
 		this.props.getTweet()
 	}
 
@@ -80,7 +79,7 @@ class Wrapper extends Component {
 				}
 			});
 			this.props.getQuote(this.state.allquotes);
-		}, 500)
+		}, 800)
 	}
 
 	render(){

@@ -11,7 +11,23 @@ body {
 
 /*the following removed all scrolling bars*/
 html, body {
-   overflow:hidden
+   overflow:hidden;
+}
+
+.title{
+	text-align: center;
+	margin-bottom: 0;
+	/*text-shadow: 1px 2px 1px #0b0b0c;*/
+  text-shadow: -1px -1px 0px #fff, -1px -1px 0px #000;
+  color: black;
+}
+
+footer{
+	min-width: 360px;
+  text-align: center;
+  font-size: 1.2rem;
+  /*text-shadow: 0px 0px 0px #fff, 1px 1px 0px #000;*/
+  text-shadow: -1px -1px 0px #fff, -1px -1px 0px #000;
 }
 
 code {
