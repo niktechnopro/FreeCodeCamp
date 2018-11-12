@@ -6,10 +6,10 @@ import {Animated} from "react-animated-css";
 
 const animationsIn=['bounceInLeft', 'bounceInRight', 'flipInX', 'bounceInDown', 
 					'bounceInUp', 'fadeInDownBig', 'rotateInDownLeft', 'rollIn',
-					'zoomInDown', 'slideInUp', 'lightSpeedIn', 'rotateIn', 'zoomIn', 'flipInY'];
+					'zoomInDown', 'slideInUp', 'lightSpeedIn', 'rotateIn', 'zoomIn', 'flipInY', 'zoomInUp'];
 const animationsOut=['bounceOutLeft', 'bounceOutLeft', 'flipOutX', 'bounceOutDown', 
 					'bounceOutUp', 'fadeOutUpBig', 'rotateOutUpRight', 'rollOut', 'zoomOutUp',
-					'slideOutUp', 'slideOutDown', 'lightSpeedOut', 'rotateOut', 'zoomOut', 'flipOutY']
+					'slideOutUp', 'slideOutDown', 'lightSpeedOut', 'rotateOut', 'zoomOut', 'flipOutY', 'zoomOutDown']
 
 class Wrapper extends Component {
 	constructor(){

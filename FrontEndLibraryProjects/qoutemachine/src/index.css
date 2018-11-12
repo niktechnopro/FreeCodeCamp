@@ -16,22 +16,25 @@ html, body {
 
 .title{
 	text-align: center;
-	margin-bottom: 0;
+  font-size: 3rem;
+	margin: 0;
+  padding-top: 1rem;
 	/*text-shadow: 1px 2px 1px #0b0b0c;*/
-  text-shadow: -1px -1px 0px #fff, -1px -1px 0px #000;
-  color: black;
+  text-shadow: 0px 0px 0px #000, 1px -2px 1px #fff;
+  color: white;
 }
 
 footer{
 	min-width: 360px;
   text-align: center;
-  font-size: 1.2rem;
-  /*text-shadow: 0px 0px 0px #fff, 1px 1px 0px #000;*/
-  text-shadow: -1px -1px 0px #fff, -1px -1px 0px #000;
+  font-size: 1.3rem;
+  text-shadow: -1px 1px 0px #fff, 2px 0px 1px #000;
+  color: white;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
 

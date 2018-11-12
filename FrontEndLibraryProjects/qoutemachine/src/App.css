@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 87vh;
+  height: 75vh;
   transform: translateY(-10%)
 }
 
@@ -17,7 +17,9 @@
   min-height: 25%;
   width: 50%;
   min-width: 350px;
-  background-color: lightblue;
+  /*background-color: lightblue;*/
+  background-image: url('./book.jpg');
+  background-size: cover;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -45,11 +47,13 @@
 }
 
 #buttons button{
-  width: 12rem;
+  width: 10rem;
   padding: 1rem;
   border-radius: 5px;
   font-size: 1rem;
   outline: none;
+  border: 1px solid black;
+  box-sizing: content-box;
 }
 
 button:hover {
@@ -58,21 +62,23 @@ button:hover {
 }
 
 button:active {
-  width: 12rem;
-  padding: 1rem;
-  border-radius: 5px;
-  border: 1px solid black;
-  font-size: 1rem;
-  outline: none;
+  /*border: 5px solid black;*/
+  /*box-shadow: 4px 4px 5px #888888;*/
+  box-shadow: 2px 2px #567;
+  transform: scale(0.98);
+  -ms-transform: scale(0.98); /* IE 9 */
+  -webkit-transform: scale(0.98);/* safari  */
+
 }
 
-
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#pageWrapper{
+  background-image: url('./flower.jpg');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  z-index: -2;
 }
+
