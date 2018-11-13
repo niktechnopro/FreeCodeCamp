@@ -13,7 +13,7 @@ class App extends Component {
         		<Wrapper />
       		</div>
       		<Footer />
-      	</Fragment>
+      </Fragment>
     );
   }
 }

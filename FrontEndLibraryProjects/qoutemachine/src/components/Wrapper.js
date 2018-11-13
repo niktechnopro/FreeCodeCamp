@@ -59,7 +59,7 @@ class Wrapper extends Component {
 		//and use to select random quote
 		let animationIn = this.getRandAnimationIn(0, animationsIn.length-1);
 		let animationOut = this.getRandAnimationOut(0, animationsOut.length-1);
-		console.log(animationIn, animationOut)
+		// console.log(animationIn, animationOut)
 		this.setState((prevState)=>{
 			return{
 				animation: !prevState.animation,
