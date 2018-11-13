@@ -1,4 +1,4 @@
-import { GET_A_TWEET, GET_NEW_QUOTE, GET_QUOTES_BLOB_SUCCESS, GET_QUOTES_BLOB_FAILURE } from '../actions/actions';
+import { POST_A_TWEET, GET_NEW_QUOTE, GET_QUOTES_BLOB_SUCCESS, GET_QUOTES_BLOB_FAILURE } from '../actions/actions';
 
 const initialState = {
 	tweet: '',
@@ -10,7 +10,7 @@ const initialState = {
 export default (state=initialState, action) => {
 	// console.warn('from reducer', state, action);
 	switch(action.type){
-		case GET_A_TWEET:
+		case POST_A_TWEET:
 			return {
 				...state,
 				tweet: action.payload

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Buttons from './Buttons';
 import { connect } from 'react-redux';
-import { getQuote, getTweet, getQuotesBlob } from '../actionCreators/actionCreators';
+import { getQuote, postTweet, getQuotesBlob } from '../actionCreators/actionCreators';
 import {Animated} from "react-animated-css";
 
 const animationsIn=['bounceInLeft', 'bounceInRight', 'flipInX', 'bounceInDown', 
@@ -39,8 +39,8 @@ class Wrapper extends Component {
 		})
 	}
 
-	getTweet = () => {
-		this.props.getTweet()
+	postTweet = () => {
+		this.props.forTweet && this.props.postTweet(this.props.forTweet);
 	}
 
 	getRandAnimationIn = (min, max) => {
@@ -82,15 +82,16 @@ class Wrapper extends Component {
 		return(
 			<Fragment>
 			<div id="quote-box">
+			<div />
 			<Animated animationIn={this.state.animationIn} animationOut={this.state.animationOut} isVisible={this.state.animation}>
 				<div id="quote-wrapper" >
-					<blockquote id="text" style = {{textAlign: !this.props.newQuote ? 'center' : 'left'}}cite="https://gist.githubusercontent.com/">{!this.props.newQuote ? 'Press The Button for a Quote' : this.props.newQuote}</blockquote>
+					<blockquote id="text" style = {{textAlign: !this.props.newQuote ? 'center' : 'left'}}cite="https://gist.githubusercontent.com/">{!this.props.newQuote ? 'Press Get New Quote Button' : this.props.newQuote}</blockquote>
 					<div id="author">
-						<cite>{this.props.author}</cite>
+						<cite>{this.props.author && '- ' + this.props.author}</cite>
 					</div>
-				</div>
+					</div>
 			</Animated>	
-				<Buttons quote={this.getQuote} tweet={this.getTweet} />
+				<Buttons quote={this.getQuote} tweet={this.postTweet} disabledTweet = {this.props.forTweet} />
 			</div>
 			</Fragment>
 		)
@@ -106,14 +107,15 @@ const mapStateToProps = (state) => {
 		error: state.error,
 		allquotes: state.allquotes,
 		author: state.quote.author,
-		animations: state.animations
+		animations: state.animations,
+		forTweet: state.quote
 	}
 	
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		getTweet: () => dispatch(getTweet()),
+		postTweet: (newTweet) => dispatch(postTweet(newTweet)),
 		getQuote: (quotes, animations) => dispatch(getQuote(quotes)),
 		getQuotesBlob: () => dispatch(getQuotesBlob()),
 	}
