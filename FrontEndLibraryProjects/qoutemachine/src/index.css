@@ -43,4 +43,29 @@ code {
   bottom: 19px;
 }
 
+#modal{
+  position: absolute;
+  z-index: 5;
+  background-color: white;
+  min-width: 350px;
+  border-radius: 15px;
+  border: 5px solid black;
+  padding: 1rem;
+  text-align: center;
+}
+
+#modal h1{
+  text-align: center;
+}
+
+#modal button{
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: lightgrey;
+  outline: none;
+  width: 9rem;
+}
+
+
 
