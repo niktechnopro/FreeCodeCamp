@@ -1,4 +1,4 @@
-import { POST_A_TWEET, GET_NEW_QUOTE, 
+import { GET_NEW_QUOTE, 
 		GET_QUOTES_BLOB_SUCCESS, GET_QUOTES_BLOB_FAILURE,
 		TWEET_ERROR, TWEET_SUCCESS,
 		CLEAR_ERROR } from '../actions/actions';
@@ -10,7 +10,7 @@ export function postTweet(quote){
 	let postTweet = encodeURIComponent(quote.quote + ' ' + quote.author);
 	let tweet = quote.quote + ' ' + quote.author;
 	let url = 'http://twitter.com/home?status=';
-	console.log(tweet.length);
+	// console.log(tweet.length);
 	if (tweet.length <= 140 ){//checking if the tweet is shorter than 140 characters
 		window.open(url+postTweet, '_blank');
 		return (dispatch) => {dispatch(tweetIsSuccess(tweet))}
@@ -72,7 +72,7 @@ function onGetQuotesBlobFailed(error) {
 function tweetIsTooLong(){
 	return{
 		type: TWEET_ERROR,
-		payload: 'Quote must be 140 characters or less long, refresh the page or press the button to Get New Quote'
+		payload: 'Quote must be 140 characters or less, refresh the page or press the button to Get New Quote'
 	}
 }
 
