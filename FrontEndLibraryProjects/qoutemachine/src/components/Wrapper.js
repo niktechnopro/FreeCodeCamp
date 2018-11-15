@@ -85,7 +85,7 @@ class Wrapper extends Component {
 	render(){
 		return(
 			<Fragment>
-			{this.props.error && <div style={{zIndex: 5, width: '70%', position: 'absolute'}}><Animated  animationIn={'bounceInLeft'} animationOut={'bounceOutLeft'} isVisible={!!this.props.error}>
+			{this.props.error && <div style={{zIndex: 5, minWidth: '100%', position: 'absolute'}}><Animated  animationIn={'bounceInLeft'} animationOut={'bounceOutLeft'} isVisible={!!this.props.error}>
 				<DialogBox error={this.props.error} close={this.closeDialog} blobError={this.props.blobError} />
 			</Animated></div>}
 			<div id="quote-box">

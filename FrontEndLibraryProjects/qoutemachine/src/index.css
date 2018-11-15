@@ -45,9 +45,10 @@ code {
 
 #modal{
   position: absolute;
+  box-sizing: border-box;
   z-index: 5;
   background-color: white;
-  min-width: 350px;
+  min-width: 340px;
   border-radius: 15px;
   border: 5px solid black;
   padding: 1rem;

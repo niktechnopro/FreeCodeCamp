@@ -2,8 +2,9 @@ import { GET_NEW_QUOTE,
 		GET_QUOTES_BLOB_SUCCESS, GET_QUOTES_BLOB_FAILURE,
 		TWEET_ERROR, TWEET_SUCCESS,
 		CLEAR_ERROR } from '../actions/actions';
-import axios from 'axios';
-const uri = 'https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json';
+// import axios from 'axios';
+import data from './quotesBlob';
+// const uri = 'https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json';
 
 export function postTweet(quote){
 	//creating a tweet to post
@@ -42,32 +43,44 @@ export function clearError(){
 	}
 }
 
+// use this to fetch data from url
+// export function getQuotesBlob(){ 
+// 	return (dispatch) => {
+//  	axios.get(uri)
+//        .then((response) => {
+//          dispatch(onGetQuotesBlobSucceeded(response));
+//     	})
+//        .catch((error) => {
+//          dispatch(onGetQuotesBlobFailed(error));
+//     	});
+//    };
+// }
 
 export function getQuotesBlob(){
-	return (dispatch) => {
- 	axios.get(uri)
-       .then((response) => {
-         dispatch(onGetQuotesBlobSucceeded(response));
-    	})
-       .catch((error) => {
-         dispatch(onGetQuotesBlobFailed(error));
-    	});
-   };
+	return (dispatch) => dispatch(onGetQuotesBlobSucceeded(data));
 }
 
 function onGetQuotesBlobSucceeded(response) {
-  return{
-  	type: GET_QUOTES_BLOB_SUCCESS,
-  	payload: response
-  }
-}
-
-function onGetQuotesBlobFailed(error) {
+	// console.log(response)
+	//the following is to download file
+	// let a = document.createElement("a");
+ //    let file = new Blob([response.data.quotes], {type: "application/json"});
+ //    a.href = URL.createObjectURL(file);
+ //    a.download = 'jsonBlob.json';
+ //    a.click();
+    //the above is to download file
 	return{
-		type: GET_QUOTES_BLOB_FAILURE,
-		payload: 'Oops, could not retrieve the quotes, please try again later'
+		type: GET_QUOTES_BLOB_SUCCESS,
+		payload: response
 	}
 }
+
+// function onGetQuotesBlobFailed(error) {
+// 	return{
+// 		type: GET_QUOTES_BLOB_FAILURE,
+// 		payload: 'Oops, could not retrieve the quotes, please try again later'
+// 	}
+// }
 
 function tweetIsTooLong(){
 	return{
