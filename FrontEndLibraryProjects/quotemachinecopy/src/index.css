@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  outline: none;
+}
+
+/*the following removed all scrolling bars*/
+html, body {
+   overflow:hidden;
+}
+
+.title{
+	text-align: center;
+  font-size: 3rem;
+	margin: 0;
+  padding-top: 1rem;
+	/*text-shadow: 1px 2px 1px #0b0b0c;*/
+  text-shadow: 0px 0px 0px #000, 1px -2px 1px #fff;
+  color: white;
+}
+
+footer{
+	min-width: 360px;
+  text-align: center;
+  font-size: 1.3rem;
+  text-shadow: -1px 1px 0px #fff, 2px 0px 1px #000;
+  color: white;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+#twitter{
+  width: 20px;
+  width: 38px;
+  bottom: 19px;
+}
+
+#modal{
+  position: absolute;
+  box-sizing: border-box;
+  z-index: 5;
+  background-color: white;
+  min-width: 340px;
+  border-radius: 15px;
+  border: 5px solid black;
+  padding: 1rem;
+  text-align: center;
+}
+
+#modal h1{
+  text-align: center;
+}
+
+#modal button{
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: lightgrey;
+  outline: none;
+  width: 9rem;
+}
+
+
+
