@@ -2,6 +2,7 @@
   "name": "qoutemachine",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://www.niktechnopro.com/demos/wisdombox",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.8",
     "@fortawesome/free-brands-svg-icons": "^5.5.0",
