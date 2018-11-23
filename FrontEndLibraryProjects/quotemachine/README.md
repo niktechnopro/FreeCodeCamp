@@ -1,5 +1,24 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Technologies, Frameworks, and Programming Languages used:
+* **Markup Languages and Style Sheets**:
+    * HTML (HTML5)
+    * CSS/SASS
+
+* **Frameworks**:
+    * React
+       
+* **Programming Languages**:
+	* JavaScript
+    
+* **Libraries**:
+    * Redux
+    * Animate CSS
+    
+## Project Screenshots:
+![screenshot](/LocDocScreenshots/screenshot1.png "project screenshot")
+
+
 ## To start the application
 
 In the project directory, you can run:
