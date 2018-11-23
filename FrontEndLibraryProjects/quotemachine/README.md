@@ -16,7 +16,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     * Animate CSS
     
 ## Project Screenshots:
-![screenshot](/LocDocScreenshots/screenshot1.png "project screenshot")
+![screenshot](/wisdomBox.png "project screenshot")
 
 
 ## To start the application
