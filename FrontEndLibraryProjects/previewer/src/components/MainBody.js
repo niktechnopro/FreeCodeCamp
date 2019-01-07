@@ -8,7 +8,8 @@ class MainBody extends Component{
 		super()
 		this.state={
 			maximized: false,
-
+			previewerMaximized: false,
+			editorOpacity: true
 		}
 	}
 
@@ -20,17 +21,27 @@ class MainBody extends Component{
 		})
 	}
 
+	onPreviewerSizeChange = (event) => {
+		this.setState(function(prevState){
+			return{
+				previewerMaximized: !prevState.previewerMaximized,
+				editorOpacity: !prevState.editorOpacity
+			}
+		})
+	}
+
 	render(){
 		// console.log(this.state)
 		return(
 		<div
     		style={{
+    			width: '100%',
       			textAlign: 'center',
       			marginBottom: `1.45rem`,
     	}}
  			 >
-  			<Editor sizeChange={this.onSizeChange} maximized={this.state.maximized} />
- 			<Previewer />  
+  			{<Editor sizeChange={this.onSizeChange} maximized={this.state.maximized} editorOpacity={this.state.editorOpacity} />}
+ 			{!this.state.maximized && <Previewer sizeChange={this.onPreviewerSizeChange} previewerMaximized={this.state.previewerMaximized} />}  
   		</div>
 		)
 	}

@@ -14,12 +14,21 @@ footer{
 .editorWrap{
   width: 70%;
   margin: 1rem auto;
+  margin-bottom: 3rem;
   -webkit-transition: all 0.7s ease 0s;
   -moz-transition: all 0.7s ease 0s;
   -o-transition: all 0.7s ease 0s;
   transition: all 0.7s ease 0s;
 }
 
+.previewerWrap{
+  width: 100%;
+  margin: 1rem auto;
+  -webkit-transition: all 0.7s ease 0s;
+  -moz-transition: all 0.7s ease 0s;
+  -o-transition: all 0.7s ease 0s;
+  transition: all 0.7s ease 0s;
+}
 
 textarea{
   outline: none;
@@ -31,7 +40,23 @@ textarea{
   transition: all 0.7s ease 0s;
 }
 
+#previewer{
+  height: 5rem;
+  border: 3px solid black;
+  box-shadow: 1px 1px 10px 2px #3a5f5f;
+  -webkit-transition: all 0.7s ease 0s;
+  -moz-transition: all 0.7s ease 0s;
+  -o-transition: all 0.7s ease 0s;
+  transition: all 0.7s ease 0s;
+}
 
+.edWrap{
+  opacity: 1;
+  -webkit-transition: all 0.7s ease 0s;
+  -moz-transition: all 0.7s ease 0s;
+  -o-transition: all 0.7s ease 0s;
+  transition: all 0.7s ease 0s;
+}
 
 #editor{
   width: 100%;

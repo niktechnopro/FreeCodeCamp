@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faCompressArrowsAlt, faCheckSquare, faClipboardList, faArrowsAlt } from '@fortawesome/free-solid-svg-icons'
+import { faCompressArrowsAlt, faCheckSquare, faClipboardList, faArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 
 const placeholder = 
 `# Welcome to my React Markdown Previewer!
@@ -52,7 +52,8 @@ And here. | Okay. | I think we get it.
 `
 
 const Editor = (props) => (
-  <div className="editorWrap" style={{width: props.maximized ? '90%' : '70%'}}>
+  <div className="edWrap" style={{opacity: props.editorOpacity ? 1: 0 }}>
+  <div className="editorWrap" style={{width: props.maximized ? '90%' : '60%'}}>
   <div id="editorToolbar">
     <div className="leftIcon"><FontAwesomeIcon icon={faClipboardList} /><span className="windowName">Editor</span></div>
     <div className="rightIcon" onClick={props.sizeChange}>
@@ -69,10 +70,11 @@ const Editor = (props) => (
     id="editor"
     placeholder="Type your markdown here"
     defaultValue= {placeholder}
-    style={{height: props.maximized ? '25rem' : '15rem'}}
+    style={{height: props.maximized ? '30rem' : '12rem'}}
   >
    
   </textarea>
+  </div>
   </div>
 )
 
