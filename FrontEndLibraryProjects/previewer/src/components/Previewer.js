@@ -18,7 +18,7 @@ const Previewer = (props) => (
     </div>
   </div>
     <div
-      id="previewer"
+      id="preview"
       style={{height: props.previewerMaximized ? '33rem' : '12rem'}}
     >
     </div>    
