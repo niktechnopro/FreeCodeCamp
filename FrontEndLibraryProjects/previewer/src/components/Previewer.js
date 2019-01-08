@@ -1,7 +1,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { MarkdownPreview } from 'react-marked-markdown';
 // import { faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faCompressArrowsAlt, faCheckSquare, faClipboardList, faArrowsAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCompressArrowsAlt, faClipboardList, faArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Previewer = (props) => (
   <div className="previewerWrap" style={{width: props.previewerMaximized ? '100%' : '75%', marginTop: props.previewerMaximized ? '-17rem' : 0}}>
@@ -19,8 +20,9 @@ const Previewer = (props) => (
   </div>
     <div
       id="preview"
-      style={{height: props.previewerMaximized ? '33rem' : '12rem'}}
+      style={{minHeight: props.previewerMaximized ? '33rem' : '12rem'}}
     >
+    <MarkdownPreview value={props.inEditor} />
     </div>    
   </div>
 )

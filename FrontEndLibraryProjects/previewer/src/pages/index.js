@@ -11,10 +11,7 @@ const IndexPage = () => (
     <SEO title="Markdown Previewer Project" keywords={[`gatsby`, `application`, `react`]} />
     
     <MainBody />
-
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      
-    </div>
+    
   </Layout>
 )
 
