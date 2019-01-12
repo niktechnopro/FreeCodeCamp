@@ -1,0 +1,354 @@
+body {
+	background: url('../images/background3.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+#container{
+	min-width: 350px;
+	text-align: center;
+}
+
+#logo-text {
+	display: inline-block;
+	font-size: 4rem;
+	font-family: 'Flamante';
+    color: #F0EAD6;
+    text-shadow:
+    -1px -1px 0 #000,
+	1px 1px 0 #000;
+	margin: 0;  
+}
+
+#logo-wrap{
+	min-width: 350px;
+}
+
+#title{
+	min-width: 350px;	
+}
+
+#tomato{
+	height: 47px;
+	width: 47px;
+	position: relative;
+	display: inline-block;
+}
+
+#slideToggle{
+	font-size: 1rem;
+	font-family: 'Flamante';
+    color: #F0EAD6;
+    text-shadow:
+    -1px -1px 0 #000,
+	1px 1px 0 #000;
+	margin: 0;  
+}
+
+
+
+
+
+
+
+
+
+	
+.jumbotron {
+	background-color:#ED5D40;
+	background: url('../images/background.jpg');
+	color: #F0EAD6;
+	    text-shadow:
+    -1px -1px 0 #000,
+	1px 1px 0 #000; 
+
+	/* border: 2px solid #F0EAD6;  */
+
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 700px;
+	margin: 0 auto;
+}
+
+@media screen and (max-width: 500px) {
+	.jumbotron{
+		width: 100%;
+	}
+}
+
+.jumbotron p{
+	margin-bottom: 0px;
+}
+
+#workTimer{
+	text-decoration: none;
+	color: white;
+	cursor: default;
+	box-shadow: none;
+}
+
+#playTimer{
+	text-decoration: none;
+	color: white; 
+	cursor: default;
+	box-shadow: none;
+}
+
+
+
+p {
+	font-family: sans-serif;
+}
+
+@font-face {
+	font-family: 'Flamante';
+	src: url('../fonts/Flamante/Flamante-Serif-FFP.ttf');
+	font-weight: 500;
+}
+
+.lead {
+	margin-top: 20px;
+	font-family: sans-serif;
+	text-shadow: none;
+	margin-bottom: 0px;
+	font-size: 22px;
+	text-shadow: rgb(0, 90, 155) 1px 2px
+}
+
+.main-heading {
+	margin-top: -40px;
+	margin-bottom: 20px;
+}
+
+#time {
+	color: white;
+	height: 200px;
+	width: 300px;
+}
+
+.steps {
+/* 	background-color: #F0EAD6; */
+	color: #F0EAD6;
+	text-shadow: none;
+	/* background-color: #F0EAD6; */
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+#header-center {
+	border: none;
+}
+
+.colon {
+	font-size: 125px;
+}
+
+.task-button {
+	background-color: dimgray;
+	margin-top: 1%
+	
+}
+
+.task-form {
+	width: 60%;
+}
+
+.time {
+	display: inline-block;
+	font-size: 125px;
+	text-shadow:
+	-1px -1px 0 #000,
+	1px 1px 0 #000; 
+	text-shadow: 6px 6px 0px rgba(240,234,214,0.2);
+		
+		
+}
+
+.jumbo-box {
+	bottom: 0px;
+}
+
+
+.btn {
+	border-radius: 30px;
+	border: 1px solid #F0EAD6;
+	box-shadow: 2px 2px 2px 1px black;
+}
+
+.time-box {
+	/* border: 2px solid #F0EAD6; */
+	padding: 0px 10px;
+}
+
+.work {
+	/* border-right: 1px solid black; */
+
+}
+
+.car-item {
+	margin-left: 15%;
+
+}
+
+/*.btn-remove {
+	float: right;
+	font-size: 12px;
+	margin: 0px 5px;
+}
+*/
+
+
+.break-interval-form {
+	color: black;
+	float: left;
+
+}
+
+.work-interval-form {
+	color: black;
+	/* width: 25%; */
+	float: right;
+}
+
+.play {
+	text-align: left;
+	font-size: 20px;
+}
+
+.work-time {
+	text-align: right;
+	font-size: 20px;
+}
+
+/*this content image works for chrome and safari*/
+
+
+
+
+
+
+#parent-footer{
+	position: inherit;
+}
+/*slide down manu for development team*/
+#parent-footer #team{
+	position: inherit;
+}
+
+/*drop down menu with instructions*/
+.slideTogglebox{
+		position: absolute;
+		text-align: left;
+		padding:8px;
+		/*margin:16px;*/
+		margin-top: 0;
+		border:3px solid white;
+		width:500px;
+		height:325px;
+		background-color:#6363c1;
+		color:white;
+        font-size: 19px;
+        z-index: 6;
+        left: 0;
+        right: 0;
+        margin: auto;
+	}
+
+.slideTogglebox p ul li{
+	position: inherit;
+}
+
+/*sizing image of chuck norris*/
+.back img{
+	width:450px;
+	
+}
+/*flip effect start*/
+.flip-container{
+	perspective: 1000px;
+	/*border: 5px solid green;*/
+	/*transform: rotateY(180deg);*/
+}
+/*
+.flip-container:hover .flipper{
+	transform:rotateY(180deg);
+}*/
+
+.flip-container .front .back{
+	width: 500px;
+	margin: 0 auto;
+}
+
+.flipper{
+	position: relative;
+/*    specifies how long transition would take*/
+	/*-webkit-transition: all 1.5s;*/
+	-webkit-transition-duration: 1.5s;
+	-moz-transition-duration: 1.5s;
+	-o-transition: 1.5s;
+/*    the transform-style property specifies how nested elements are rendered in 3D space.(flat - do not preserve, preserve-3d - will preserve*/
+    transform-style: preserve-3d;
+}
+
+.front, .back{
+	position: relative;
+	-o-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	}
+
+.front{
+	transform: rotateX(0deg);
+	z-index: 2;
+}
+
+.back{
+	margin-top: -177px;
+	transform: rotateX(180deg);
+}
+/*helper class to add to flipper to make fields flip from JS*/
+.flip{
+	transform:rotateX(180deg); 
+}
+/*flip effect end*/
+
+/*resizing chucks picture*/
+#chuck-picture{
+	width: 450px;
+}
+
+#they-say{
+	display: inline-block;
+	position: absolute;
+    font-size: 24px;
+    margin: 5px 20px;
+	/*reduces space between the lines*/
+    line-height: 105%;
+}
+
+.modal-content{
+	background-color: lightgreen;
+}
+/*invisible test button shows up while howering over div with $nbsp*/
+/*look for ghost button in top left corner*/
+#manual, #box{ 
+	position:absolute;
+	top: 10px;
+}
+
+#manual{
+	display:none;
+}
+
+#box:hover #manual{
+	display:block;
+}
+/*invisible test button shows up while howering over div with $nbsp*/
+
+.open-window{
+	height:255px;
+}
+
+#team {
+	text-shadow: rgb(0, 90, 155) 1px 2px
+}
