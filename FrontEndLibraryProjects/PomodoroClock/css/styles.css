@@ -2,11 +2,23 @@ body {
 	background: url('../images/background3.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
+	height: 100vh;
 }
 
-#container{
+.container{
 	min-width: 350px;
 	text-align: center;
+}
+
+#top_portion_container{
+	background: url('../images/background.jpg');
+	height: 200px;
+	width: 350px;
+	margin: 0 auto;
+	border-radius: 9px;
+	-moz-box-shadow:    inset 0 0 10px #000000;
+   	-webkit-box-shadow: inset 0 0 10px #000000;
+   	box-shadow:         inset 0 0 10px #000000;
 }
 
 #logo-text {
@@ -45,6 +57,44 @@ body {
 	margin: 0;  
 }
 
+.min-wrapper{
+	max-width: 120px;
+}
+
+.btn-group{
+	display:flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.time-set{
+	color: #F0EAD6;
+}
+
+.left-btn{
+    width: 2rem;
+    border-top-left-radius:30%;
+    border-bottom-left-radius:30%;
+    background-color: #F0EAD6;
+    background-clip: content-box;
+    cursor: pointer;
+}
+
+.right-btn{
+    width: 2rem;
+    border-top-right-radius:30%;
+    border-bottom-right-radius:30%;
+    background-color: #F0EAD6;
+    background-clip: content-box;
+    cursor: pointer;
+}
+
+#btns-wrapper{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin-top: 1rem;
+}
 
 
 
