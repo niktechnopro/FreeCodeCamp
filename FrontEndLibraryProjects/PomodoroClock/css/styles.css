@@ -11,9 +11,17 @@ body {
 	font-weight: 500;
 }
 
+#wrapper{
+	top: 50%;
+    position: absolute;
+    left: 50%;
+}
+
 .container{
 	min-width: 350px;
 	text-align: center;
+	height: 100%;
+	transform: translate(-50%, -50%);
 }
 
 #top_portion_container{
@@ -119,7 +127,7 @@ body {
 	background: url('../images/background.jpg');
 	height: 200px;
 	width: 350px;
-	margin: 0 auto;
+	margin: 0.5rem auto;
 	border-radius: 9px;
 	-moz-box-shadow:    inset 0 0 10px #000000;
    	-webkit-box-shadow: inset 0 0 10px #000000;
@@ -147,6 +155,117 @@ body {
 	font-size: 1.1rem;
 	border: 1px solid #F0EAD6;
 }
+
+#current-session{
+    font-size: 2.5rem;
+    font-family: 'Flamante';
+    color: #F0EAD6;
+    text-shadow: -1px -1px 0 #000, 1px 1px 0 #000;
+    margin: 0.5rem auto -2.5rem auto;
+}
+
+.flip-container{
+	perspective: 1000px;
+	height: 9rem;
+	/*border: 5px solid green;*/
+	/*transform: rotateY(180deg);*/
+}
+
+.flipper{
+	position: relative;
+	height: 9rem;
+/*    specifies how long transition would take*/
+	/*-webkit-transition: all 1.5s;*/
+	-webkit-transition-duration: 1.5s;
+	-moz-transition-duration: 1.5s;
+	-o-transition: 1.5s;
+/*    the transform-style property specifies how nested elements are rendered in 3D space.(flat - do not preserve, preserve-3d - will preserve*/
+    transform-style: preserve-3d;
+}
+
+.front, .back{
+	position: relative;
+	-o-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+}
+
+.flip-container .front .back{
+	width: 500px;
+	margin: 0 auto;
+}
+
+.front{
+	transform: rotateX(0deg);
+	z-index: 2;
+}
+
+.back{
+	margin-top: -177px;
+	transform: rotateX(180deg);
+}
+/*helper class to add to flipper to make fields flip from JS*/
+.flip{
+	transform:rotateX(180deg); 
+}
+/*flip effect end*/
+
+.buttons{
+	margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-around;
+    z-index: 9;
+}
+
+.btns{
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    font-weight: 600;
+    width: 75px;
+    -moz-box-shadow:    inset 0 0 10px #000000;
+   	-webkit-box-shadow: inset 0 0 10px #000000;
+   	box-shadow:         inset 0 0 10px #000000;
+	cursor: pointer;
+}
+
+
+.start{
+	background-color: lightgreen;
+}
+
+.pause{
+	background-color: yellow;
+}
+
+.reset{
+	background-color: #ffa700;
+}
+
+
+#footer_portion_container{
+	background: url('../images/background.jpg');
+	height: 3rem;
+	width: 350px;
+	margin: 0 auto;
+	border-radius: 9px;
+	-moz-box-shadow:    inset 0 0 10px #000000;
+   	-webkit-box-shadow: inset 0 0 10px #000000;
+   	box-shadow:         inset 0 0 10px #000000;
+   	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#footer{
+	font-size: 1.1rem;
+    color: #F0EAD6;
+    text-shadow:
+    -1px -1px 0 #000,
+	1px 1px 0 #000;
+	margin: 0;  
+}
+
 
 
 
@@ -197,17 +316,6 @@ body {
 	border: none;
 }
 
-
-
-.task-button {
-	background-color: dimgray;
-	margin-top: 1%
-	
-}
-
-.task-form {
-	width: 60%;
-}
 
 
 
@@ -267,17 +375,6 @@ body {
 
 
 
-
-
-
-#parent-footer{
-	position: inherit;
-}
-/*slide down manu for development team*/
-#parent-footer #team{
-	position: inherit;
-}
-
 /*drop down menu with instructions*/
 .slideTogglebox{
 		position: absolute;
@@ -307,53 +404,16 @@ body {
 	
 }
 /*flip effect start*/
-.flip-container{
-	perspective: 1000px;
-	/*border: 5px solid green;*/
-	/*transform: rotateY(180deg);*/
-}
 /*
 .flip-container:hover .flipper{
 	transform:rotateY(180deg);
 }*/
 
-.flip-container .front .back{
-	width: 500px;
-	margin: 0 auto;
-}
 
-.flipper{
-	position: relative;
-/*    specifies how long transition would take*/
-	/*-webkit-transition: all 1.5s;*/
-	-webkit-transition-duration: 1.5s;
-	-moz-transition-duration: 1.5s;
-	-o-transition: 1.5s;
-/*    the transform-style property specifies how nested elements are rendered in 3D space.(flat - do not preserve, preserve-3d - will preserve*/
-    transform-style: preserve-3d;
-}
 
-.front, .back{
-	position: relative;
-	-o-backface-visibility: hidden;
-	-moz-backface-visibility: hidden;
-	-webkit-backface-visibility: hidden;
-	}
 
-.front{
-	transform: rotateX(0deg);
-	z-index: 2;
-}
 
-.back{
-	margin-top: -177px;
-	transform: rotateX(180deg);
-}
-/*helper class to add to flipper to make fields flip from JS*/
-.flip{
-	transform:rotateX(180deg); 
-}
-/*flip effect end*/
+
 
 /*resizing chucks picture*/
 #chuck-picture{

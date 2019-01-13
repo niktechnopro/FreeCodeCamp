@@ -16,6 +16,7 @@
   
 </head>
 <body>
+  <div id="wrapper">
 
 	<div class="container">
 
@@ -56,30 +57,41 @@
         </div>
 
       </div>
-  </div>
 
   <!-- bottom portion -->
   <div id="bottom_portion_container">
-    <div class="text-center"><h1 id="current-session">Work Session</h1></div>
     <div class="flip-container">
       <div class="flipper">
-        <div class="display-3 time time-box front">
+        <div class="time time-box front">
+          <h1 id="current-session">Work Session</h1>
           <div class="minutes time">25</div>
           <div class="colon time">:</div>
           <div class="seconds time">00</div>
         </div>
           
-        <div class="display-3 back">
-          <img src="images/chucknorris.jpg"/> version for chuck jokes
+        <div class="time back">
+          <h1 id="current-session">Rest Session</h1>
           <div class="minutes time">25</div>
           <div class="colon time">:</div>
           <div class="seconds time">00</div>
         </div>
       </div>
     </div>
+    <div class="buttons">
+      <button class="btns start">Start</button>
+      <button class="btns pause">Pause</button>
+      <button class="btns reset">Reset</button>
+    </div>
   </div>
 
-
+  <div id="footer_portion_container">
+    <footer>
+      <div id="footer">&copy;2018 Develpped for FreeCodeCamp project</div>
+    </footer>
+  </div>
+  
+  </div> <!-- end of container -->
+</div>
 </body>
 </html>       
 
@@ -118,14 +130,7 @@
  <button id="myCard">rotate card</button> test button to flip the card
  
 <hr />
-  <div class="buttons">
-    <button class="btn btn-success btn-lg" href="#" id="start">Start
- </button>
-  <button class="btn btn-primary btn-lg" href="#" id="pause" onclick="pause()">Pause
- </button>
- <button class="btn btn-warning btn-lg" href="#" id="reset">Reset
- </button>
-</div>
+  
   <hr class="my-4">
   <footer class = "col-xs-12">
     <div class = "text-center" id="parent-footer">&copy; &nbsp; 2017 Develpped for class project by <span id="team">Focus! Team</span>
@@ -173,3 +178,6 @@ data-toggle="modal"<button type="button" class="btn btn-primary" data-toggle="mo
                 </ul>
           </div>
         </div> --> 
+
+
+        <!-- <img src="images/chucknorris.jpg"/> version for chuck jokes -->
