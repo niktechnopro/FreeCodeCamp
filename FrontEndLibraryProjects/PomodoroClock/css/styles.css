@@ -5,6 +5,12 @@ body {
 	height: 100vh;
 }
 
+@font-face {
+	font-family: 'Flamante';
+	src: url('../fonts/Flamante/Flamante-Serif-FFP.ttf');
+	font-weight: 500;
+}
+
 .container{
 	min-width: 350px;
 	text-align: center;
@@ -57,6 +63,16 @@ body {
 	margin: 0;  
 }
 
+#buttonsToggle{
+	margin: 1rem auto 0 auto;
+	font-size: 1rem;
+	font-family: 'Flamante';
+    color: #F0EAD6;
+    text-shadow:
+    -1px -1px 0 #000,
+	1px 1px 0 #000; 
+}
+
 .min-wrapper{
 	max-width: 120px;
 }
@@ -64,7 +80,7 @@ body {
 .btn-group{
 	display:flex;
 	flex-direction: row;
-	justify-content: space-around;
+	box-sizing: border-box;
 }
 
 .time-set{
@@ -76,8 +92,10 @@ body {
     border-top-left-radius:30%;
     border-bottom-left-radius:30%;
     background-color: #F0EAD6;
-    background-clip: content-box;
+    /*background-clip: content-box;*/
     cursor: pointer;
+    box-shadow: inset 0 0 1px #000000;
+    padding: 4px;
 }
 
 .right-btn{
@@ -85,16 +103,53 @@ body {
     border-top-right-radius:30%;
     border-bottom-right-radius:30%;
     background-color: #F0EAD6;
-    background-clip: content-box;
+    /*background-clip: content-box;*/
     cursor: pointer;
+    box-shadow: inset 0 0 1px #000000;
+    padding: 4px;
 }
 
 #btns-wrapper{
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
-	margin-top: 1rem;
 }
+
+#bottom_portion_container{
+	background: url('../images/background.jpg');
+	height: 200px;
+	width: 350px;
+	margin: 0 auto;
+	border-radius: 9px;
+	-moz-box-shadow:    inset 0 0 10px #000000;
+   	-webkit-box-shadow: inset 0 0 10px #000000;
+   	box-shadow:         inset 0 0 10px #000000;
+   	text-align: center;
+}
+
+.time {
+	display: inline-block;
+	font-size: 100px; 
+	text-shadow: 6px 6px 0px rgba(240,234,214,0.2);	
+	color: #F0EAD6;	
+}
+
+.colon {
+	font-size: 125px;
+}
+
+.workTimer{
+	text-decoration: none;
+	color: white;
+	cursor: default;
+	box-shadow: none;
+	padding: 4px;
+	font-size: 1.1rem;
+	border: 1px solid #F0EAD6;
+}
+
+
+
 
 
 
@@ -104,21 +159,7 @@ body {
 
 
 	
-.jumbotron {
-	background-color:#ED5D40;
-	background: url('../images/background.jpg');
-	color: #F0EAD6;
-	    text-shadow:
-    -1px -1px 0 #000,
-	1px 1px 0 #000; 
 
-	/* border: 2px solid #F0EAD6;  */
-
-	background-repeat: no-repeat;
-	background-size: cover;
-	width: 700px;
-	margin: 0 auto;
-}
 
 @media screen and (max-width: 500px) {
 	.jumbotron{
@@ -126,29 +167,9 @@ body {
 	}
 }
 
-.jumbotron p{
-	margin-bottom: 0px;
-}
-
-#workTimer{
-	text-decoration: none;
-	color: white;
-	cursor: default;
-	box-shadow: none;
-}
-
-#playTimer{
-	text-decoration: none;
-	color: white; 
-	cursor: default;
-	box-shadow: none;
-}
 
 
 
-p {
-	font-family: sans-serif;
-}
 
 @font-face {
 	font-family: 'Flamante';
@@ -156,19 +177,6 @@ p {
 	font-weight: 500;
 }
 
-.lead {
-	margin-top: 20px;
-	font-family: sans-serif;
-	text-shadow: none;
-	margin-bottom: 0px;
-	font-size: 22px;
-	text-shadow: rgb(0, 90, 155) 1px 2px
-}
-
-.main-heading {
-	margin-top: -40px;
-	margin-bottom: 20px;
-}
 
 #time {
 	color: white;
@@ -189,9 +197,7 @@ p {
 	border: none;
 }
 
-.colon {
-	font-size: 125px;
-}
+
 
 .task-button {
 	background-color: dimgray;
@@ -203,16 +209,7 @@ p {
 	width: 60%;
 }
 
-.time {
-	display: inline-block;
-	font-size: 125px;
-	text-shadow:
-	-1px -1px 0 #000,
-	1px 1px 0 #000; 
-	text-shadow: 6px 6px 0px rgba(240,234,214,0.2);
-		
-		
-}
+
 
 .jumbo-box {
 	bottom: 0px;
@@ -225,10 +222,6 @@ p {
 	box-shadow: 2px 2px 2px 1px black;
 }
 
-.time-box {
-	/* border: 2px solid #F0EAD6; */
-	padding: 0px 10px;
-}
 
 .work {
 	/* border-right: 1px solid black; */
