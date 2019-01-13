@@ -143,7 +143,7 @@ body {
 }
 
 .colon {
-	font-size: 125px;
+	font-size: 105px;
 }
 
 .workTimer{
@@ -161,7 +161,7 @@ body {
     font-family: 'Flamante';
     color: #F0EAD6;
     text-shadow: -1px -1px 0 #000, 1px 1px 0 #000;
-    margin: 0.5rem auto -2.5rem auto;
+    margin: 0.4rem auto -1.5rem auto;
 }
 
 .flip-container{
@@ -197,24 +197,31 @@ body {
 
 .front{
 	transform: rotateX(0deg);
-	z-index: 2;
+	z-index: 0;
 }
 
 .back{
-	margin-top: -177px;
+	top: -165px;
 	transform: rotateX(180deg);
 }
 /*helper class to add to flipper to make fields flip from JS*/
 .flip{
 	transform:rotateX(180deg); 
 }
+
+
+.flip-container:hover .flipper{
+	transform:rotateX(180deg);
+}
+
+
 /*flip effect end*/
 
 .buttons{
-	margin-top: 0.5rem;
+	margin-top: 0.8rem;
     display: flex;
     justify-content: space-around;
-    z-index: 9;
+    z-index: 3;
 }
 
 .btns{
@@ -276,7 +283,7 @@ body {
 
 
 
-
+/*
 	
 
 
@@ -288,15 +295,6 @@ body {
 
 
 
-
-
-@font-face {
-	font-family: 'Flamante';
-	src: url('../fonts/Flamante/Flamante-Serif-FFP.ttf');
-	font-weight: 500;
-}
-
-
 #time {
 	color: white;
 	height: 200px;
@@ -304,26 +302,21 @@ body {
 }
 
 .steps {
-/* 	background-color: #F0EAD6; */
+/* 	background-color: #F0EAD6;
 	color: #F0EAD6;
 	text-shadow: none;
-	/* background-color: #F0EAD6; */
+	background-color: #F0EAD6;
 	padding-bottom: 5px;
 	padding-top: 5px;
 }
 
-#header-center {
-	border: none;
-}
-
-
-
-
+/*
 .jumbo-box {
 	bottom: 0px;
 }
 
-
+*/
+/*
 .btn {
 	border-radius: 30px;
 	border: 1px solid #F0EAD6;
@@ -336,11 +329,6 @@ body {
 
 }
 
-.car-item {
-	margin-left: 15%;
-
-}
-
 /*.btn-remove {
 	float: right;
 	font-size: 12px;
@@ -348,61 +336,11 @@ body {
 }
 */
 
-
-.break-interval-form {
-	color: black;
-	float: left;
-
-}
-
-.work-interval-form {
-	color: black;
-	/* width: 25%; */
-	float: right;
-}
-
-.play {
-	text-align: left;
-	font-size: 20px;
-}
-
-.work-time {
-	text-align: right;
-	font-size: 20px;
-}
-
+/**/
 /*this content image works for chrome and safari*/
 
 
 
-/*drop down menu with instructions*/
-.slideTogglebox{
-		position: absolute;
-		text-align: left;
-		padding:8px;
-		/*margin:16px;*/
-		margin-top: 0;
-		border:3px solid white;
-		width:500px;
-		height:325px;
-		background-color:#6363c1;
-		color:white;
-        font-size: 19px;
-        z-index: 6;
-        left: 0;
-        right: 0;
-        margin: auto;
-	}
-
-.slideTogglebox p ul li{
-	position: inherit;
-}
-
-/*sizing image of chuck norris*/
-.back img{
-	width:450px;
-	
-}
 /*flip effect start*/
 /*
 .flip-container:hover .flipper{
@@ -411,34 +349,7 @@ body {
 
 
 
-
-
-
-
-/*resizing chucks picture*/
-#chuck-picture{
-	width: 450px;
-}
-
-#they-say{
-	display: inline-block;
-	position: absolute;
-    font-size: 24px;
-    margin: 5px 20px;
-	/*reduces space between the lines*/
-    line-height: 105%;
-}
-
-.modal-content{
-	background-color: lightgreen;
-}
-/*invisible test button shows up while howering over div with $nbsp*/
-/*look for ghost button in top left corner*/
-#manual, #box{ 
-	position:absolute;
-	top: 10px;
-}
-
+/*//*
 #manual{
 	display:none;
 }
@@ -446,7 +357,7 @@ body {
 #box:hover #manual{
 	display:block;
 }
-/*invisible test button shows up while howering over div with $nbsp*/
+invisible test button shows up while howering over div with $nbsp
 
 .open-window{
 	height:255px;
@@ -454,4 +365,4 @@ body {
 
 #team {
 	text-shadow: rgb(0, 90, 155) 1px 2px
-}
+}*/
