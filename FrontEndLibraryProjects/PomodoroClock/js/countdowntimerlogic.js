@@ -1,5 +1,5 @@
 
-console.log("test")
+console.log("script loaded")
 //setting up global variables
 var workLength = 25;
 var playLength = 5;
@@ -10,85 +10,46 @@ var longRest = 1;
 var longBreak = 30;
 var jokeInt; // global variable for jokes so we can reset timer from other function
 var sliderWait = false; //need it to slow down process for sliding instructions
-
 //end of setting up global variables
-$('#reset').hide(); //leaves only start button in the beginning
-// document.querySelector("#myCard").classList.toggle("flip")
-// $("#myCard").click(function(){          //that was a test button for flipping screen
+
+//that was a test button for flipping screen
+// $(".pause").click(function(){          
 //     $(".flipper").toggleClass("flip");
 // });
 
 //to start
-$('#start').click(()=>{
+$('.start').click(()=>{
   startTimer();
 })
 
 //to reset
-$('#reset').click(()=>{
+$('.reset').click(()=>{
   reset();
 })
 
-//sliding intructions start
-$('.slideTogglebox').hide();
-$('#slideToggle').mouseover(function(){
-    if(sliderWait == false){
-      $(this).css("color","#6363c1");
-      $('.slideTogglebox').slideDown();
-      setTimeout(()=>{sliderWait = false},1000);//slows down the response on mouseover
-    }
-    sliderWait = true;
-});
-$('#slideToggle').mouseout(function(){
-    $(this).css("color","#F0EAD6")
-    $('.slideTogglebox').slideUp();
-});
-//sliding instructions end
-
-//sliding footer
-//sliding intructions start
-$('#teamTogglebox').hide();
-$('#team').mouseover(function(){
-    $(this).css("color","#6363c1")
-    $('#teamTogglebox').slideDown();
-})
-$('#team').mouseout(function(){
-    $(this).css("color","#F0EAD6")
-    $('#teamTogglebox').slideUp();
-})
-//end of sliding instructions for footer
-
-
-////what you see below is for input manipulation////
-  $('#work-plus').click(function(){
-    workLength += 5;
-    (workLength > 90) ? 
-    (workLength = 95) : $('.minutes, .minutes-interval').html(workLength);
-    $('.minutes, .minutes-interval').html(workLength);      
+////to set workTime////
+  $('.work-plus').click(function(){ //+
+    workLength < 95 ? workLength += 5 : workLength = 95;
+    $('.minutes').html(workLength);
+    $('.workTimer').html(workLength);      
   });
 
-  $('#work-minus').click(function(){
-    workLength -= 5;
-    (workLength < 10) ? 
-    (workLength = 5, $('.minutes, .minutes-interval').html('0' + workLength)) : 
-    $('.minutes, .minutes-interval').html(workLength);
+  $('.work-minus').click(function(){ //-
+    (workLength < 10) ? workLength = 5 : workLength -= 5;
+    $('.minutes').html((workLength < 10) ? ('0' + workLength) : workLength);
+    $('.workTimer').html((workLength < 10) ? ('0' + workLength) : workLength);
   })
-//logic to add/deduct break time
-  // $('#play-plus').click(function(){
-  //   playLength += 5;
-  //   if (playLength > 90){ // logic to limit to 2 digits
-  //     playLength = 95
-  //   }
-  //   $("#playTimer").html(playLength);
-  // });
-  // same logic with ternary operator
-    $('#play-plus').click(function(){
-      playLength += 5;
-      (playLength > 95) ? playLength = 95 : $('#playTimer').html(playLength);
-    })
+
+
+
+  $('.play-plus').click(function(){
+    playLength += 5;
+    (playLength > 95) ? playLength = 95 : $('#playTimer').html(playLength);
+  })
 
 
   //deduct playtime with ternary operator and logic to stay with 2 digits
-    $('#play-minus').click(function(){
+    $('play-minus').click(function(){
       playLength -= 5;
       (playLength < 10) ? (playLength = 5, $('#playTimer').html('0' + playLength)):
       $('#playTimer').html(playLength);
