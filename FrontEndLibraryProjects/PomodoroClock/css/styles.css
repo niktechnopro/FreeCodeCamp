@@ -62,17 +62,20 @@ body {
 }
 
 #slideToggle{
-	font-size: 1rem;
+	position: relative;
+	font-size: 1.3rem;
 	font-family: 'Flamante';
     color: #F0EAD6;
     text-shadow:
     -1px -1px 0 #000,
-	1px 1px 0 #000;
-	margin: 0;  
+	1px 0px 0 #000;
+	margin: 0; 
+	cursor: context-menu; 
+	text-decoration: underline;
 }
 
 #buttonsToggle{
-	margin: 1rem auto 0 auto;
+	margin: 0.5rem auto 0 auto;
 	font-size: 1rem;
 	font-family: 'Flamante';
     color: #F0EAD6;
@@ -210,10 +213,10 @@ body {
 }
 
 
-.flip-container:hover .flipper{
+/*.flip-container:hover .flipper{
 	transform:rotateX(180deg);
 }
-
+*/
 
 /*flip effect end*/
 
@@ -234,6 +237,7 @@ body {
    	-webkit-box-shadow: inset 0 0 10px #000000;
    	box-shadow:         inset 0 0 10px #000000;
 	cursor: pointer;
+	outline: none;
 }
 
 
@@ -273,6 +277,46 @@ body {
 	margin: 0;  
 }
 
+
+#dropdown-content{
+	background-color: lightcyan;
+    border: 4px solid #000;
+    padding: 1px;
+    position: absolute;
+    z-index: 9;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Flamante';
+    color: #151517;
+    /*text-shadow: -1px -1px 0 #000, 1px 1px 0 #000;*/
+    margin: 0;
+    transition: 800ms;
+    -moz-box-transform: scaleY(0);
+    -webkit-box-transform: scaleY(0);
+    transform: scaleY(0);
+}
+
+#dropdown-content p{
+	font-size: 2rem;
+    font-family: 'Flamante';
+    color: #6e847e;
+    text-shadow: -1px -1px 0 #000, 1px 1px 0 #000;
+    margin: 0;
+}
+
+#dropdown-content li{
+	text-align: left;
+}
+
+#slideToggle:hover{
+	color: #151517;
+}
+
+#title:hover #dropdown-content{
+	-moz-box-transform: scaleY(1);
+    -webkit-box-transform: scaleY(1);
+    transform: scaleY(1);
+}
 
 
 
