@@ -5,9 +5,10 @@
 
   <!-- in place of favicon we use tomato image-->
   <link rel="icon" type="image/gif/png" href="images/new_logo.png">
-	
   <!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
+  <script src="./js/jquery.min.js"></script>  
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   
 </head>
 <body>
@@ -60,18 +61,18 @@
           <div class="min-wrapper">
             <div class="time-set">Work Time (min)</div>
             <div class="btn-group">
-              <div class="left-btn work-minus">-</div>
+              <div id="session-decrement">-</div>
                 <div class="workTimer">25</div>
-              <div class="right-btn work-plus">+</div>
+              <div id="session-increment">+</div>
             </div>
           </div>
 
           <div class="min-wrapper">
             <div class="time-set">Rest Time (min)</div>
             <div class="btn-group">
-              <div class="left-btn play-minus">-</div>
+              <div id="break-decrement">-</div>
                 <div class="playTimer">05</div>
-              <div class="right-btn play-plus">+</div>
+              <div id="break-increment">+</div>
             </div>
           </div>
         </div>
@@ -83,14 +84,14 @@
     <div class="flip-container">
       <div class="flipper">
         <div class="time time-box front">
-          <h1 id="current-session">Work Session</h1>
+          <h1 id="session-label">Session Length</h1>
           <div class="width"><div class="minutes">25</div></div>
           <div class="colon">:</div>
           <div class="width"><div class="seconds">00</div></div>
         </div>
           
         <div class="time back">
-          <h1 id="rest-session"></h1>
+          <h1 id="break-label">Break Length</h1>
           <div class="width"><div class="minutes">05</div></div>
           <div class="colon">:</div>
           <div class="width"><div class="seconds">00</div></div>
@@ -114,36 +115,9 @@
   
   </div> 
 </div><!-- end of container -->
-<script src="./js/jquery.min.js"></script>  
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script type="text/javascript" src="js/countdowntimerlogic.js"></script>
 </body>
 </html>       
 
 
-
-      
-
-<!--
-<div id="box">&nbsp&nbsp&nbsp&nbsp
-  this div encapsulates button and is needed for test button to appear on hover effect
-data-toggle="modal"<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" id="manual">Test Modal</button></div>
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content open-window">
-      <img id = "chuck-picture" src = "images/chucknorris.jpg" alt="chuck norris funny picture should be here"/>
-      <div id = "they-say">They Say:
-         <div id = "chuck-joke"></div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-</body>
-<script type="text/javascript" src="js/countdowntimerlogic.js"></script>
-</html>
-
-
-
-      <img src="images/chucknorris.jpg"/> version for chuck jokes -->

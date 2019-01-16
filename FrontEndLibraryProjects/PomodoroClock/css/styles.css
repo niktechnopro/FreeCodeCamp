@@ -2,7 +2,7 @@ body {
 	background: url('../images/background3.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
-	height: 100vh;
+	height: 110vh;
 }
 
 @font-face {
@@ -98,7 +98,7 @@ body {
 	color: #F0EAD6;
 }
 
-.left-btn{
+#break-decrement, #session-decrement{
     width: 2rem;
     border-top-left-radius:30%;
     border-bottom-left-radius:30%;
@@ -109,7 +109,7 @@ body {
     padding: 4px;
 }
 
-.right-btn{
+#break-increment, #session-increment{
     width: 2rem;
     border-top-right-radius:30%;
     border-bottom-right-radius:30%;
@@ -160,7 +160,7 @@ body {
 	border: 1px solid #F0EAD6;
 }
 
-#current-session, #rest-session{
+#session-label, #break-label{
     font-size: 2.5rem;
     font-family: 'Flamante';
     color: #F0EAD6;

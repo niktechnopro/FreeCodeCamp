@@ -4,7 +4,8 @@ console.log("script loaded")
 var workLength = 25;
 var playLength = 5;
 // var alarm = new Audio('http://www.orangefreesounds.com/wp-content/uploads/2016/06/Ringing-clock.mp3?_=1');
-var alarm = new Audio('sound/timesup.mp3')
+var beep = new Audio('sound/timesup.mp3')
+var isPaused = false;
 var loop = 0;
 var longRest = 1;
 var longBreak = 30;
@@ -32,14 +33,22 @@ $('.reset').click(()=>{
   });
 })
 
+//pause
+$('.pause').click(()=>{
+  isPaused = true;
+  $('.start').on("click", ()=>{
+    isPaused = false;
+  });
+})
+
 //to set workTime//
-  $('.work-plus').click(function(){ //+
+  $('#session-increment').click(function(){ //+
     workLength < 95 ? workLength += 5 : workLength = 95;
     $('.minutes').html(workLength);
     $('.workTimer').html(workLength);      
   });
 
-  $('.work-minus').click(function(){ //-
+  $('#session-decrement').click(function(){ //-
     (workLength < 10) ? workLength = 5 : workLength -= 5;
     $('.minutes').html((workLength < 10) ? ('0' + workLength) : workLength);
     $('.workTimer').html((workLength < 10) ? ('0' + workLength) : workLength);
@@ -47,17 +56,17 @@ $('.reset').click(()=>{
 
 
 //to set playTime
-  $('.play-plus').click(function(){//+
+  $('#break-increment').click(function(){//+
     (playLength < 95) ? playLength += 5 : playLength = 95;
     $('.playTimer').html(playLength);
   })
 
 
   //deduct playtime with ternary operator and logic to stay with 2 digits
-  $('.play-minus').click(function(){//-
+  $('#break-decrement').click(function(){//-
     (playLength < 10) ? playLength = 5 : playLength -= 5;
     $('.playTimer').html((playLength > 5) ? playLength : ('0' + playLength));
-  })
+  })  
 //end of listeners for buttons plus and minus
 
 
@@ -86,7 +95,7 @@ function reset() {//to reset timer
 
 
 function getJoke(){
-    //console.log('being called')
+    console.log('joke is being called')
 // var url = "https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback="
     var url='https://api.icndb.com/jokes/random?exclude=[explicit]'
     $.getJSON(url, function(result) {
@@ -117,15 +126,16 @@ function countDown(minutes,seconds) {
                 //console.log('calling long break')
                 getJoke();//we can use this trigger for joke
                 $('#modal-wrapper').slideDown("fast");
+                // $('#modal-wrapper').show("slide", { direction: "down" }, 500);
             }else{
                 //console.log('clearing joke interval')
                 clearInterval(jokeInt);
             }
             loop += 1;
             if (time === longBreak){
-              $('#rest-session').html('Long Break');
+              $('#break-label').html('Long Break');
             }else{
-              $('#rest-session').html('Short Break');
+              $('#break-label').html('Short Break');
             };
             $(".flipper").toggleClass("flip");
         } else {
@@ -133,18 +143,19 @@ function countDown(minutes,seconds) {
               // $("#playTimer").html('0'+playLength);
               clearInterval(jokeInt);
               $('#modal-wrapper').slideUp("slow");
+              // $('#modal-wrapper').hide("slide", { direction: "up" }, 500);
             }
             time = workLength;
             longRest += 1;
             loop -= 1;
             $(".flipper").toggleClass("flip");
         }
-          alarm.play();
-          $('#tomato').effect( "bounce", { times: 3 }, "slow" );
-      countDown(time,0); // timer, recursive call
-      } else if (seconds != 0) {
+          beep.play();
+          $('#tomato').effect( "bounce", { times: 3 }, "slow" );  
+          countDown(time,0); // timer, recursive call
+      } else if (seconds != 0 && !isPaused) {
           seconds -= 1;
-      } else if (seconds == 0) {
+      } else if (seconds == 0 && !isPaused) {
           seconds = 59;
           minutes -= 1;
       }
@@ -153,7 +164,7 @@ function countDown(minutes,seconds) {
       $('.minutes').html(formattedMinutes);
       $('.seconds').html(formattedSeconds);
         
-    }, 10);
+    }, 5);
 }   
  
 
