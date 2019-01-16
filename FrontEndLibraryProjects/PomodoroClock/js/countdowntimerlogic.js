@@ -101,7 +101,7 @@ function getJoke(){
     $.getJSON(url, function(result) {
         $("#joke").html(result.value.joke);
     });
-    jokeInt = setTimeout(getJoke, 5000); //timer to call new joke every 15 sec
+    jokeInt = setTimeout(getJoke, 15000); //timer to call new joke every 15 sec
 }
 
 
@@ -164,7 +164,7 @@ function countDown(minutes,seconds) {
       $('.minutes').html(formattedMinutes);
       $('.seconds').html(formattedSeconds);
         
-    }, 5);
+    }, 1000);
 }   
  
 
