@@ -159,7 +159,7 @@ body {
 	border: 1px solid #F0EAD6;
 }
 
-#current-session{
+#current-session, #rest-session{
     font-size: 2.5rem;
     font-family: 'Flamante';
     color: #F0EAD6;

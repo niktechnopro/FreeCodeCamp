@@ -27,7 +27,7 @@ $('.reset').click(()=>{
   reset();
 })
 
-////to set workTime////
+//to set workTime//
   $('.work-plus').click(function(){ //+
     workLength < 95 ? workLength += 5 : workLength = 95;
     $('.minutes').html(workLength);
@@ -41,41 +41,41 @@ $('.reset').click(()=>{
   })
 
 
-
-  $('.play-plus').click(function(){
-    playLength += 5;
-    (playLength > 95) ? playLength = 95 : $('#playTimer').html(playLength);
+//to set playTime
+  $('.play-plus').click(function(){//+
+    (playLength < 95) ? playLength += 5 : playLength = 95;
+    $('.playTimer').html(playLength);
   })
 
 
   //deduct playtime with ternary operator and logic to stay with 2 digits
-    $('play-minus').click(function(){
-      playLength -= 5;
-      (playLength < 10) ? (playLength = 5, $('#playTimer').html('0' + playLength)):
-      $('#playTimer').html(playLength);
-    })
+  $('.play-minus').click(function(){//-
+    (playLength < 10) ? playLength = 5 : playLength -= 5;
+    $('.playTimer').html((playLength > 5) ? playLength : ('0' + playLength));
+  })
 //end of listeners for buttons plus and minus
+
+
 ////what you see above is for input manipulation////
 function startTimer() {    //to start timer
-  $('#start').fadeOut();
-  $('#reset').fadeIn();
   loop = 0;
   seconds = 0;
   countDown(workLength, seconds);
 }
 
 function reset() {         //to reset timer
-    clearInterval(countInt);
-    workLength = 25;
-    playLength = 5;
-    longRest = 1;
+  clearInterval(countInt);
+  if(loop !== 0){
+    $(".flipper").toggleClass("flip");
     loop = 0;
-    $('.minutes, .minutes-interval').html(workLength); //resets minutes and seconds on main timer and user input
-    $('.seconds').html('00');
-    $("#playTimer").html('0' + playLength); //ads 0 in front of 5
-    $('#start').fadeIn();
-    $('#reset').fadeOut();
-    $('#current-session').html('Work Session');
+  }
+  workLength = 25;
+  playLength = 5;
+  longRest = 1;
+  $('.minutes, .minutes-interval').html(workLength); //resets minutes and seconds on main timer and user input
+  $('.seconds').html('00');
+  $(".playTimer").html('0' + playLength); //ads 0 in front of 5
+  $(".workTimer").html(workLength);
 }
 
 
@@ -84,20 +84,19 @@ function getJoke(){
     console.log('get joke got called')
     var url='https://api.icndb.com/jokes/random?exclude=[explicit]'
     $.getJSON(url, function(result) {
-        $("#chuck-joke").html(result.value.joke);
+        // $("#chuck-joke").html(result.value.joke);
         console.log("new joke", result)
     });
-    jokeInt = setTimeout(getJoke, 15000); //timer to call new joke after that many(10sec) seconds delay
-  }
+  jokeInt = setTimeout(getJoke, 15000); //timer to call new joke every 15 sec
+}
 
 
 function countDown(minutes,seconds) { 
  countInt = setInterval(function(){
-
-    if (minutes == 0 && seconds == 0) { //since minutes are not '0' it skips directly to the timer
+    if (minutes === 0 && seconds === 0) { //since minutes are not '0' it skips directly to the timer
         clearInterval(countInt);        
         if (loop == 0) {
-            if (longRest % 4 != 0 || longRest == 1){//this checks if this is short break or long break
+            if (longRest % 4 !== 0 || longRest === 1){//this checks if this is short break or long break
               time = playLength;
               console.log('keeping short break')
             }else{
@@ -109,33 +108,32 @@ function countDown(minutes,seconds) {
                 }else{
                   $("#playTimer").html(time); //updating play time in initial input field
               }
-            if (time == longBreak){ // scretch it - unused part
-                $('.modal').modal('show');
+            if (time === longBreak){ // scretch it - unused part
+                // $('.modal').modal('show');
                 getJoke();//we can use this trigger for joke
                 console.log('calling a joke')
-            }else if(time == longBreak && seconds < 5){
+            }else if(time === longBreak && seconds < 5){
                 console.log('clearing joke interval')
                 clearInterval(jokeInt);
             }
             loop += 1;
-            if (time == longBreak){
-              $('#current-session').html('Long Break');
+            if (time === longBreak){
+              $('#rest-session').html('Long Break');
             }else{
-            $('#current-session').html('Short Break');
+              $('#rest-session').html('Short Break');
             };
             $(".flipper").toggleClass("flip");
         } else {
-            if (time == longBreak && loop == 1){ //when break is over we need to remove modal
+            if (time === longBreak && loop === 1){ //when break is over we need to remove modal
               $("#playTimer").html('0'+playLength);
               clearInterval(jokeInt);
-              $('.modal').modal('hide');
+              // $('.modal').modal('hide');
               console.log('clearing joke interval')
             }
             time = workLength;
             longRest += 1;
             loop -= 1;
             $(".flipper").toggleClass("flip");
-            $('#current-session').html('Work Session');
         }
           alarm.play();
           $('#tomato').effect( "bounce", { times: 3 }, "slow" );
@@ -151,7 +149,7 @@ function countDown(minutes,seconds) {
       $('.minutes').html(formattedMinutes);
       $('.seconds').html(formattedSeconds);
         
-    }, 1000);
+    }, 50);
 }   
  
 
