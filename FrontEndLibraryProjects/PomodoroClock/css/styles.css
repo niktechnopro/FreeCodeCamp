@@ -330,6 +330,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    flex-wrap: wrap;
     z-index: 25;
 }
 
@@ -348,35 +349,19 @@ body {
 }
 
 #modal-wrapper{
-	top: -20rem;
-	left: calc(50% - 380px);
+	top: 1rem;
+	display: none;
+	
 	z-index: 125;
 	position: absolute;
 	transition: 1s;
 }
 
-#modal-wrapper{
-	top: 3rem;
-}
 
-
-
-
-
-
-
-
-
-
-/*
-	
-
-
-@media screen and (max-width: 500px) {
-	.jumbotron{
-		width: 100%;
+@media screen and (min-width: 760px) {
+	#modal-wrapper{
+		left: calc(50% - 380px);
 	}
 }
 
 
-*/

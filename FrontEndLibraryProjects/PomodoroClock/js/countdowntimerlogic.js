@@ -68,7 +68,8 @@ function startTimer() {    //to start timer
   countDown(workLength, seconds);
 }
 
-function reset() {         //to reset timer
+function reset() {//to reset timer
+  $('#modal-wrapper').slideUp("slow");
   clearInterval(countInt);
   if(loop !== 0){
     $(".flipper").toggleClass("flip");
@@ -85,14 +86,13 @@ function reset() {         //to reset timer
 
 
 function getJoke(){
+    //console.log('being called')
 // var url = "https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback="
-    console.log('get joke got called')
     var url='https://api.icndb.com/jokes/random?exclude=[explicit]'
     $.getJSON(url, function(result) {
         $("#joke").html(result.value.joke);
-        console.log("new joke", result)
     });
-  jokeInt = setTimeout(getJoke, 15000); //timer to call new joke every 15 sec
+    jokeInt = setTimeout(getJoke, 5000); //timer to call new joke every 15 sec
 }
 
 
@@ -114,10 +114,10 @@ function countDown(minutes,seconds) {
                   $("#playTimer").html(time); //updating play time in initial input field
               }
             if (time === longBreak){ // scretch it - unused part
-                // $('.modal').modal('show');
+                //console.log('calling long break')
                 getJoke();//we can use this trigger for joke
-                //console.log('calling a joke')
-            }else if(time === longBreak && seconds < 5){
+                $('#modal-wrapper').slideDown("fast");
+            }else{
                 //console.log('clearing joke interval')
                 clearInterval(jokeInt);
             }
@@ -130,10 +130,9 @@ function countDown(minutes,seconds) {
             $(".flipper").toggleClass("flip");
         } else {
             if (time === longBreak && loop === 1){ //when break is over we need to remove modal
-              $("#playTimer").html('0'+playLength);
+              // $("#playTimer").html('0'+playLength);
               clearInterval(jokeInt);
-              // $('.modal').modal('hide');
-              //console.log('clearing joke interval')
+              $('#modal-wrapper').slideUp("slow");
             }
             time = workLength;
             longRest += 1;
@@ -154,7 +153,7 @@ function countDown(minutes,seconds) {
       $('.minutes').html(formattedMinutes);
       $('.seconds').html(formattedSeconds);
         
-    }, 50);
+    }, 10);
 }   
  
 
