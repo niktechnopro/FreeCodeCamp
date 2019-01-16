@@ -98,10 +98,10 @@ function countDown(minutes,seconds) {
         if (loop == 0) {
             if (longRest % 4 !== 0 || longRest === 1){//this checks if this is short break or long break
               time = playLength;
-              console.log('keeping short break')
+              //console.log('keeping short break')
             }else{
               time = longBreak //long break
-              console.log("keeping long break")//we are going to use this as a trigger
+              //console.log("keeping long break")//we are going to use this as a trigger
             } 
               if (time < 10){
                   $("#playTimer").html('0' + time);//adjusting to 2 digits
@@ -111,9 +111,9 @@ function countDown(minutes,seconds) {
             if (time === longBreak){ // scretch it - unused part
                 // $('.modal').modal('show');
                 getJoke();//we can use this trigger for joke
-                console.log('calling a joke')
+                //console.log('calling a joke')
             }else if(time === longBreak && seconds < 5){
-                console.log('clearing joke interval')
+                //console.log('clearing joke interval')
                 clearInterval(jokeInt);
             }
             loop += 1;
@@ -128,7 +128,7 @@ function countDown(minutes,seconds) {
               $("#playTimer").html('0'+playLength);
               clearInterval(jokeInt);
               // $('.modal').modal('hide');
-              console.log('clearing joke interval')
+              //console.log('clearing joke interval')
             }
             time = workLength;
             longRest += 1;
@@ -149,7 +149,7 @@ function countDown(minutes,seconds) {
       $('.minutes').html(formattedMinutes);
       $('.seconds').html(formattedSeconds);
         
-    }, 50);
+    }, 450);
 }   
  
 

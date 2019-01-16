@@ -12,16 +12,15 @@ body {
 }
 
 #wrapper{
-	top: 50%;
+	top: calc(50% - 450px/2);
     position: absolute;
-    left: 50%;
+    left: calc(50% - 350px/2);
 }
 
 .container{
 	min-width: 350px;
 	text-align: center;
 	height: 100%;
-	transform: translate(-50%, -50%);
 }
 
 #top_portion_container{
@@ -146,6 +145,7 @@ body {
 }
 
 .colon {
+	display: inline-block;
 	font-size: 105px;
 }
 
@@ -318,6 +318,11 @@ body {
 	-moz-box-transform: scaleY(1);
     -webkit-box-transform: scaleY(1);
     transform: scaleY(1);
+}
+
+.width{
+	display: inline-block;
+	width: 6rem;
 }
 
 
