@@ -20,11 +20,16 @@ var sliderWait = false; //need it to slow down process for sliding instructions
 //to start
 $('.start').click(()=>{
   startTimer();
+  $('.start').unbind();//remove start listener
 })
 
 //to reset
 $('.reset').click(()=>{
   reset();
+  $('.start').on("click", ()=>{//put the listener back the loop
+     startTimer();
+     $('.start').unbind();
+  });
 })
 
 //to set workTime//
