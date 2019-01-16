@@ -20,15 +20,15 @@ var sliderWait = false; //need it to slow down process for sliding instructions
 //to start
 $('.start').click(()=>{
   startTimer();
-  $('.start').unbind();//remove start listener
+  $('.start').unbind();//remove start listener, so the time would not start
 })
 
 //to reset
 $('.reset').click(()=>{
   reset();
-  $('.start').on("click", ()=>{//put the listener back the loop
+  $('.start').on("click", ()=>{
      startTimer();
-     $('.start').unbind();
+     $('.start').unbind();//put the listener back
   });
 })
 
@@ -89,7 +89,7 @@ function getJoke(){
     console.log('get joke got called')
     var url='https://api.icndb.com/jokes/random?exclude=[explicit]'
     $.getJSON(url, function(result) {
-        // $("#chuck-joke").html(result.value.joke);
+        $("#joke").html(result.value.joke);
         console.log("new joke", result)
     });
   jokeInt = setTimeout(getJoke, 15000); //timer to call new joke every 15 sec
@@ -154,7 +154,7 @@ function countDown(minutes,seconds) {
       $('.minutes').html(formattedMinutes);
       $('.seconds').html(formattedSeconds);
         
-    }, 450);
+    }, 50);
 }   
  
 

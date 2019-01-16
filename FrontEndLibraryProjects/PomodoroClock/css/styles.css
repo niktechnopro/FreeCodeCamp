@@ -12,6 +12,7 @@ body {
 }
 
 #wrapper{
+	z-index: 0;
 	top: calc(50% - 450px/2);
     position: absolute;
     left: calc(50% - 350px/2);
@@ -325,6 +326,39 @@ body {
 	width: 6rem;
 }
 
+#modalBody{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    z-index: 25;
+}
+
+#joke{
+	height: 214px;
+    background: whitesmoke;
+    width: 380px;
+    padding: 1rem;
+    box-sizing: border-box;
+    text-align: left;
+    font-size: 1.3rem;
+}
+
+#modalBody img{
+	display: block;
+}
+
+#modal-wrapper{
+	top: -20rem;
+	left: calc(50% - 380px);
+	z-index: 125;
+	position: absolute;
+	transition: 1s;
+}
+
+#modal-wrapper{
+	top: 3rem;
+}
+
 
 
 
@@ -345,75 +379,4 @@ body {
 }
 
 
-
-#time {
-	color: white;
-	height: 200px;
-	width: 300px;
-}
-
-.steps {
-/* 	background-color: #F0EAD6;
-	color: #F0EAD6;
-	text-shadow: none;
-	background-color: #F0EAD6;
-	padding-bottom: 5px;
-	padding-top: 5px;
-}
-
-/*
-.jumbo-box {
-	bottom: 0px;
-}
-
 */
-/*
-.btn {
-	border-radius: 30px;
-	border: 1px solid #F0EAD6;
-	box-shadow: 2px 2px 2px 1px black;
-}
-
-
-.work {
-	/* border-right: 1px solid black; */
-
-}
-
-/*.btn-remove {
-	float: right;
-	font-size: 12px;
-	margin: 0px 5px;
-}
-*/
-
-/**/
-/*this content image works for chrome and safari*/
-
-
-
-/*flip effect start*/
-/*
-.flip-container:hover .flipper{
-	transform:rotateY(180deg);
-}*/
-
-
-
-/*//*
-#manual{
-	display:none;
-}
-
-#box:hover #manual{
-	display:block;
-}
-invisible test button shows up while howering over div with $nbsp
-
-.open-window{
-	height:255px;
-}
-
-#team {
-	text-shadow: rgb(0, 90, 155) 1px 2px
-}*/
