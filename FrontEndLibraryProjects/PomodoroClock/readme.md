@@ -44,5 +44,3 @@ function getJoke(){
 ![screenshot 1](/images/screenshot2.png "project screenshot")
 
 
-## You are welcome to modify it for your own project:
-
