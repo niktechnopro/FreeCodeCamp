@@ -42,5 +42,6 @@ function getJoke(){
 ![screenshot 1](images/screenshot1.png "project screenshot")
 ![screenshot 2](images/screenshot2.png "project screenshot")
 ![screenshot 3](images/screenshot3.png "project screenshot")
+![screenshot 4](images/screenshot4.png "project screenshot")
 
 
