@@ -1,6 +1,7 @@
 
 console.log("script loaded")
 //setting up global variables
+var timerSpeed = 1000; //1s
 var workLength = 25;
 var playLength = 5;
 // var alarm = new Audio('http://www.orangefreesounds.com/wp-content/uploads/2016/06/Ringing-clock.mp3?_=1');
@@ -10,8 +11,14 @@ var loop = 0;
 var longRest = 1;
 var longBreak = 30;
 var jokeInt; // global variable for jokes so we can reset timer from other function
-var sliderWait = false; //need it to slow down process for sliding instructions
+var sliderWait = false;
+var countInt;
+var flag = false;//to prevent start with demo button
+ //need it to slow down process for sliding instructions
 //end of setting up global variables
+var tempMinutes;
+var tempSeconds;
+
 
 //that was a test button for flipping screen
 // $(".pause").click(function(){          
@@ -20,25 +27,30 @@ var sliderWait = false; //need it to slow down process for sliding instructions
 
 //to start
 $('.start').click(()=>{
+  flag = true;
   startTimer();
   $('.start').unbind();//remove start listener, so the time would not start
 })
 
 //to reset
+
 $('.reset').click(()=>{
+  flag=false;
   reset();
-  $('.start').on("click", ()=>{
+  $('.start').on("click", ()=>{//put the listener back
+      flag=true;
      startTimer();
-     $('.start').unbind();//put the listener back
+     $('.start').unbind();
   });
 })
+
 
 //pause
 $('.pause').click(()=>{
   isPaused = true;
+  flag=false;
   //we need to determing if this is long or short break
-  let saveStr = $('#break-label').text();
-  console.log(saveStr);
+  let saveStr = $('#break-label').text();//to put back the right text
   $('#session-label').html("PAUSED");
   $('#break-label').html("PAUSED");
   $('.start').on("click", ()=>{
@@ -88,8 +100,9 @@ function reset() {//to reset timer
   $('#session-label').html("Work Session");
   $('#break-label').html("Break Length");
   $('#modal-wrapper').slideUp("slow");
-  clearInterval(countInt);
-  if(loop !== 0){
+  // console.log("reset was pressed",countInt)
+  if(countInt || countInt > 0){clearInterval(countInt)}
+  if(loop != 0){
     $(".flipper").toggleClass("flip");
     loop = 0;
   }
@@ -102,6 +115,23 @@ function reset() {//to reset timer
   $(".workTimer").html(workLength);
 }
 
+//demo - button
+$('#demo-button').click(()=>{
+  timerSpeed = (timerSpeed==1000) ? 10 : 1000;
+  // console.log('timer speed', timerSpeed); 
+  $('#demo-button').html(timerSpeed == 10 ? "Demo - timer speed 10ms" : "Normal - timer speed 1s");
+  // console.log('flag', flag, countInt, tempMinutes, tempSeconds)
+  if(tempMinutes!=undefined && tempSeconds!=undefined){
+    // console.log('executed', tempMinutes, tempSeconds, countInt)
+    clearInterval(countInt);//that will reset the timer
+    if(flag = true){
+      countDown(tempMinutes, tempSeconds);//only when start was pressed before
+    }
+    if(!isPaused){
+      $('.start').unbind();//remove start listener, so the time would not start
+    }
+  };
+})
 
 function getJoke(){
     console.log('joke is being called')
@@ -116,10 +146,10 @@ function getJoke(){
 
 function countDown(minutes,seconds) { 
  countInt = setInterval(function(){
-    if (minutes === 0 && seconds === 0) { //since minutes are not '0' it skips directly to the timer
+    if (minutes == 0 && seconds == 0) { //since minutes are not '0' it skips directly to the timer
         clearInterval(countInt);        
         if (loop == 0) {
-            if (longRest % 4 !== 0 || longRest === 1){//this checks if this is short break or long break
+            if (longRest % 4 != 0 || longRest == 1){//this checks if this is short break or long break
               time = playLength;
               //console.log('keeping short break')
             }else{
@@ -131,7 +161,7 @@ function countDown(minutes,seconds) {
                 }else{
                   $("#playTimer").html(time); //updating play time in initial input field
               }
-            if (time === longBreak){ // scretch it - unused part
+            if (time == longBreak){ // scretch it - unused part
                 //console.log('calling long break')
                 getJoke();//we can use this trigger for joke
                 $('#modal-wrapper').slideDown("fast");
@@ -141,14 +171,14 @@ function countDown(minutes,seconds) {
                 clearInterval(jokeInt);
             }
             loop += 1;
-            if (time === longBreak){
+            if (time == longBreak){
               $('#break-label').html('Long Break');
             }else{
               $('#break-label').html('Short Break');
             };
             $(".flipper").toggleClass("flip");
         } else {
-            if (time === longBreak && loop === 1){ //when break is over we need to remove modal
+            if (time == longBreak && loop == 1){ //when break is over we need to remove modal
               // $("#playTimer").html('0'+playLength);
               clearInterval(jokeInt);
               $('#modal-wrapper').slideUp("slow");
@@ -161,8 +191,8 @@ function countDown(minutes,seconds) {
         }
           beep.play();
           $('#tomato').effect( "bounce", { times: 3 }, "slow" );  
-          countDown(time,0); // timer, recursive call
-      } else if (seconds != 0 && !isPaused) {
+          countDown(time, 0); // timer, recursive call
+      } else if ((seconds != 0 || seconds > 0) && !isPaused) {
           seconds -= 1;
       } else if (seconds == 0 && !isPaused) {
           seconds = 59;
@@ -170,10 +200,12 @@ function countDown(minutes,seconds) {
       }
       var formattedMinutes = ("0" + minutes).slice(-2);//format m and s to take 2 digits
       var formattedSeconds = ("0" + seconds).slice(-2); 
+      tempMinutes = formattedMinutes;
+      tempSeconds = formattedSeconds;
       $('.minutes').html(formattedMinutes);
       $('.seconds').html(formattedSeconds);
         
-    }, 1000);
+    }, timerSpeed);
 }   
  
 
