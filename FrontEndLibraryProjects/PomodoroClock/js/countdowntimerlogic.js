@@ -36,7 +36,14 @@ $('.reset').click(()=>{
 //pause
 $('.pause').click(()=>{
   isPaused = true;
+  //we need to determing if this is long or short break
+  let saveStr = $('#break-label').text();
+  console.log(saveStr);
+  $('#session-label').html("PAUSED");
+  $('#break-label').html("PAUSED");
   $('.start').on("click", ()=>{
+    $('#session-label').html("Work Session");
+    $('#break-label').html(saveStr);
     isPaused = false;
   });
 })
@@ -78,6 +85,8 @@ function startTimer() {    //to start timer
 }
 
 function reset() {//to reset timer
+  $('#session-label').html("Work Session");
+  $('#break-label').html("Break Length");
   $('#modal-wrapper').slideUp("slow");
   clearInterval(countInt);
   if(loop !== 0){
@@ -164,7 +173,7 @@ function countDown(minutes,seconds) {
       $('.minutes').html(formattedMinutes);
       $('.seconds').html(formattedSeconds);
         
-    }, 1000);
+    }, 10);
 }   
  
 
