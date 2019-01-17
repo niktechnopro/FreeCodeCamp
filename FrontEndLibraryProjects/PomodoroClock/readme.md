@@ -40,7 +40,7 @@ function getJoke(){
 
 ## Project Screenshots:
 ![screenshot](/images/screenshot.png "project screenshot")
-![screenshot 2](/images/screenshot1.png "project screenshot")
-![screenshot 1](/images/screenshot2.png "project screenshot")
+![screenshot 1](/images/screenshot1.png "project screenshot")
+![screenshot 2](/images/screenshot2.png "project screenshot")
 
 
