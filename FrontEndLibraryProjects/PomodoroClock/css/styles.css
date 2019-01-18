@@ -2,7 +2,7 @@ body {
 	background: url('../images/background3.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
-	height: 100vh;
+	height: 105vh;
     /*overflow-y: hidden;*/
 }
 
@@ -14,7 +14,7 @@ body {
 
 #wrapper{
 	z-index: 0;
-	top: calc(50% - 460px/2);
+	top: 15%;
     position: absolute;
     left: calc(50% - 350px/2);
     padding: 1rem 0 1rem 0;
@@ -86,7 +86,7 @@ body {
 }
 
 .min-wrapper{
-	max-width: 120px;
+	min-width: 120px;
 }
 
 .btn-group{
@@ -129,7 +129,7 @@ body {
 
 #bottom_portion_container{
 	background: url('../images/background.jpg');
-	height: 200px;
+	height: 220px;
 	width: 350px;
 	margin: 0.5rem auto;
 	border-radius: 9px;
@@ -140,6 +140,7 @@ body {
 }
 
 .time {
+	margin-left: -0.5rem;
 	display: inline-block;
 	font-size: 100px; 
 	text-shadow: 6px 6px 0px rgba(240,234,214,0.2);	
@@ -177,18 +178,18 @@ body {
 }
 
 .flipper{
-	position: relative;
 	height: 9rem;
 /*    specifies how long transition would take*/
-	/*-webkit-transition: all 1.5s;*/
-	-webkit-transition-duration: 1.5s;
-	-moz-transition-duration: 1.5s;
-	-o-transition: 1.5s;
+	-webkit-transition: all 1.5s;
+	-webkit-transition-duration: all 1.5s;
+	-moz-transition-duration: all 1.5s;
+	-o-transition: all 1.5s;
 /*    the transform-style property specifies how nested elements are rendered in 3D space.(flat - do not preserve, preserve-3d - will preserve*/
     transform-style: preserve-3d;
 }
 
 .front, .back{
+	height: 10rem;
 	position: relative;
 	-o-backface-visibility: hidden;
 	-moz-backface-visibility: hidden;
@@ -197,21 +198,30 @@ body {
 
 .flip-container .front .back{
 	width: 500px;
-	margin: 0 auto;
+	/*margin: 0 auto;*/
 }
 
 .front{
+	-o-transform: rotateX(0deg);
+	-moz-transform: rotateX(0deg);
+	-webkit-transform: rotateX(0deg);
 	transform: rotateX(0deg);
-	z-index: 0;
 }
 
 .back{
-	top: -165px;
+	margin-left: -0.5rem;
+	top: -11rem;
+	-o-transform: rotateX(180deg);
+	-moz-transform: rotateX(180deg);
+	-webkit-transform: rotateX(180deg);
 	transform: rotateX(180deg);
 }
 /*helper class to add to flipper to make fields flip from JS*/
 .flip{
-	transform:rotateX(180deg); 
+	-o-transform: rotateX(180deg);
+	-moz-transform: rotateX(180deg);
+	-webkit-transform: rotateX(180deg);
+	transform: rotateX(180deg); 
 }
 
 
@@ -223,7 +233,7 @@ body {
 /*flip effect end*/
 
 .buttons{
-	margin: 0.8rem 0 3.8rem 0;
+	margin: 1.8rem 0;
     display: flex;
     justify-content: space-around;
     z-index: 3;
@@ -385,10 +395,10 @@ body {
 	}
 }
 
-@media only screen and (max-width:700px){
+/*@media only screen and (max-width:700px){
     body{
         overflow-y:scroll;
     }
-}
+}*/
 
 
