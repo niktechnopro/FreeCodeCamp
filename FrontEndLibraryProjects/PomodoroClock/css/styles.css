@@ -2,7 +2,8 @@ body {
 	background: url('../images/background3.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
-	height: 110vh;
+	height: 100vh;
+    /*overflow-y: hidden;*/
 }
 
 @font-face {
@@ -13,20 +14,20 @@ body {
 
 #wrapper{
 	z-index: 0;
-	top: calc(50% - 450px/2);
+	top: calc(50% - 460px/2);
     position: absolute;
     left: calc(50% - 350px/2);
+    padding: 1rem 0 1rem 0;
 }
 
 .container{
 	min-width: 350px;
 	text-align: center;
-	height: 100%;
 }
 
 #top_portion_container{
 	background: url('../images/background.jpg');
-	height: 200px;
+	height: 210px;
 	width: 350px;
 	margin: 0 auto;
 	border-radius: 9px;
@@ -222,7 +223,7 @@ body {
 /*flip effect end*/
 
 .buttons{
-	margin-top: 0.8rem;
+	margin: 0.8rem 0 3.8rem 0;
     display: flex;
     justify-content: space-around;
     z-index: 3;
@@ -280,6 +281,7 @@ body {
 
 
 #dropdown-content{
+
 	visibility: collapse;
 	background-color: lightcyan;
     border: 4px solid #000;
@@ -381,6 +383,12 @@ body {
 	#modal-wrapper{
 		left: calc(50% - 380px);
 	}
+}
+
+@media only screen and (max-width:700px){
+    body{
+        overflow-y:scroll;
+    }
 }
 
 
