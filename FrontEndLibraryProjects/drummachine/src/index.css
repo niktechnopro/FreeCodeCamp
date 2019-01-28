@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /*align-items: center;*/
 }
 
 code {
@@ -13,7 +14,7 @@ code {
     monospace;
 }
 
-.abtn{
+.drum-pad{
 	width: 5rem;
     height: 5rem;
     border-radius: 5px;
@@ -23,15 +24,16 @@ code {
     box-shadow: inset 0 0 10px #000000;
     transition: all 0.5s;
     outline: none;
+    cursor: pointer;
 }
 
-.abtn:hover{
+.drum-pad:hover{
 	-moz-box-shadow: inset 0 0 20px #000000;
     -webkit-box-shadow: inset 0 0 20px #000000;
     box-shadow: inset 0 0 20px #000000
 }
 
-.abtn:active{
+.drum-pad:active{
 	-moz-box-shadow: inset 0 0 30px #000000;
     -webkit-box-shadow: inset 0 0 30px #000000;
     box-shadow: inset 0 0 30px #000000
@@ -39,8 +41,206 @@ code {
 
 .btns{
 	display: flex;
-	width: 15rem;
+	width: 20rem;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+#drum-machine{
+    border: 4px solid #ffa500;
+    border-radius: 5px;
+    padding: 5px;
+    min-width: 19rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+/*toggle Power switch*/
+
+.onoffswitch {
+    position: relative; width: 90px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+    font-size: 19px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "ON";
+    padding-left: 10px;
+    background-color: #34A7C1; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "OFF";
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 23px; margin: 3.5px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 56px;
+    border: 2px solid #999999; border-radius: 20px;
+    transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
+
+/*toggle Power switch*/
+
+#switch-panel{
+	margin-bottom: 0.5rem;
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 20rem;
+}
+
+.switch-name{
+	font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.left-side, .right-side{
+	min-width: 20rem;
+	padding: 1rem;
+	/*border: 2px solid red;*/
+}
+
+.right-side{
+	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#display{
+	font-size: 2rem;
+	height: 2.5rem;
+    width: 15rem;
+    background-color: #cddae7;
+    text-align: center;
+    border-color: rgba(19, 18, 17, 0.8);
+    outline: 0 none;
+}
+
+#displaywrap{
+	text-align: center;
+}
+
+#volume{
+	text-align: center;
+}
+
+[type="range"]{
+	width: 15rem;
+	/*-webkit-appearance: none;*/
+    margin: 12.5px 0;
+}
+
+#volume p{
+	text-decoration: underline;
+	margin-bottom: 0;
+}
+
+/*sound switch*/
+
+.soundswitch {
+    position: relative; width: 220px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.soundswitch-checkbox {
+    display: none;
+}
+.soundswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 20px;
+}
+.soundswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.soundswitch-inner:before, .soundswitch-inner:after {
+    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+    font-size: 19px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.soundswitch-inner:before {
+    content: "TYPE 1";
+    padding-left: 10px;
+    background-color: #34A7C1; color: #FFFFFF;
+}
+.soundswitch-inner:after {
+    content: "TYPE 2";
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.soundswitch-switch {
+    display: block; width: 23px; margin: 3.5px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 56px;
+    border: 2px solid #999999; border-radius: 20px;
+    transition: all 0.3s ease-in 0s; 
+}
+.soundswitch-checkbox:checked + .soundswitch-label .soundswitch-inner {
+    margin-left: 0;
+}
+.soundswitch-checkbox:checked + .soundswitch-label .soundswitch-switch {
+    right: 0px; 
+}
+/*end of sound switch*/
+
+#sound-switch{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+#volume-level{
+	font-size: 2rem;
+	font-weight: 600;
+}
+
+#title{
+	font-size: 2.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+#wrapper{
+	min-width: 21rem;
+	display: flex;
+ 	flex-direction: column;
+ 	justify-content: center;
+ 	min-height: 100vh;
+}
+
+#footer{
+	width: 100%;
+	text-align: center;
+	font-size: 1.2rem;
+	background-color: #fff9f9;
+	margin: auto auto 0 auto;
 }

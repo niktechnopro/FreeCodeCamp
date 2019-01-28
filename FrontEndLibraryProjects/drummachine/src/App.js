@@ -1,13 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Main from "./components/Main";
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-          <Main />
-      </div>
+      <Fragment>
+        <div id="wrapper">
+          <header>
+            <p id="title">My Drum Machine</p>
+          </header>
+          <main id="main">
+            <Main />
+          </main>
+          <footer id="footer">Built With React.js</footer>
+        </div>
+      </Fragment>
     );
   }
 }

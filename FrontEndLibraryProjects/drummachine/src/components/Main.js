@@ -1,8 +1,11 @@
 import React, { Component, Fragment } from "react";
 import Button from "./Button";
+import Display from "./Display";
+import Power from "./Power";
+
 
 const Buttons = () => {
-	const numberOfButtons = new Array(9).fill(0)
+	const numberOfButtons = new Array(12).fill(0)
 		return (
 			Object.keys(numberOfButtons).map((value, index) => <div key={value}><Button purpose = {value} /></div>)
 		)
@@ -20,11 +23,17 @@ class Main extends Component {
 
 	render(){
 		return(
-			<Fragment>
-				<div className="btns">
-					<Buttons />
+			<div id="drum-machine">
+				<div className="left-side">
+					<Power />
+					<div className="btns">
+						<Buttons />
+					</div>
 				</div>
-			</Fragment>
+				<div className="right-side">
+					<Display />
+				</div>
+			</div>
 		)
 	}
 }
