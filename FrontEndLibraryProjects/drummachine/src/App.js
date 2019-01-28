@@ -13,7 +13,7 @@ class App extends Component {
           <main id="main">
             <Main />
           </main>
-          <footer id="footer">Built With React.js</footer>
+          <footer id="footer">Built with React.js</footer>
         </div>
       </Fragment>
     );
