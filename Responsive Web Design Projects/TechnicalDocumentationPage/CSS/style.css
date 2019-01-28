@@ -76,7 +76,7 @@ a:hover {
 	margin-top: -5px;
 	margin-left:300px;
 	padding:1rem;
-	background-image: url(http://eastsidedenton.com/wp-content/themes/hipster/assets/images/background/light/wall.png);
+	background-image: url(../assets/wall.png);
 	background-attachment: fixed;
 }
 
@@ -94,7 +94,7 @@ section{
     height: 30px;
     text-align: right;
     right: 1rem;
-    background-image: url('http://webdrm.cisco.com/omaha/images/320px-Cisco_logo.svg.png');
+    background-image: url('../assets/320px-Cisco_logo.svg.png');
 	background-repeat: no-repeat;
 	background-size: cover;
 }
