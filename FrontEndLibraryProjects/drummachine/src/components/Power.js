@@ -5,7 +5,7 @@ const Power = (props) => {
 	return(
 		<div id="switch-panel">
 			<span className="switch-name">Power</span>
-			<Switch />
+			<Switch powerSwitch={props.powerSwitch} />
 		</div>
 	)
 }
