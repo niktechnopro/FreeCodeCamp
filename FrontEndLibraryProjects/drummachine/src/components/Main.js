@@ -5,9 +5,10 @@ import Power from "./Power";
 
 
 const Buttons = (props) => {
-	const numberOfButtons = new Array(12).fill(0)
+	// const numberOfButtons = new Array(12).fill(0);
+	const numberOfButtons = ['Q','W','E','R','A','S','D','F','Z','X','C','V'];
 		return (
-			Object.keys(numberOfButtons).map((value, index) => <div key={value}><Button purpose = {value} powerOn={props.powerOn} buttonClick={(e)=>console.log(e.target.textContent)} /></div>)
+			numberOfButtons.map((value, index) => <div key={value}><Button purpose = {value} powerOn={props.powerOn} buttonClick={(e)=>console.log(e.target.textContent)} /></div>)
 		)
 	}
 
@@ -36,6 +37,7 @@ class Main extends Component {
 				<div className="left-side">
 					<Power powerSwitch={this.mainPowerSwitch} />
 					<div className="btns">
+						{!this.state.power && <div id="btns-cover"></div>}
 						<Buttons powerOn={this.state.power} />
 					</div>
 				</div>

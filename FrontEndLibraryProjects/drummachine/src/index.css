@@ -25,6 +25,8 @@ code {
     transition: all 0.5s;
     outline: none;
     cursor: pointer;
+    font-size: 2rem;
+    font-weight: 600;
 }
 
 .drum-pad:hover{
@@ -245,6 +247,14 @@ code {
 	font-size: 1.2rem;
 	background-color: #fff9f9;
 	margin: auto auto 0 auto;
+}
+
+#btns-cover{
+    position: absolute;
+    width: 20rem;
+    height: 15rem;
+    background-color: white;
+    opacity: 0.7;
 }
 
 @media only screen and (min-width: 740px) {
