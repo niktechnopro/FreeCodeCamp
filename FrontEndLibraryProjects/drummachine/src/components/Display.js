@@ -5,7 +5,8 @@ class Display extends Component{
 	constructor(){
 		super()
 		this.state = {
-			volume: 100
+			volume: 100,
+			bankChange: false
 		}
 	}
 
@@ -18,8 +19,20 @@ class Display extends Component{
 		}
 	}
 
+	bankChange = (event) => {
+		// let bank = event.target.value;
+		this.setState(function(prevState){
+			return{
+				bankChange: !prevState.bankChange
+			}
+		},()=>{
+			this.props.bankState(this.state.bankChange);
+		})
+	}
+
 
 	render(){
+		console.log(this.state)
 		return(
 			<Fragment>
 				<div id="displaywrap">
@@ -32,7 +45,7 @@ class Display extends Component{
 				</div>
 				<div id="sound-switch">
 					<div className="soundswitch">
-	    				<input disabled={!this.props.powerOn} type="checkbox" name="soundswitch" className="soundswitch-checkbox" id="soundswitch" />
+	    				<input disabled={!this.props.powerOn} type="checkbox" name="soundswitch" className="soundswitch-checkbox" id="soundswitch" onChange={this.bankChange} />
 	    				<label className="soundswitch-label" htmlFor="soundswitch">
 	        			<span className="soundswitch-inner"></span>
 	   		 			</label>
