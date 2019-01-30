@@ -4,29 +4,27 @@ import Display from "./Display";
 import Power from "./Power";
 
 
+//this is Buttons component
 const Buttons = (props) => {
-	// const numberOfButtons = new Array(12).fill(0);
-	const numberOfButtons = !props.bankState ? 
-	['Q','W','E','A','S','D','Z','X','C']
-	 : 
-	['I','O','P','J','K','L','B','N','M'];
 		return (
-			numberOfButtons.map((value, index) => 
-			<div key={value}><Button purpose = {value} powerOn={props.powerOn} 
+			props.chosenBank.map((value, index) => 
+			<div key={value}><Button purpose = {value} 
+				powerOn={props.powerOn} 
 				buttonClick={props.handleButtonClick} 
 				/>
 			</div>
 			)
 		)
 	}
-
+//this is Buttons component end
 
 class Main extends Component {
 	constructor(){
 		super()
 		this.state = {
 			power: false,
-			bankState: false
+			pressedKey: '',
+			chosenBank: ['Q','W','E','A','S','D','Z','X','C']
 		}
 	}
 
@@ -39,13 +37,26 @@ class Main extends Component {
 	}
 
 	handleButtonClick = (e) => {
+		let pressedKey = null;
 		if(this.state.power && e){
 			if(e.type === "keydown"){
-				console.log(e.key);
+				pressedKey = e.key.toUpperCase();
 			}else{
-				console.log(e.target.textContent.toLowerCase());
+				pressedKey = e.target.textContent;
 			}
 		}
+		if(pressedKey && this.state.chosenBank.includes(pressedKey)){
+			this.setState({
+				pressedKey
+			},()=>{
+				//logic to handle keyPress
+				this.onButtonPress();
+			})
+		}
+	}
+
+	onButtonPress = () => {//this is where music chosen
+		console.log(this.state.pressedKey);
 	}
 
 	mainPowerSwitch = (event) => {
@@ -58,13 +69,19 @@ class Main extends Component {
 	}
 
 	bankState = (bankState) => {
+		console.log(bankState)
+		let chosenBank = !bankState ? 
+		['Q','W','E','A','S','D','Z','X','C']
+		 : 
+		['I','O','P','J','K','L','B','N','M'];
 		this.setState({
-			bankState
+			chosenBank
 		})
 	}
 
 
 	render(){
+		console.log('state', this.state);
 		return(
 			<div id="drum-machine">
 				<div className="left-side">
@@ -73,8 +90,8 @@ class Main extends Component {
 						{!this.state.power && <div id="btns-cover"></div>}
 						<Buttons 
 						powerOn={this.state.power} 
-						bankState={this.state.bankState} 
 						handleButtonClick={this.handleButtonClick}
+						chosenBank={this.state.chosenBank}
 						/>
 					</div>
 				</div>

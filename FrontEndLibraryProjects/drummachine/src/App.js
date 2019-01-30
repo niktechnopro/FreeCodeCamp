@@ -9,11 +9,12 @@ class App extends Component {
         <div id="wrapper">
           <header>
             <p id="title">My Drum Machine</p>
+            <p id="desc">(works with mouse and keyboard)</p>
           </header>
           <main id="main">
             <Main />
           </main>
-          <footer id="footer">Built with React.js</footer>
+          <footer id="footer">FreeCodeCamp project - built with React.js</footer>
         </div>
       </Fragment>
     );

@@ -32,7 +32,6 @@ class Display extends Component{
 
 
 	render(){
-		console.log(this.state)
 		return(
 			<Fragment>
 				<div id="displaywrap">

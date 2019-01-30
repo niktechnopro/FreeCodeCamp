@@ -230,6 +230,7 @@ code {
 	font-size: 2.5rem;
     display: flex;
     justify-content: center;
+    margin-bottom: 0;
 }
 
 #wrapper{
@@ -255,6 +256,11 @@ code {
     height: 18rem;
     background-color: white;
     opacity: 0.7;
+}
+
+#desc{
+    text-align: center;
+    margin-top: 0;
 }
 
 @media only screen and (min-width: 740px) {
