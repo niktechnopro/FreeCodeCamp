@@ -24,7 +24,8 @@ class Main extends Component {
 		this.state = {
 			power: false,
 			pressedKey: '',
-			chosenBank: ['Q','W','E','A','S','D','Z','X','C']
+			chosenBank: ['Q','W','E','A','S','D','Z','X','C'],
+			chosenMusic: ''
 		}
 	}
 
@@ -34,6 +35,16 @@ class Main extends Component {
 
 	componentWillUnmount = () => {
 		this.keyListener.remove();
+	}
+
+	componentDidUpdate = (prevProps, prevState) => {
+		console.log(prevState, this.state)
+		if (prevState.power === true && prevState.power !== this.state.power){
+			console.log("power button turned off");
+		}
+		if (prevState.chosenMusic !== this.state.chosenMusic){
+			console.log("new tune");
+		}
 	}
 
 	handleButtonClick = (e) => {
@@ -56,7 +67,33 @@ class Main extends Component {
 	}
 
 	onButtonPress = () => {//this is where music chosen
-		console.log(this.state.pressedKey);
+		let buttonsToMusic = {
+			'Q' : "baritone.mp3",
+			'W' : "bass.mp3",
+			'E' : "bells.mp3",
+			'A' : "cello.mp3",
+			'S' : "clarinet.mp3",
+			'D' : "flute.mp3",
+			'Z' : "horn.mp3",
+			'X' : "sax.mp3",
+			'C' : "snare.mp3",
+			'I' : "trombone.mp3",
+			'O' : "tube.mp3",
+			'P' : "viola.mp3",
+			'J' : "violin.mp3",
+			'K' : "blank",
+			'L' : "blank",
+			'B' : "blank",
+			'N' : "blank",
+			'M' : "blank"
+		}
+		let chosenMusic = buttonsToMusic[this.state.pressedKey];
+		this.setState({
+			chosenMusic
+		})
+		// let audio = new Audio(`sounds/${chosenMusic}`);
+		// console.log(audio);
+		// audio.play()
 	}
 
 	mainPowerSwitch = (event) => {
