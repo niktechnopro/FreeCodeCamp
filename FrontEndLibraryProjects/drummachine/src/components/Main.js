@@ -25,7 +25,7 @@ class Main extends Component {
 			power: false,
 			pressedKey: '',
 			chosenBank: ['Q','W','E','A','S','D','Z','X','C'],
-			chosenMusic: ''
+			chosenMusic: 'Activity Indicator'
 		}
 	}
 
@@ -38,12 +38,11 @@ class Main extends Component {
 	}
 
 	componentDidUpdate = (prevProps, prevState) => {
-		console.log(prevState, this.state)
 		if (prevState.power === true && prevState.power !== this.state.power){
-			console.log("power button turned off");
-		}
-		if (prevState.chosenMusic !== this.state.chosenMusic){
-			console.log("new tune");
+			this.setState({
+				pressedKey: '',
+				chosenMusic: 'Activity Indicator'
+			})
 		}
 	}
 
@@ -78,14 +77,14 @@ class Main extends Component {
 			'X' : "sax.mp3",
 			'C' : "snare.mp3",
 			'I' : "trombone.mp3",
-			'O' : "tube.mp3",
+			'O' : "tuba.mp3",
 			'P' : "viola.mp3",
 			'J' : "violin.mp3",
-			'K' : "blank",
-			'L' : "blank",
-			'B' : "blank",
-			'N' : "blank",
-			'M' : "blank"
+			'K' : "tmnt.mp3",
+			'L' : "sor.mp3",
+			'B' : "lords.mp3",
+			'N' : "streets.mp3",
+			'M' : "nes.mp3"
 		}
 		let chosenMusic = buttonsToMusic[this.state.pressedKey];
 		this.setState({
@@ -106,7 +105,6 @@ class Main extends Component {
 	}
 
 	bankState = (bankState) => {
-		console.log(bankState)
 		let chosenBank = !bankState ? 
 		['Q','W','E','A','S','D','Z','X','C']
 		 : 
@@ -118,11 +116,10 @@ class Main extends Component {
 
 
 	render(){
-		console.log('state', this.state);
 		return(
 			<div id="drum-machine">
 				<div className="left-side">
-					<Power powerSwitch={this.mainPowerSwitch} />
+					<Power powerSwitch={this.mainPowerSwitch} power={this.state.power} />
 					<div className="btns">
 						{!this.state.power && <div id="btns-cover"></div>}
 						<Buttons 
@@ -133,7 +130,11 @@ class Main extends Component {
 					</div>
 				</div>
 				<div className="right-side">
-					<Display powerOn={this.state.power} bankState={this.bankState} />
+					<Display
+					stuffToDisplay={this.state.power ? this.state.chosenMusic : "Power Off"}
+					chosenMusic={this.state.chosenMusic} 
+					powerOn={this.state.power} 
+					bankState={this.bankState} />
 				</div>
 			</div>
 		)

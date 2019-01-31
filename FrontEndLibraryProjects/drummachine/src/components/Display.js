@@ -16,6 +16,7 @@ class Display extends Component{
 			this.setState({
 				volume: vol
 			})
+			this.refs.audio.volume = event.target.value;//controling audio
 		}
 	}
 
@@ -35,8 +36,15 @@ class Display extends Component{
 		return(
 			<Fragment>
 				<div id="displaywrap">
-					<input id="display" value="activity display" disabled />
+					<input id="display" value={ this.props.stuffToDisplay } disabled />
 				</div>
+					{this.props.powerOn && <audio 
+						ref='audio'
+						className="clip" id={this.props.chosenMusic} 
+						src={`./sounds/${this.props.chosenMusic}`} 
+						type="audio/mp3" 
+						autoPlay/
+						>}
 				<div id="volume">
 					<p className="switch-name">Volume</p>
 					<div id="volume-level">{this.state.volume}<span>%</span></div>
