@@ -8,7 +8,9 @@ import Power from "./Power";
 const Buttons = (props) => {
 		return (
 			props.chosenBank.map((value, index) => 
-			<div key={value}><Button purpose = {value} 
+			<div key={value}
+			><Button 
+				purpose = {value} 
 				powerOn={props.powerOn} 
 				buttonClick={props.handleButtonClick} 
 				/>
@@ -30,11 +32,13 @@ class Main extends Component {
 	}
 
 	componentDidMount = () => {
-		this.keyListener = document.addEventListener("keydown", this.handleButtonClick, false);
+		this.keyListenerDown = document.addEventListener("keydown", this.handleButtonClick, false);
+		this.keyListenerUp = document.addEventListener("keyup", this.handleButtonUp, false);
 	}
 
 	componentWillUnmount = () => {
-		this.keyListener.remove();
+		this.keyListenerUp.remove();
+		this.keyListenerDown.remove();
 	}
 
 	componentDidUpdate = (prevProps, prevState) => {
@@ -46,26 +50,47 @@ class Main extends Component {
 		}
 	}
 
+	handleButtonUp = (e) => {
+		if(this.state.power && e && e.type === "keyup"){
+			if(this.state.chosenBank.includes(e.key.toUpperCase())){
+				//remove the class to imitate the keyrelease
+				this.drumPad.classList.remove("classToAdd");
+			}
+		}
+	}
+
 	handleButtonClick = (e) => {
+		// console.log(e)
 		let pressedKey = null;
 		if(this.state.power && e){
 			if(e.type === "keydown"){
 				pressedKey = e.key.toUpperCase();
+				if(pressedKey && this.state.chosenBank.includes(pressedKey)){
+					this.drumPad = document.querySelector(`#${pressedKey}`);
+					this.drumPad.classList.add("classToAdd");
+				}
 			}else{
 				pressedKey = e.target.textContent;
 			}
-		}
-		if(pressedKey && this.state.chosenBank.includes(pressedKey)){
-			this.setState({
-				pressedKey
-			},()=>{
-				//logic to handle keyPress
-				this.onButtonPress();
-			})
+			if (this.state.chosenBank.includes(pressedKey)){
+				this.setState(function(prevState){
+					if (prevState.pressedKey !== pressedKey){
+						return{
+							pressedKey
+						}
+					}else{
+						return{
+							chosenMusic: 'Activity Indicator'
+						}
+					}
+				},()=>{
+					this.onButtonPress(pressedKey);
+				})
+			}	
 		}
 	}
 
-	onButtonPress = () => {//this is where music chosen
+	onButtonPress = (pressedKey) => {//this is where music chosen
 		let buttonsToMusic = {
 			'Q' : "baritone.mp3",
 			'W' : "bass.mp3",
@@ -86,13 +111,10 @@ class Main extends Component {
 			'N' : "streets.mp3",
 			'M' : "nes.mp3"
 		}
-		let chosenMusic = buttonsToMusic[this.state.pressedKey];
+		let chosenMusic = buttonsToMusic[pressedKey];
 		this.setState({
 			chosenMusic
 		})
-		// let audio = new Audio(`sounds/${chosenMusic}`);
-		// console.log(audio);
-		// audio.play()
 	}
 
 	mainPowerSwitch = (event) => {
