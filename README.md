@@ -24,8 +24,7 @@ One project also uses Bootstrap and two a touch of JavaScript.
     * JavaScript
 
 ## Second section - Introduction to the JavaScript Algorithms and Data Structures Projects:
-* **Programming Languages**:
-    * JavaScript
+* **Programming Languages**: JavaScript
     
    * Palindrome Checker
    * Roman Numeral Converter
