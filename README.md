@@ -24,8 +24,21 @@ One project also uses Bootstrap and two a touch of JavaScript.
     * JavaScript
 
 ## Second section - Introduction to the JavaScript Algorithms and Data Structures Projects:
+* **Programming Languages**: JavaScript
+    
    * Palindrome Checker
    * Roman Numeral Converter
    * Caesars Cipher
    * Telephone Number Validator
    * Cash Register
+
+## Third section - responsive webdesign projects hosted on my personal page www.niktechnopro.com:
+* **Programming Languages**:
+    * JavaScript
+* **Frameworks**:
+    * React.js + Redux
+    
+* [Random Quote Machine - aka Wisdom Box](https://www.niktechnopro.com/demos/wisdombox/)
+* [Pomodoro Clock - aka Wisdom Box](https://www.niktechnopro.com/demos/focus/)
+* [Markdown Previewer - built with Gatsby](https://www.niktechnopro.com/demos/previewer/)
+* [Drum Machine](https://www.niktechnopro.com/demos/drummachine/)
