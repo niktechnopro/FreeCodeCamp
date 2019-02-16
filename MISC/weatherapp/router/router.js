@@ -1,7 +1,7 @@
 console.log('loading router module')
-var express = require('express');
-var router = express.Router();
-var handlers = require('../handlers/handlers.js');//route handlers
+let express = require('express');
+let router = express.Router();
+let handlers = require('../handlers/handlers.js');//route handlers
 
 // middleware that is specific to this router - not needed as we use morgan in app.js
 // router.use(function timeLog (req, res, next) {
@@ -12,6 +12,7 @@ var handlers = require('../handlers/handlers.js');//route handlers
 
 // define the home page route(we using handler function chaining for one route)
 router.route('/')
-    .get(handlers.getHandler);
+    .get(handlers.getHandler)
+    .post(handlers.postHandler)
 
 module.exports = router;
