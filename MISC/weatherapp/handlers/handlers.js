@@ -4,20 +4,35 @@ console.log(results);
 
 const getHandler = (req, res, next) => {
 	//do some code here
-	// res.status(200).send({
- //  		message: results()
-	// });
-	//if you see a question to allow detect location - allow
-	//if get latlon => do weather first
-
+	let data = results.weatherResults();
+	data.then(weather => {
+		console.log("successful request", weather.data)
+		res.status(200).json({
+  			message: weather.data		
+  		})
+	})
+	data.catch(error => {
+		console.log("error occured");
+		res.status(400).json({
+  			message: "error"
+  		})
+	})
 }
 
 const postHandler = (req, res, next) => {
-	res.status(200).send({
-  		message: "post request received"
-	});
-	//if get zip => do geo first
-	//if get latlon => do weather first
+	let address = req.body.address;
+	let result = results.geoResults(address);
+	result.then(data => {
+		res.status(200).json({
+  			message: data.json.results
+		});
+	})
+	result.catch(error => {
+		console.log('unsucessful georequest');
+		res.status(400).json({
+  			message: "error"
+		});
+	})
 }
 
 
