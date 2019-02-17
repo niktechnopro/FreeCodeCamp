@@ -7,8 +7,6 @@ const googleMapsClient = gMap.createClient({
   Promise: Promise
 });
 
-
-let weatherUrl = process.env.baseAPI+"?lat=33.8466227&lon=-84.3286911&appid="+process.env.WEATHER_API_KEY;
 // let gmapAPI = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=`+process.env.gMap_API;
 
 //creating google maps client
@@ -24,12 +22,13 @@ let testurl = "http://samples.openweathermap.org/data/2.5/weather?q=London,uk&ap
 // let byZipCode = `?zip={zip code},{country code}`
 
 
-let weatherResults = (coordinates) => {
-	return axios.get(weatherUrl);
-}
+const weatherResults = (latlon) => {
+	let weatherUrl = process.env.baseAPI+`?lat=${latlon.lat}&lon=${latlon.lng}&appid=`+process.env.WEATHER_API_KEY;
+	return axios(weatherUrl);
+}		
 
 
-let geoResults = (address) => {
+const geoResults = (address) => {
 	return googleMapsClient.geocode({address: address}).asPromise()
 }
 
