@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { sendCoordinates } from './actionCreators/actionCreators';
 
 class InputField extends Component {
 	constructor(){
 		super()
 		this.state={
-
+			address: ''
 		}
 	}
 
@@ -18,18 +20,39 @@ class InputField extends Component {
 		});
 	}
 
+	handleInput = (e) => {
+		let address = e.target.value;
+		this.setState({address});
+	}
+
 	handleSubmitButton = (e) => {
-		console.log('button clicked', e);
+		e.preventDefault();
+		//send coordinates to NODE API
+		this.props.onSendCoordinates(this.state.address);
 	}
 
 	render(){
 		return(
 			<div>
-				<input id="address" type="text" placeholder="enter location here" />
+				<input id="address" type="text" placeholder="enter location here" onChange={this.handleInput} />
 				<input type="button" value="Find my weather" onClick={this.handleSubmitButton} />
 			</div>
 		)
 	}
 }
 
-export default InputField;
+
+const mapStateToProps = (state) => {
+	return{
+		allstates: state
+	}
+	
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onSendCoordinates: (coordinates) => dispatch(sendCoordinates(coordinates)),
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InputField);

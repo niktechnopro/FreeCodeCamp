@@ -21,12 +21,14 @@ const getHandler = (req, res, next) => {
 const postHandler = (req, res, next) => {
 	let address = req.body.address;
 	let result = results.geoResults(address);
-	result.then(data => {
-		let latlon = data.json.results[0].geometry.location;
+	result.then(geoData => {
+		let latlon = geoData.json.results[0].geometry.location;
 		let weather = results.weatherResults(latlon);
-		return weather.then(data => {
+		return weather.then(weatherData => {
+			// console.log('sending back: ', JSON.stringify(data.data));
 			res.status(200).json({
-	  			message: data.data
+	  			weatherData: weatherData.data,
+	  			geoData: geoData.json.results[0].formatted_address
 			});
 		})
 	}).catch(error => {
