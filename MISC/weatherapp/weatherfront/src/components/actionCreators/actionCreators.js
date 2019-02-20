@@ -1,4 +1,4 @@
-import { WEATHER_INFO_FAILURE, WEATHER_INFO_SUCCESS } from '../actions/actions';
+import { WEATHER_INFO_FAILURE, WEATHER_INFO_SUCCESS, WEATHER_INFO_START } from '../actions/actions';
 import axios from 'axios';
 const API = 'http://localhost:8000'
 const postUri = API+'/getweather';
@@ -6,7 +6,8 @@ const postUri = API+'/getweather';
 //use this to fetch data from url
 export function sendCoordinates(address){ 
 	return (dispatch) => {
- 	axios.post(postUri, {
+	 dispatch(getWeatherResultsBegined())
+ 	return axios.post(postUri, {
 	    address: address
  	})
    .then((response) => {
@@ -18,6 +19,12 @@ export function sendCoordinates(address){
    };
 }
 
+function getWeatherResultsBegined() {
+	return{
+		type: WEATHER_INFO_START
+	}
+}
+
 
 function getWeatherResultsFailed(error) {
 	return{
@@ -27,9 +34,26 @@ function getWeatherResultsFailed(error) {
 }
 
 function getWeatherResultsSucceeded(response) {
-	console.log('succesful response: ',response)
+	// console.log('succesful response: ',response)
 	return{
 		type: WEATHER_INFO_SUCCESS,
 		payload: response
 	}
+}
+
+
+export function autoDetectCoordinates(latlon){ 
+	console.log(latlon);
+	return (dispatch) => {
+	 // dispatch(getAddressOnAutodetectBegined())
+ 	return axios.post(postUri, {
+	    latlon: latlon
+ 	})
+   .then((response) => {
+     // dispatch(getAddressOnAutoDetectSucceeded(response));
+	})
+   .catch((error) => {
+     // dispatch(getAddressOnAutoDetectFailed(error));
+	});
+   };
 }

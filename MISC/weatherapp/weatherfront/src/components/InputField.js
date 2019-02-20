@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { sendCoordinates } from './actionCreators/actionCreators';
+import { sendCoordinates, autoDetectCoordinates } from './actionCreators/actionCreators';
 
 class InputField extends Component {
 	constructor(){
@@ -8,16 +8,37 @@ class InputField extends Component {
 		this.state={
 			address: ''
 		}
+		this.keyListener = null;
+	}
+
+	componentDidUpdate = (prevProps) => {
+
 	}
 
 	componentDidMount = () => {
-		console.log("component did mount");
 		//let's find user's location
+		this.keyListener = document.addEventListener("keydown", this.buttonHandler);
 		navigator.geolocation.getCurrentPosition(coordinates => {
 			let latlon = coordinates.coords;
-			console.log(latlon);
 			//we have to send to to node API for processing
+			this.props.onAutoDetectCoordinates(latlon);
 		});
+	}
+
+	componentWillUnmount = () => {
+		this.keyListener.remove();
+		this.keyListener = null;
+	}
+
+	buttonHandler = (e) => {
+		if(e.keyCode === 13 && this.state.address.length > 4){
+			this.props.onSendCoordinates(this.state.address)
+			.then(result => {
+				this.setState({
+					address: ""
+				})
+			});
+		}
 	}
 
 	handleInput = (e) => {
@@ -27,15 +48,39 @@ class InputField extends Component {
 
 	handleSubmitButton = (e) => {
 		e.preventDefault();
-		//send coordinates to NODE API
-		this.props.onSendCoordinates(this.state.address);
+		this.props.onSendCoordinates(this.state.address)
+		.then(result => {
+			this.setState({
+				address: ""
+			})
+		});
+
 	}
 
 	render(){
+		// console.log(this.props);
 		return(
-			<div>
-				<input id="address" type="text" placeholder="enter location here" onChange={this.handleInput} />
-				<input type="button" value="Find my weather" onClick={this.handleSubmitButton} />
+			<div id="inputAreaWrapper">
+				<section id="sectionTop">
+					<input id="address" 
+						type="text" 
+						placeholder="enter location here" 
+						onChange={this.handleInput} 
+						value={this.state.address}
+					/>
+				</section>
+				<section id="sectionMiddle">
+					<input type="button" 
+						value="Find my weather" 
+						onClick={this.handleSubmitButton} 
+					/>
+				</section>
+				<section is="sectionBottom">
+					<div id="comeBack">
+					{this.props.geoData && <p>based on your input we found:</p>}
+					{this.props.geoData}
+					</div>
+				</section>
 			</div>
 		)
 	}
@@ -44,7 +89,7 @@ class InputField extends Component {
 
 const mapStateToProps = (state) => {
 	return{
-		allstates: state
+		geoData: state.geoData,
 	}
 	
 }
@@ -52,6 +97,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onSendCoordinates: (coordinates) => dispatch(sendCoordinates(coordinates)),
+		onAutoDetectCoordinates: (latlon) => dispatch(autoDetectCoordinates(latlon))
 	}
 }
 
