@@ -11,6 +11,10 @@ let handlers = require('../handlers/handlers.js');//route handlers
 // })
 
 // define the home page route(we using handler function chaining for one route)
+router.route('/basedOnLatLon')
+    .post(handlers.postHandlerLatLon)
+
+
 router.route('/getweather')
     .get(handlers.getHandler)
     .post(handlers.postHandler)

@@ -2,6 +2,7 @@ import { WEATHER_INFO_FAILURE, WEATHER_INFO_SUCCESS, WEATHER_INFO_START } from '
 import axios from 'axios';
 const API = 'http://localhost:8000'
 const postUri = API+'/getweather';
+const postUriLatLon = API+'/basedOnLatLon';
 
 //use this to fetch data from url
 export function sendCoordinates(address){ 
@@ -42,18 +43,18 @@ function getWeatherResultsSucceeded(response) {
 }
 
 
-export function autoDetectCoordinates(latlon){ 
-	console.log(latlon);
+export function autoDetectCoordinates(latlng){ 
+	console.log(latlng);
 	return (dispatch) => {
-	 // dispatch(getAddressOnAutodetectBegined())
- 	return axios.post(postUri, {
-	    latlon: latlon
+	 dispatch(getWeatherResultsBegined())
+ 	return axios.post(postUriLatLon, {
+	    latlng: {lat : latlng.latitude, lng: latlng.longitude, accuracy: latlng.accuracy} 
  	})
    .then((response) => {
-     // dispatch(getAddressOnAutoDetectSucceeded(response));
+     dispatch(getWeatherResultsSucceeded(response));
 	})
    .catch((error) => {
-     // dispatch(getAddressOnAutoDetectFailed(error));
+     dispatch(getWeatherResultsFailed(error));
 	});
    };
 }

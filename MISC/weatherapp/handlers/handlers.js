@@ -18,6 +18,27 @@ const getHandler = (req, res, next) => {
 	// })
 }
 
+const postHandlerLatLon = (req, res, next) => {
+	let latlon = req.body.latlng;
+	let result = results.geoResultsLatLon(latlon);
+	result.then(geoData => {
+		let weather = results.weatherResults(latlon);
+		return weather.then(weatherData => {
+			// console.log('sending back: ', JSON.stringify(data.data));
+			res.status(200).json({
+	  			weatherData: weatherData.data,
+	  			geoData: geoData[0].formattedAddress
+			});
+		})
+		
+	}).catch(error => {
+		console.log('unsucessful georequest');
+		res.status(400).json({
+  			message: "error"
+		});
+	})
+}
+
 const postHandler = (req, res, next) => {
 	let address = req.body.address;
 	let result = results.geoResults(address);
@@ -42,3 +63,4 @@ const postHandler = (req, res, next) => {
 
 module.exports.getHandler = getHandler;
 module.exports.postHandler = postHandler;
+module.exports.postHandlerLatLon = postHandlerLatLon;

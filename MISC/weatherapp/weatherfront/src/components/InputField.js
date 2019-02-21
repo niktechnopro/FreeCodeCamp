@@ -19,9 +19,9 @@ class InputField extends Component {
 		//let's find user's location
 		this.keyListener = document.addEventListener("keydown", this.buttonHandler);
 		navigator.geolocation.getCurrentPosition(coordinates => {
-			let latlon = coordinates.coords;
+			let latlng = coordinates.coords;
 			//we have to send to to node API for processing
-			this.props.onAutoDetectCoordinates(latlon);
+			this.props.onAutoDetectCoordinates(latlng);
 		});
 	}
 
@@ -88,6 +88,7 @@ class InputField extends Component {
 
 
 const mapStateToProps = (state) => {
+	console.log(state);
 	return{
 		geoData: state.geoData,
 	}
@@ -97,7 +98,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onSendCoordinates: (coordinates) => dispatch(sendCoordinates(coordinates)),
-		onAutoDetectCoordinates: (latlon) => dispatch(autoDetectCoordinates(latlon))
+		onAutoDetectCoordinates: (latlng) => dispatch(autoDetectCoordinates(latlng))
 	}
 }
 
