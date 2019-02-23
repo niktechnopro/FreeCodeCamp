@@ -76,9 +76,9 @@ class InputField extends Component {
 					/>
 				</section>
 				<section is="sectionBottom">
-					<div id="comeBack">
-					{this.props.geoData && <p>based on your input we found:</p>}
-					{this.props.geoData}
+					<div id="response">
+					{this.props.geoData ? <p>based on your input we found:</p> : <p>Searching...</p>}
+					{this.props.geoData ? <p>{this.props.geoData}</p> : <p />}
 					</div>
 				</section>
 			</div>

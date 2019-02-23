@@ -12,3 +12,99 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+#wrapper{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#headerWrap{
+	text-align: center;
+}
+
+#header{
+ 	font-size: 2rem;
+ 	text-shadow: 1px 1px 0px #000, 1px -2px 1px #fff;
+ 	color: #008b8b;
+ 	margin-bottom: 0;
+}
+
+#belowHeader{
+
+}
+
+#footerWrap{
+	position:fixed;
+	bottom:0;
+	padding: 0.5rem;
+}
+
+#mainSection{
+	display: flex;
+	flex-wrap: wrap-reverse;
+}
+
+#address{
+	outline: none;
+    border: 4px solid #008b8b;
+    height: 2rem;
+    min-width: 200px;
+    border-radius: 12px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+[type="button"]{
+	background-color: #008b8b;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+}
+
+::-webkit-input-placeholder {
+    color: darkcyan;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+  color: darkcyan;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+#inputAreaWrapper{
+    display: flex;
+    flex-direction: column;
+    height: 230px;
+    border: 2px solid black;
+    flex-direction: column;
+    /*justify-content: space-around;*/
+    align-items: center;
+    width: 356px;
+}
+
+#sectionTop{
+	padding: 1rem;
+}
+
+#response{
+	text-align: center;
+}
+
+#response p{
+	font-size: 1.3rem;
+	color: #008b8b;
+	margin: 0.5rem 0;
+}
+
+#weatherWrap{
+	height: 240px;
+    width: 100%;
+    border: 2px solid black;
+    text-align: center;
+}

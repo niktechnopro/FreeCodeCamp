@@ -2,13 +2,17 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import InputField from './InputField';
+import WeatherField from './WeatherField';
 
 
 const WrapperComponent = () => {
 	return(
-		<div>
+		<div id="wrapper">
 			<Header />
-			<InputField />
+			<main id="mainSection">
+				<InputField />
+				<WeatherField />
+			</main>
 			<Footer />
 		</div>
 	)
