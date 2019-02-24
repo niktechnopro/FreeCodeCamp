@@ -13,7 +13,9 @@ class WeatherField extends Component{
 			humidity: null,
 			claudiness: null,
 			directionNames: ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'],
-			wind: {}
+			wind: {},
+			weather: [],
+			icon: null
 		}
 	}
 
@@ -30,7 +32,9 @@ class WeatherField extends Component{
 						sunrise: this.props.weatherData.sys.sunrise,
 						sunset: this.props.weatherData.sys.sunset,
 						wind: {"deg" : this.props.weatherData.wind.deg,
-							"speed": this.props.weatherData.wind.speed}
+							"speed": (+this.props.weatherData.wind.speed/1.609344).toFixed(2)},
+						weather: this.props.weatherData.weather,
+						icon: this.props.weatherData.weather[0].icon
 					})
 				}
 			})
@@ -47,17 +51,16 @@ class WeatherField extends Component{
 		//return (new Date(+timestamp * 1000).toLocaleTimeString("en-US"));
 	}
 
-	// directionName = (dir) => {
- //        let sections = this.state.directionNames.length,
- //        let sect = 360 / sections,
- //        let x = Math.floor((dir + sect / 2) / sect);
- //        let y = (x >= sections) ? 0 : x;
-
- //        console.log(this.state.directionNames[y]);
- //    }
+	directionName = (dir) => {
+        let sections = this.state.directionNames.length,
+        sect = 360 / sections; //how many degrees per section
+        let x = dir / sect;
+        let y = (x >= sections) ? 0 : Math.round(x),//if whole number - single direction
+        idx = (Number.isInteger(x)) ? y : y+1;//if not whole number - next direction
+        return (this.state.directionNames[idx]);
+    }
 
 	render(){
-		console.log(this.state);
 		return(
 		<div id="weatherWrap">
 			<p>Current Weather</p>
@@ -68,9 +71,12 @@ class WeatherField extends Component{
 				<li>Cloudiness: {this.state.claudiness && this.state.claudiness+" %"}</li>
 				<li>Sunrise: {this.state.sunrise && this.calculateTime(this.state.sunrise)}</li>
 				<li>Sunset: {this.state.sunset && this.calculateTime(this.state.sunset)}</li>
-				<li>Wind: {this.state.wind}</li>
+				<li>Wind: {this.state.wind.deg && this.directionName(this.state.wind.deg)}</li>
+				<li>Speed: {this.state.wind.speed && this.state.wind.speed + " mph"}</li>
+				<li>Weather: {this.state.weather[0] && this.state.weather[0].description}</li>
 			</ul>
 			</div>
+			{this.state.icon && <img src={`http://openweathermap.org/img/w/${this.state.icon}.png`} alt="icon" />}
 		</div>
 	)
 	}
