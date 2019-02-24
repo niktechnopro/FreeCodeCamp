@@ -44,6 +44,7 @@ code {
 #mainSection{
 	display: flex;
 	flex-wrap: wrap-reverse;
+	justify-content: center;
 }
 
 #address{
@@ -104,7 +105,7 @@ code {
 
 #weatherWrap{
 	height: 240px;
-    width: 100%;
+    min-width: 356px;
     border: 2px solid black;
     text-align: center;
 }

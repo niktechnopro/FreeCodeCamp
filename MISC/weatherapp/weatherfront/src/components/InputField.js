@@ -88,7 +88,6 @@ class InputField extends Component {
 
 
 const mapStateToProps = (state) => {
-	console.log(state);
 	return{
 		geoData: state.geoData,
 	}
