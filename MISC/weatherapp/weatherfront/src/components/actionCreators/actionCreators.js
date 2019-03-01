@@ -1,4 +1,6 @@
-import { WEATHER_INFO_FAILURE, WEATHER_INFO_SUCCESS, WEATHER_INFO_START } from '../actions/actions';
+import { WEATHER_INFO_FAILURE, WEATHER_INFO_SUCCESS, WEATHER_INFO_START,
+	AUTO_INFO_SUCCESS, AUTO_INFO_FAILURE, AUTO_INFO_START
+ } from '../actions/actions';
 import axios from 'axios';
 const API = 'http://localhost:8000'
 const postUri = API+'/getweather';
@@ -7,7 +9,7 @@ const postUriLatLon = API+'/basedOnLatLon';
 //use this to fetch data from url
 export function sendCoordinates(address){ 
 	return (dispatch) => {
-	 dispatch(getWeatherResultsBegined())
+	 dispatch(getWeatherResultsBegin())
  	return axios.post(postUri, {
 	    address: address
  	})
@@ -20,7 +22,7 @@ export function sendCoordinates(address){
    };
 }
 
-function getWeatherResultsBegined() {
+function getWeatherResultsBegin() {
 	return{
 		type: WEATHER_INFO_START
 	}
@@ -35,7 +37,7 @@ function getWeatherResultsFailed(error) {
 }
 
 function getWeatherResultsSucceeded(response) {
-	// console.log('succesful response: ',response)
+	console.log('succesful response: ',response)
 	return{
 		type: WEATHER_INFO_SUCCESS,
 		payload: response
@@ -43,18 +45,44 @@ function getWeatherResultsSucceeded(response) {
 }
 
 
+
+
+
 export function autoDetectCoordinates(latlng){ 
 	console.log(latlng);
 	return (dispatch) => {
-	 dispatch(getWeatherResultsBegined())
+	 dispatch(autoResultsBegin())
  	return axios.post(postUriLatLon, {
 	    latlng: {lat : latlng.latitude, lng: latlng.longitude, accuracy: latlng.accuracy} 
  	})
    .then((response) => {
-     dispatch(getWeatherResultsSucceeded(response));
+     dispatch(autoResultsSucceeded(response));
 	})
    .catch((error) => {
-     dispatch(getWeatherResultsFailed(error));
+     dispatch(autoResultsFailed(error));
 	});
    };
+}
+
+function autoResultsBegin() {
+	return{
+		type: AUTO_INFO_START
+	}
+}
+
+
+function autoResultsSucceeded(response) {
+	// console.log('succesful response: ',response)
+	return{
+		type: AUTO_INFO_SUCCESS,
+		payload: response
+	}
+}
+
+
+function autoResultsFailed(error) {
+	return{
+		type: AUTO_INFO_FAILURE,
+		payload: 'error'
+	}
 }

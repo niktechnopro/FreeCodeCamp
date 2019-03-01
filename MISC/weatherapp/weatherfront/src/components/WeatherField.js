@@ -20,21 +20,36 @@ class WeatherField extends Component{
 	}
 
 	componentDidUpdate = (prevState) => {
-		if(this.state.weatherData === null || this.props.weatherData !== prevState.weatherData){
+		if(!this.props.isLoading && this.props.weatherData !== this.state.weatherData){
 			this.setState({
 				weatherData: this.props.weatherData
 			},()=>{
 				if(this.props.weatherData && this.props.weatherData.main){
 					this.setState({
-						temperature: this.props.weatherData.main.temp,
-						humidity: this.props.weatherData.main.humidity,
-						claudiness: this.props.weatherData.clouds.all,
-						sunrise: this.props.weatherData.sys.sunrise,
-						sunset: this.props.weatherData.sys.sunset,
-						wind: {"deg" : this.props.weatherData.wind.deg,
-							"speed": (+this.props.weatherData.wind.speed/1.609344).toFixed(2)},
-						weather: this.props.weatherData.weather,
-						icon: this.props.weatherData.weather[0].icon
+						temperature: this.state.weatherData.main.temp,
+						humidity: this.state.weatherData.main.humidity,
+						claudiness: this.state.weatherData.clouds.all,
+						sunrise: this.state.weatherData.sys.sunrise,
+						sunset: this.state.weatherData.sys.sunset,
+						wind: {"deg" : this.state.weatherData.wind.deg,
+							"speed": (+this.state.weatherData.wind.speed/1.609344).toFixed(2)},
+						weather: this.state.weatherData.weather,
+						icon: this.state.weatherData.weather[0].icon
+					})
+				}else if(this.props.error && !this.props.isLoading){
+					this.setState({
+						weatherData: null
+					}, () => {
+						this.setState({
+							temperature: null,
+							humidity: null,
+							claudiness: null,
+							sunrise: null,
+							sunset: null,
+							wind: {},
+							weather: [],
+							icon: null
+						})
 					})
 				}
 			})
@@ -83,9 +98,11 @@ class WeatherField extends Component{
 }
 
 const mapStateToProps = (state) => {
-	console.log(state)
+	console.log(state);
 	return{
 		weatherData: state.weatherData,
+		error: state.error,
+		isLoading: state.is_Loading
 	}
 }
 
