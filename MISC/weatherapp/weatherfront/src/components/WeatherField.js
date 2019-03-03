@@ -67,12 +67,11 @@ class WeatherField extends Component{
 	}
 
 	directionName = (dir) => {
-        let sections = this.state.directionNames.length,
-        sect = 360 / sections; //how many degrees per section
-        let x = dir / sect;
-        let y = (x >= sections) ? 0 : Math.round(x),//if whole number - single direction
-        idx = (Number.isInteger(x)) ? y : y+1;//if not whole number - next direction
-        return (this.state.directionNames[idx]);
+        let q = Number((dir/45).toFixed(2)); //45deg per section
+        //let find the whole
+        if(q > 7) q=0;
+        let inx = (Number.isInteger(q) ? q : (Math.floor(q)+1));
+        return (this.state.directionNames[inx]);
     }
 
     firstLetter = (text) => {
