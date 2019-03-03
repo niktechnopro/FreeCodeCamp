@@ -75,23 +75,32 @@ class WeatherField extends Component{
         return (this.state.directionNames[idx]);
     }
 
+    firstLetter = (text) => {
+    	let firstLetter = text.slice(0,1);
+    	let returnText = firstLetter.toUpperCase()+text.slice(1);
+    	return returnText;
+    }
+
 	render(){
 		return(
 		<div id="weatherWrap">
-			<p>Current Weather</p>
-			<div>
-			<ul>
-				<li>Temp: {this.state.temperature && this.calculateTempF()+" F"}</li>
-				<li>Humidity: {this.state.humidity && this.state.humidity+" %"}</li>
-				<li>Cloudiness: {this.state.claudiness && this.state.claudiness+" %"}</li>
-				<li>Sunrise: {this.state.sunrise && this.calculateTime(this.state.sunrise)}</li>
-				<li>Sunset: {this.state.sunset && this.calculateTime(this.state.sunset)}</li>
-				<li>Wind: {this.state.wind.deg && this.directionName(this.state.wind.deg)}</li>
-				<li>Speed: {this.state.wind.speed && this.state.wind.speed + " mph"}</li>
-				<li>Weather: {this.state.weather[0] && this.state.weather[0].description}</li>
-			</ul>
+			<p id="weatherHeadline">{this.state.weather[0] ? this.firstLetter(this.state.weather[0].description) : "Current Weather"}</p>
+			<div id="mainBox">
+				<div id="parameters">
+				<ul>
+					<li>Temp: {this.state.temperature && this.calculateTempF()+" F"}</li>
+					<li>Humidity: {this.state.humidity && this.state.humidity+" %"}</li>
+					<li>Cloudiness: {this.state.claudiness && this.state.claudiness+" %"}</li>
+					<li>Sunrise: {this.state.sunrise && this.calculateTime(this.state.sunrise)}</li>
+					<li>Sunset: {this.state.sunset && this.calculateTime(this.state.sunset)}</li>
+					<li>Wind: {this.state.wind.deg && this.directionName(this.state.wind.deg)}</li>
+					<li>Speed: {this.state.wind.speed && this.state.wind.speed + " mph"}</li>
+				</ul>
+				</div>
+				<div id="icon">
+					{this.state.icon && <img src={`http://openweathermap.org/img/w/${this.state.icon}.png`} alt="icon" />}
+				</div>
 			</div>
-			{this.state.icon && <img src={`http://openweathermap.org/img/w/${this.state.icon}.png`} alt="icon" />}
 		</div>
 	)
 	}

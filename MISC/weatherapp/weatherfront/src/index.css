@@ -45,6 +45,9 @@ code {
 	display: flex;
 	flex-wrap: wrap-reverse;
 	justify-content: center;
+	/*border: 3px solid #a0ad32;*/
+	border: 3px solid #008b8b;
+	border-radius: 1rem;
 }
 
 #address{
@@ -81,8 +84,8 @@ code {
 #inputAreaWrapper{
     display: flex;
     flex-direction: column;
-    height: 230px;
-    border: 2px solid black;
+    height: 240px;
+    /*border: 2px solid black;*/
     flex-direction: column;
     /*justify-content: space-around;*/
     align-items: center;
@@ -106,6 +109,32 @@ code {
 #weatherWrap{
 	height: 240px;
     min-width: 356px;
-    border: 2px solid black;
+    /*border: 2px solid black;*/
     text-align: center;
 }
+
+#mainBox{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+#parameters{
+	display: block;
+    text-align: left;
+}
+
+#icon{
+	width: 150px;
+    object-fit: contain;
+}
+
+#icon>img{
+	width: 120px;
+}
+
+#weatherHeadline{
+	font-size: 2rem;
+    margin: 0.5rem 0 0.5rem 0;
+}
+
