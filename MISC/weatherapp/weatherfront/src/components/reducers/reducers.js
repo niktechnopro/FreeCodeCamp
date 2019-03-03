@@ -11,7 +11,8 @@ const initialState = {
 	geoData: null,
 	weatherData: null,
 	error: null,
-	is_Loading: false
+	is_Loading: false,
+	autodetect: false
 }
 
 export default (state=initialState, action) => {
@@ -24,6 +25,7 @@ export default (state=initialState, action) => {
 				weatherData: null,
 				is_Loading: true,
 				error: null,
+				autodetect: false
 			};
 		case WEATHER_INFO_SUCCESS:
 			return{
@@ -31,7 +33,8 @@ export default (state=initialState, action) => {
 				geoData: action.payload.data.geoData,
 				weatherData: action.payload.data.weatherData,
 				is_Loading: false,
-				error: null
+				error: null,
+				autodetect: false
 			};
 		case WEATHER_INFO_FAILURE:
 			return{
@@ -39,7 +42,8 @@ export default (state=initialState, action) => {
 				error: action.payload,
 				geoData: null,
 				weatherData: null,
-				is_Loading: false
+				is_Loading: false,
+				autodetect: false
 			};
 		case AUTO_INFO_START:
 			return{
@@ -48,6 +52,7 @@ export default (state=initialState, action) => {
 				weatherData:null,
 				is_Loading: true,
 				error: null,
+				autodetect: true
 			};
 		case AUTO_INFO_SUCCESS:
 			return{
@@ -55,7 +60,8 @@ export default (state=initialState, action) => {
 				geoData: action.payload.data.geoData,
 				weatherData: action.payload.data.weatherData,
 				is_Loading: false,
-				error: null
+				error: null,
+				autodetect: false
 			};
 		case AUTO_INFO_FAILURE:
 			return{
@@ -63,7 +69,8 @@ export default (state=initialState, action) => {
 				error: action.payload,
 				geoData: null,
 				weatherData: null,
-				is_Loading: false
+				is_Loading: false,
+				autodetect: false
 			}
 		default:
 			return state;

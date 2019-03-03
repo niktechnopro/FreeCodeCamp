@@ -6,7 +6,8 @@ class InputField extends Component {
 	constructor(){
 		super()
 		this.state={
-			address: ''
+			address: '',
+			focus: false,
 		}
 		this.keyListener = null;
 	}
@@ -48,16 +49,30 @@ class InputField extends Component {
 
 	handleSubmitButton = (e) => {
 		e.preventDefault();
+		this.setState({
+			focus: false
+		})
 		this.props.onSendCoordinates(this.state.address)
 		.then(result => {
 			this.setState({
 				address: ""
 			})
 		});
+	}
 
+	onFocusClear = (e) => {
+		this.setState({
+			focus: true
+		})
 	}
 
 	render(){
+		let happening = this.props.autodetect ? 
+		<p>Detecting your Location...</p>
+		:
+		<p>Address That We Found:</p>;
+
+		let errorDetection = this.props.error ? <p>Try again...</p> : happening;
 		// console.log(this.props);
 		return(
 			<div id="inputAreaWrapper">
@@ -67,6 +82,7 @@ class InputField extends Component {
 						placeholder="enter location here" 
 						onChange={this.handleInput} 
 						value={this.state.address}
+						onFocus={this.onFocusClear}
 					/>
 				</section>
 				<section id="sectionMiddle">
@@ -75,12 +91,12 @@ class InputField extends Component {
 						onClick={this.handleSubmitButton} 
 					/>
 				</section>
-				<section is="sectionBottom">
+				{!this.state.focus && <section is="sectionBottom">
 					<div id="response">
-					{!this.props.is_Loading ? <p>based on your input we found:</p> : <p>Searching...</p>}
+					{(!this.props.is_Loading || this.props.autodetect) ? errorDetection : <p>Searching...</p>}
 					{this.props.geoData ? <p>{this.props.geoData}</p> : <p />}
 					</div>
-				</section>
+				</section>}
 			</div>
 		)
 	}
@@ -88,8 +104,12 @@ class InputField extends Component {
 
 
 const mapStateToProps = (state) => {
+	console.log('data', state);
 	return{
 		geoData: state.geoData,
+		autodetect: state.autodetect,
+		is_Loading: state.is_Loading,
+		error: state.error
 	}
 	
 }
