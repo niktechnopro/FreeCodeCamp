@@ -49,7 +49,6 @@ function getWeatherResultsSucceeded(response) {
 
 
 export function autoDetectCoordinates(latlng){ 
-	console.log(latlng);
 	return (dispatch) => {
 	 dispatch(autoResultsBegin())
  	return axios.post(postUriLatLon, {

@@ -81,8 +81,11 @@ class WeatherField extends Component{
     }
 
 	render(){
+		console.log(this.props)
 		return(
 		<div id="weatherWrap">
+		{(!this.props.is_Loading || !this.props.autodetect) ? 
+			<div>
 			<p id="weatherHeadline">{this.state.weather[0] ? this.firstLetter(this.state.weather[0].description) : "Current Weather"}</p>
 			<div id="mainBox">
 				<div id="parameters">
@@ -100,6 +103,10 @@ class WeatherField extends Component{
 					{this.state.icon && <img src={`http://openweathermap.org/img/w/${this.state.icon}.png`} alt="icon" />}
 				</div>
 			</div>
+			</div>
+			:
+			null
+		}
 		</div>
 	)
 	}
@@ -110,7 +117,8 @@ const mapStateToProps = (state) => {
 	return{
 		weatherData: state.weatherData,
 		error: state.error,
-		isLoading: state.is_Loading
+		isLoading: state.is_Loading,
+		autodetect: state.autodetect
 	}
 }
 

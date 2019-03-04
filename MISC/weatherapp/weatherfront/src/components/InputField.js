@@ -18,27 +18,41 @@ class InputField extends Component {
 
 	componentDidMount = () => {
 		//let's find user's location
-		this.keyListener = document.addEventListener("keydown", this.buttonHandler);
+		this.keyDownListener = document.addEventListener("keydown", this.buttonHandler);
+		this.keyUpListener = document.addEventListener("keyup", this.buttonUp);
 		navigator.geolocation.getCurrentPosition(coordinates => {
 			let latlng = coordinates.coords;
 			//we have to send to to node API for processing
 			this.props.onAutoDetectCoordinates(latlng);
 		});
+		this.searchButton = document.querySelector('[type="button"]');
 	}
 
 	componentWillUnmount = () => {
-		this.keyListener.remove();
-		this.keyListener = null;
+		this.keyDownListener.remove();
+		this.keyDownListener = null;
+		this.keyUpListener.remove();
+		this.keyUpListener = null;
 	}
 
 	buttonHandler = (e) => {
 		if(e.keyCode === 13 && this.state.address.length > 4){
+			this.searchButton.classList.add("classToAdd");
+			this.setState({
+				focus: false
+			})	
 			this.props.onSendCoordinates(this.state.address)
 			.then(result => {
 				this.setState({
 					address: ""
 				})
 			});
+		}
+	}
+
+	buttonUp = (e) => {
+		if(e.keyCode === 13){
+			this.searchButton.classList.remove("classToAdd");
 		}
 	}
 
