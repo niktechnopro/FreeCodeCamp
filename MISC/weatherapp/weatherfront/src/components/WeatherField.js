@@ -5,7 +5,7 @@ import moment from "moment";
 const FirstLoadScreen = () => {
 	return(
 		<div id="autodetectScreen">
-			<p>Wait Until We detect your location Or Input Location</p>
+			<p>Wait while we're detecting your location Or Input Yourself</p>
 		</div>
 	)
 }
