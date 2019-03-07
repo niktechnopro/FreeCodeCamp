@@ -6,6 +6,7 @@ const API = 'http://localhost:8000'
 const postUri = API+'/getweather';
 const postUriLatLon = API+'/basedOnLatLon';
 
+
 //use this to fetch data from url
 export function sendCoordinates(address){ 
 	return (dispatch) => {
@@ -43,9 +44,6 @@ function getWeatherResultsSucceeded(response) {
 		payload: response
 	}
 }
-
-
-
 
 
 export function autoDetectCoordinates(latlng){ 

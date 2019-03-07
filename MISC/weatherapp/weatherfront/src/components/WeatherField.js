@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
 
-
+const FirstLoadScreen = () => {
+	return(
+		<div id="autodetectScreen">
+			<p>Wait Until We detect your location Or Input Location</p>
+		</div>
+	)
+}
 
 class WeatherField extends Component{
 	constructor(props){
@@ -15,11 +21,17 @@ class WeatherField extends Component{
 			directionNames: ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'],
 			wind: {},
 			weather: [],
-			icon: null
+			icon: null,
+			firstLoad: true
 		}
 	}
 
-	componentDidUpdate = (prevState) => {
+	componentDidUpdate = (prevProps, prevState) => {
+		if(this.state.firstLoad && prevProps.geoData===null && this.props.geoData && !this.props.error){
+			this.setState({
+				firstLoad: false
+			})
+		}
 		if(!this.props.isLoading && this.props.weatherData !== this.state.weatherData){
 			this.setState({
 				weatherData: this.props.weatherData
@@ -84,7 +96,7 @@ class WeatherField extends Component{
 		console.log(this.props)
 		return(
 		<div id="weatherWrap">
-		{(!this.props.is_Loading || !this.props.autodetect) ? 
+		{(!this.state.firstLoad && false) ? 
 			<div>
 			<p id="weatherHeadline">{this.state.weather[0] ? this.firstLetter(this.state.weather[0].description) : "Current Weather"}</p>
 			<div id="mainBox">
@@ -105,7 +117,7 @@ class WeatherField extends Component{
 			</div>
 			</div>
 			:
-			null
+			<FirstLoadScreen />
 		}
 		</div>
 	)
@@ -115,6 +127,7 @@ class WeatherField extends Component{
 const mapStateToProps = (state) => {
 	console.log(state);
 	return{
+		geoData: state.geoData,
 		weatherData: state.weatherData,
 		error: state.error,
 		isLoading: state.is_Loading,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { sendCoordinates, autoDetectCoordinates } from './actionCreators/actionCreators';
 
+
 class InputField extends Component {
 	constructor(){
 		super()
@@ -13,18 +14,31 @@ class InputField extends Component {
 	}
 
 	componentDidUpdate = (prevProps) => {
+	
+	}
 
+	ipLookupAddress = () => {
+		// this.props.fetchIpAddess();
+		console.log('lets do ip lookup address');
 	}
 
 	componentDidMount = () => {
-		//let's find user's location
+		//mounting keyEventListeners
 		this.keyDownListener = document.addEventListener("keydown", this.buttonHandler);
 		this.keyUpListener = document.addEventListener("keyup", this.buttonUp);
-		navigator.geolocation.getCurrentPosition(coordinates => {
-			let latlng = coordinates.coords;
-			//we have to send to to node API for processing
-			this.props.onAutoDetectCoordinates(latlng);
-		});
+		//let's find user's location
+		if(navigator && navigator.geolocation){//alternatively "geolocation" in navigator
+			navigator.geolocation.getCurrentPosition((coordinates, error) => {
+				if(coordinates){
+					let latlng = coordinates.coords;
+					//we have to send to to node API for processing
+					this.props.onAutoDetectCoordinates(latlng);
+				}else{
+					//let's tru IP lookup Address
+					this.ipLookupAddress();
+				}
+			});
+		}
 		this.searchButton = document.querySelector('[type="button"]');
 	}
 
@@ -131,7 +145,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onSendCoordinates: (coordinates) => dispatch(sendCoordinates(coordinates)),
-		onAutoDetectCoordinates: (latlng) => dispatch(autoDetectCoordinates(latlng))
+		onAutoDetectCoordinates: (latlng) => dispatch(autoDetectCoordinates(latlng)),
 	}
 }
 

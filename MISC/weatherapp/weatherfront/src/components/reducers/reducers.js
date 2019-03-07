@@ -12,7 +12,7 @@ const initialState = {
 	weatherData: null,
 	error: null,
 	is_Loading: false,
-	autodetect: false
+	autodetect: false,
 }
 
 export default (state=initialState, action) => {
