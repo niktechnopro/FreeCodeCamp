@@ -2,10 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
 
-const FirstLoadScreen = () => {
+const FirstLoadScreen = (props) => {
 	return(
-		<div id="autodetectScreen">
-			<p>Wait while we're detecting your location Or Input Yourself</p>
+		<div className="autodetectScreen">
+			{props.isFirstLoad ? <p>Wait while we're detecting your location Or Input Address Yourself</p> : null}
+		</div>
+	)
+}
+
+const ErrorScreen = (props) => {
+	return(
+		<div className="errorScreen">
+			{props.isError && <p>Ooops, something went wrong...</p>}
+			{props.isError && <p>Try entering another address</p>}
 		</div>
 	)
 }
@@ -22,14 +31,20 @@ class WeatherField extends Component{
 			wind: {},
 			weather: [],
 			icon: null,
-			firstLoad: true
+			isFirstLoad: true,
+			error: false
 		}
 	}
 
 	componentDidUpdate = (prevProps, prevState) => {
-		if(this.state.firstLoad && prevProps.geoData===null && this.props.geoData && !this.props.error){
+		if(!prevProps.error && this.props.error){
 			this.setState({
-				firstLoad: false
+				error: true
+			})
+		}
+		if(this.state.isFirstLoad && prevProps.geoData===null && this.props.geoData && !this.props.error){
+			this.setState({
+				isFirstLoad: false
 			})
 		}
 		if(!this.props.isLoading && this.props.weatherData !== this.state.weatherData){
@@ -66,6 +81,14 @@ class WeatherField extends Component{
 				}
 			})
 		}
+		if (prevState.isFirstLoad === true && this.state.isFirstLoad === false){
+			document.querySelector('.autodetectScreen').classList.add("transparent");
+		}
+		if (prevProps.error && !this.props.error){
+			console.log("does this ever run?")
+			document.querySelector('.errorScreen').classList.add("transparent");
+			setTimeout(()=>this.setState({error: false}), 2000);
+		}
 	}
 
 	calculateTempF = () => {
@@ -93,10 +116,11 @@ class WeatherField extends Component{
     }
 
 	render(){
-		console.log(this.props)
+		// console.log(this.props)
 		return(
 		<div id="weatherWrap">
-		{(!this.state.firstLoad && false) ? 
+			<FirstLoadScreen isFirstLoad={this.state.isFirstLoad} />
+			{this.state.error && <ErrorScreen isError={this.props.error} />}
 			<div>
 			<p id="weatherHeadline">{this.state.weather[0] ? this.firstLetter(this.state.weather[0].description) : "Current Weather"}</p>
 			<div id="mainBox">
@@ -116,9 +140,6 @@ class WeatherField extends Component{
 				</div>
 			</div>
 			</div>
-			:
-			<FirstLoadScreen />
-		}
 		</div>
 	)
 	}

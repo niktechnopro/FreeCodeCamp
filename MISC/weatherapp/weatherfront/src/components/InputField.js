@@ -9,12 +9,17 @@ class InputField extends Component {
 		this.state={
 			address: '',
 			focus: false,
+			isFirstLoad: true
 		}
 		this.keyListener = null;
 	}
 
-	componentDidUpdate = (prevProps) => {
-	
+	componentDidUpdate = (prevProps, prevState) => {
+		if(this.state.isFirstLoad && prevProps.autodetect && !this.props.autodetect){
+			this.setState({
+				isFirstLoad: false
+			})
+		}
 	}
 
 	ipLookupAddress = () => {
@@ -89,13 +94,15 @@ class InputField extends Component {
 	}
 
 	onFocusClear = (e) => {
-		this.setState({
+		if(!this.state.isFirstLoad || !this.props.autodetect || !this.props.is_Loading){
+			this.setState({
 			focus: true
 		})
+		}
 	}
 
 	render(){
-		let happening = this.props.autodetect ? 
+		let happening = this.state.isFirstLoad || this.props.autodetect ? 
 		<p>Detecting your Location...</p>
 		:
 		<p>Address That We Found:</p>;
