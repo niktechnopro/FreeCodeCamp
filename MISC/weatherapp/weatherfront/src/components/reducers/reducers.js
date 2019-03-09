@@ -4,7 +4,8 @@ import {
 	WEATHER_INFO_START,
 	AUTO_INFO_START,
 	AUTO_INFO_SUCCESS,
-	AUTO_INFO_FAILURE
+	AUTO_INFO_FAILURE,
+	IP_ADDRESS_LOOKUP
 } from '../actions/actions';
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
 	error: null,
 	is_Loading: false,
 	autodetect: false,
+	latlng: null
 }
 
 export default (state=initialState, action) => {
@@ -25,7 +27,8 @@ export default (state=initialState, action) => {
 				weatherData: null,
 				is_Loading: true,
 				error: null,
-				autodetect: false
+				autodetect: false,
+				latlng: null
 			};
 		case WEATHER_INFO_SUCCESS:
 			return{
@@ -34,7 +37,8 @@ export default (state=initialState, action) => {
 				weatherData: action.payload.data.weatherData,
 				is_Loading: false,
 				error: null,
-				autodetect: false
+				autodetect: false,
+				latlng: null
 			};
 		case WEATHER_INFO_FAILURE:
 			return{
@@ -43,7 +47,8 @@ export default (state=initialState, action) => {
 				geoData: null,
 				weatherData: null,
 				is_Loading: false,
-				autodetect: false
+				autodetect: false,
+				latlng: null
 			};
 		case AUTO_INFO_START:
 			return{
@@ -52,7 +57,8 @@ export default (state=initialState, action) => {
 				weatherData:null,
 				is_Loading: true,
 				error: null,
-				autodetect: true
+				autodetect: true,
+				latlng: null
 			};
 		case AUTO_INFO_SUCCESS:
 			return{
@@ -61,7 +67,8 @@ export default (state=initialState, action) => {
 				weatherData: action.payload.data.weatherData,
 				is_Loading: false,
 				error: null,
-				autodetect: false
+				autodetect: false,
+				latlng: null
 			};
 		case AUTO_INFO_FAILURE:
 			return{
@@ -70,7 +77,13 @@ export default (state=initialState, action) => {
 				geoData: null,
 				weatherData: null,
 				is_Loading: false,
-				autodetect: false
+				autodetect: false,
+				latlng: null
+			};
+		case IP_ADDRESS_LOOKUP:
+			return{
+				...state,
+				latlng: action.payload
 			}
 		default:
 			return state;

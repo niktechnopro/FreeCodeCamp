@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { sendCoordinates, autoDetectCoordinates } from './actionCreators/actionCreators';
+import { sendCoordinates, 
+		autoDetectCoordinates,
+		ipAddressLookup } from './actionCreators/actionCreators';
 
 
 class InputField extends Component {
@@ -24,7 +26,7 @@ class InputField extends Component {
 
 	ipLookupAddress = () => {
 		// this.props.fetchIpAddess();
-		console.log('lets do ip lookup address');
+		return this.props.onIPaddressLookup();
 	}
 
 	componentDidMount = () => {
@@ -40,7 +42,11 @@ class InputField extends Component {
 					this.props.onAutoDetectCoordinates(latlng);
 				}else{
 					//let's tru IP lookup Address
-					this.ipLookupAddress();
+					this.ipLookupAddress().then(res => {
+						if(res){
+							this.props.onAutoDetectCoordinates(res);
+						}
+					});
 				}
 			});
 		}
@@ -139,12 +145,13 @@ class InputField extends Component {
 
 
 const mapStateToProps = (state) => {
-	// console.log('data', state);
+	//console.log('data', state);
 	return{
 		geoData: state.geoData,
 		autodetect: state.autodetect,
 		is_Loading: state.is_Loading,
-		error: state.error
+		error: state.error,
+		latlng: state.latlng
 	}
 	
 }
@@ -153,6 +160,7 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		onSendCoordinates: (coordinates) => dispatch(sendCoordinates(coordinates)),
 		onAutoDetectCoordinates: (latlng) => dispatch(autoDetectCoordinates(latlng)),
+		onIPaddressLookup: () => dispatch(ipAddressLookup()), 
 	}
 }
 

@@ -1,10 +1,11 @@
 import { WEATHER_INFO_FAILURE, WEATHER_INFO_SUCCESS, WEATHER_INFO_START,
-	AUTO_INFO_SUCCESS, AUTO_INFO_FAILURE, AUTO_INFO_START
+	AUTO_INFO_SUCCESS, AUTO_INFO_FAILURE, AUTO_INFO_START, IP_ADDRESS_LOOKUP
  } from '../actions/actions';
 import axios from 'axios';
 const API = 'http://localhost:8000'
 const postUri = API+'/getweather';
 const postUriLatLon = API+'/basedOnLatLon';
+const ipAddressLookupAPI = 'http://ip-api.com/json';
 
 
 //use this to fetch data from url
@@ -81,5 +82,36 @@ function autoResultsFailed(error) {
 	return{
 		type: AUTO_INFO_FAILURE,
 		payload: 'error'
+	}
+}
+
+export function ipAddressLookup(){ 
+	return (dispatch) => {
+	 dispatch(autoResultsBegin())
+ 	return axios.get(ipAddressLookupAPI)    
+	   .then((response) => {
+	   	if(response.status === 200){
+	   		let respObject = response.data;
+	   		let latlng={
+	   			latitude: respObject.lat,
+	   			longitude: respObject.lon,
+	   			accuracy: 20
+	   		}
+	     dispatch(ipAddressLookupSuccess(latlng));
+	     	return latlng;
+	     }
+		})
+	   .catch((error) => {
+	   		console.log(error)
+	   		dispatch(autoResultsFailed(error));
+		});
+    };
+}
+
+
+function ipAddressLookupSuccess(latlng){
+	return{
+		type: IP_ADDRESS_LOOKUP,
+		payload: latlng
 	}
 }

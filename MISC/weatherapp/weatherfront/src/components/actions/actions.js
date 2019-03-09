@@ -8,3 +8,4 @@ export const AUTO_INFO_FAILURE = 'AUTO_INFO_FAILURE';
 export const AUTO_INFO_START = 'AUTO_INFO_START';
 
 export const ON_FIRST_LOAD = 'ON_FIRST_LOAD';
+export const IP_ADDRESS_LOOKUP = 'IP_ADDRESS_LOOKUP';
