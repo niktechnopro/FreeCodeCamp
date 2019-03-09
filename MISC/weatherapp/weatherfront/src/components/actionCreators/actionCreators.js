@@ -38,7 +38,7 @@ function getWeatherResultsFailed(error) {
 }
 
 function getWeatherResultsSucceeded(response) {
-	console.log('succesful response: ',response)
+	// console.log('succesful response: ',response)
 	return{
 		type: WEATHER_INFO_SUCCESS,
 		payload: response

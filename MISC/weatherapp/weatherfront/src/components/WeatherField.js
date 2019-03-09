@@ -105,10 +105,12 @@ class WeatherField extends Component{
 	}
 
 	directionName = (dir) => {
+		// console.log('direction', dir)
         let q = Number((dir/45).toFixed(2)); //45deg per section
         //let find the whole
-        if(q > 7) q=0;
-        let inx = (Number.isInteger(q) ? q : (Math.floor(q)+1));
+        // console.log(q, Math.floor(q));
+        if(q > 7) q=1;
+        let inx = (Number.isInteger(q) ? q-1 : (Math.floor(q)));
         return (this.state.directionNames[inx]);
     }
 
@@ -135,7 +137,7 @@ class WeatherField extends Component{
 					<li>Cloudiness: {this.state.claudiness && this.state.claudiness+" %"}</li>
 					<li>Sunrise: {this.state.sunrise && this.calculateTime(this.state.sunrise)}</li>
 					<li>Sunset: {this.state.sunset && this.calculateTime(this.state.sunset)}</li>
-					<li>Wind: {this.state.wind.deg && this.directionName(this.state.wind.deg)}</li>
+					<li>Wind: {this.state.wind.deg ? this.directionName(this.state.wind.deg)+" "+Math.round(this.state.wind.deg)+"deg": "No Data"}</li>
 					<li>Speed: {this.state.wind.speed && this.state.wind.speed + " mph"}</li>
 				</ul>
 				</div>
@@ -150,7 +152,7 @@ class WeatherField extends Component{
 }
 
 const mapStateToProps = (state) => {
-	console.log(state);
+	// console.log(state);
 	return{
 		geoData: state.geoData,
 		weatherData: state.weatherData,
