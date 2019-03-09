@@ -55,7 +55,7 @@ class InputField extends Component {
 	}
 
 	buttonHandler = (e) => {
-		if(e.keyCode === 13 && this.state.address.length > 4){
+		if(e.keyCode === 13 && this.state.address.length > 0){
 			this.searchButton.classList.add("classToAdd");
 			this.setState({
 				focus: false

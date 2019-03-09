@@ -150,7 +150,7 @@ code {
   box-shadow: inset 0 0 30px #000000;
 }
 
-.autodetectScreen, .errorScreen{
+.autodetectScreen, .errorScreen, .searchScreen{
 	border-radius: 10px;
 	width: 348px;
 	height: 240px;
@@ -165,7 +165,7 @@ code {
 
 
 
-.autodetectScreen>p, .errorScreen>p{
+.autodetectScreen>p, .errorScreen>p, .searchScreen>p{
 	font-size: 2rem;
     width: 348px;
     text-align: center;

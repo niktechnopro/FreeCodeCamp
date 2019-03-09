@@ -13,8 +13,16 @@ const FirstLoadScreen = (props) => {
 const ErrorScreen = (props) => {
 	return(
 		<div className="errorScreen">
-			{props.isError && <p>Ooops, something went wrong...</p>}
-			{props.isError && <p>Try entering another address</p>}
+			<p>Ooops, something went wrong...</p>
+			<p>Try entering another address</p>
+		</div>
+	)
+}
+
+const SearchScreen = (props) => {
+	return(
+		<div className="searchScreen">
+			<p>Working...</p>
 		</div>
 	)
 }
@@ -84,11 +92,6 @@ class WeatherField extends Component{
 		if (prevState.isFirstLoad === true && this.state.isFirstLoad === false){
 			document.querySelector('.autodetectScreen').classList.add("transparent");
 		}
-		if (prevProps.error && !this.props.error){
-			console.log("does this ever run?")
-			document.querySelector('.errorScreen').classList.add("transparent");
-			setTimeout(()=>this.setState({error: false}), 2000);
-		}
 	}
 
 	calculateTempF = () => {
@@ -120,7 +123,8 @@ class WeatherField extends Component{
 		return(
 		<div id="weatherWrap">
 			<FirstLoadScreen isFirstLoad={this.state.isFirstLoad} />
-			{this.state.error && <ErrorScreen isError={this.props.error} />}
+			{this.props.error && <ErrorScreen isError={this.props.error} />}
+			{!this.state.isFirstLoad && !this.props.error && !this.props.geoData && <SearchScreen />}
 			<div>
 			<p id="weatherHeadline">{this.state.weather[0] ? this.firstLetter(this.state.weather[0].description) : "Current Weather"}</p>
 			<div id="mainBox">
