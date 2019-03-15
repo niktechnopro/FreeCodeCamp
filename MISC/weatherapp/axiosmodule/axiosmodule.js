@@ -34,7 +34,13 @@ const geoResultsLatLon = (latlon) => {
 const weatherResults = (latlon) => {
 	let weatherUrl = process.env.baseAPI+`?lat=${latlon.lat}&lon=${latlon.lng}&appid=`+process.env.WEATHER_API_KEY;
 	return axios(weatherUrl);
-}		
+}
+
+const fiveDaysWeatherResults = (latlon) => {
+  let fiveDaysWeatherUrl = process.env.fiveDaysAPI+`?lat=${latlon.lat}&lon=${latlon.lng}&appid=`+process.env.WEATHER_API_KEY;
+  console.log(fiveDaysWeatherUrl);
+  return axios(fiveDaysWeatherUrl);
+}	
 
 
 const geoResults = (address) => {

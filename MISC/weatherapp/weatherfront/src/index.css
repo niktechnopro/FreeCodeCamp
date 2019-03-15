@@ -74,6 +74,7 @@ code {
     box-shadow: inset 0 0 10px #000000;
     transition: all 0.3s;
     outline: none;
+    cursor: pointer;
 }
 
 ::-webkit-input-placeholder {
@@ -86,6 +87,12 @@ code {
   color: darkcyan;
   text-align: center;
   font-size: 1.3rem;
+}
+
+[type="button"]:active, button:active{
+	-moz-box-shadow: inset 0 0 30px #000000;
+	-webkit-box-shadow: inset 0 0 30px #000000;
+	box-shadow: inset 0 0 30px #000000;
 }
 
 #inputAreaWrapper{
@@ -172,6 +179,21 @@ code {
     text-align: center;
     text-shadow: 1px 1px 0px #000, 1px -2px 1px #fff;
     color: #008b8b;
+}
+
+button{
+	font-weight: 500;
+    background-color: #008b8b;
+    padding: 0px;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    color: #fff;
+    padding: 0 0.5rem;
+    -moz-box-shadow: inset 0 0 5px #000000;
+  	-webkit-box-shadow: inset 0 0 5px #000000;
+  	box-shadow: inset 0 0 5px #000000;
+  	outline: none;
+  	cursor: pointer;
 }
 
 

@@ -138,6 +138,13 @@ class InputField extends Component {
 					{this.props.geoData ? <p>{this.props.geoData}</p> : <p />}
 					</div>
 				</section>}
+				{this.props.geoData && <section id="forecastButtonSection">
+					<button 
+					onClick={(e)=>console.log("get forecast", e)} 
+					>
+					5 days forecast...
+					</button>
+				</section>}
 			</div>
 		)
 	}

@@ -24,10 +24,11 @@ const postHandlerLatLon = (req, res, next) => {
 	result.then(geoData => {
 		let weather = results.weatherResults(latlon);
 		return weather.then(weatherData => {
-			// console.log('sending back: ', JSON.stringify(data.data));
+			// console.log('sending back: ', geoData[0]);
 			res.status(200).json({
 	  			weatherData: weatherData.data,
-	  			geoData: geoData[0].formattedAddress
+	  			geoData: geoData[0].formattedAddress,
+	 			geoResults: geoData[0]
 			});
 		})
 		
@@ -46,10 +47,11 @@ const postHandler = (req, res, next) => {
 		let latlon = geoData.json.results[0].geometry.location;
 		let weather = results.weatherResults(latlon);
 		return weather.then(weatherData => {
-			// console.log('sending back: ', JSON.stringify(data.data));
+			// console.log('sending back: ', geoData.json.results[0].geometry);
 			res.status(200).json({
 	  			weatherData: weatherData.data,
-	  			geoData: geoData.json.results[0].formatted_address
+	  			geoData: geoData.json.results[0].formatted_address,
+	  			geoResults: geoData.json.results[0].geometry
 			});
 		})
 	}).catch(error => {
@@ -60,7 +62,13 @@ const postHandler = (req, res, next) => {
 	})
 }
 
+const forecastHandler = (req, res, next) => {
+	let latlon = req.body.latlng;
+	console.log('boo');
+}
+
 
 module.exports.getHandler = getHandler;
 module.exports.postHandler = postHandler;
 module.exports.postHandlerLatLon = postHandlerLatLon;
+module.exports.forecastHandler = forecastHandler;

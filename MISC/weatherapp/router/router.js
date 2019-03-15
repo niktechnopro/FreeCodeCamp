@@ -14,9 +14,11 @@ let handlers = require('../handlers/handlers.js');//route handlers
 router.route('/basedOnLatLon')
     .post(handlers.postHandlerLatLon)
 
-
 router.route('/getweather')
     .get(handlers.getHandler)
     .post(handlers.postHandler)
+
+router.route('/forecast')
+	.post(handlers.forecastHandler)
 
 module.exports = router;
