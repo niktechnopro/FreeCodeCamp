@@ -95,6 +95,22 @@ export default (state=initialState, action) => {
 				...state,
 				latlng: action.payload
 			}
+		case GET_FORECAST_BEGIN:
+			return{
+				...state,
+				geoData: null,
+				weatherData:null,
+				is_Loading: true,
+				error: null,
+				autodetect: false,
+				latlng: null,
+				geoResults: null
+			}
+		case GET_FORECAST_SUCCESS:
+			console.log("get forecast success: ",action)
+			return{
+				boo: 'boo'
+			}
 		default:
 			return state;
 	}

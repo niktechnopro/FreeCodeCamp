@@ -38,10 +38,8 @@ const weatherResults = (latlon) => {
 
 const fiveDaysWeatherResults = (latlon) => {
   let fiveDaysWeatherUrl = process.env.fiveDaysAPI+`?lat=${latlon.lat}&lon=${latlon.lng}&appid=`+process.env.WEATHER_API_KEY;
-  console.log(fiveDaysWeatherUrl);
   return axios(fiveDaysWeatherUrl);
 }	
-
 
 const geoResults = (address) => {
 	return googleMapsClient.geocode({address: address}).asPromise()
@@ -51,3 +49,4 @@ const geoResults = (address) => {
 module.exports.weatherResults = weatherResults;
 module.exports.geoResults = geoResults;
 module.exports.geoResultsLatLon = geoResultsLatLon;
+module.exports.fiveDaysWeatherResults = fiveDaysWeatherResults;

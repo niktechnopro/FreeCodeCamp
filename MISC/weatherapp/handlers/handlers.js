@@ -68,7 +68,19 @@ const postHandler = (req, res, next) => {
 
 const forecastHandler = (req, res, next) => {
 	let latlon = req.body.latlng;
-	console.log('boo', latlon);
+	let result = results.fiveDaysWeatherResults(latlon);
+	result.then(weatherData => {
+		console.log(weatherData.data)
+		res.status(200).json({
+			weatherData: weatherData.data
+		})
+	})
+	result.catch(error => {
+		console.log('unsucessful georequest');
+		res.status(400).json({
+  			message: "error"
+		});
+	})
 }
 
 
