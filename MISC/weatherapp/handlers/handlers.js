@@ -68,7 +68,7 @@ const postHandler = (req, res, next) => {
 
 const forecastHandler = (req, res, next) => {
 	let latlon = req.body.latlng;
-	console.log('boo');
+	console.log('boo', latlon);
 }
 
 

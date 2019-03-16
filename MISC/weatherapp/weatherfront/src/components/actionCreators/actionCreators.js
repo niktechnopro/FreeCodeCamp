@@ -1,11 +1,13 @@
 import { WEATHER_INFO_FAILURE, WEATHER_INFO_SUCCESS, WEATHER_INFO_START,
-	AUTO_INFO_SUCCESS, AUTO_INFO_FAILURE, AUTO_INFO_START, IP_ADDRESS_LOOKUP
+	AUTO_INFO_SUCCESS, AUTO_INFO_FAILURE, AUTO_INFO_START, IP_ADDRESS_LOOKUP,
+	GET_FORECAST_BEGIN, GET_FORECAST_SUCCESS, GET_FORECAST_FAILURE
  } from '../actions/actions';
 import axios from 'axios';
 const API = 'http://localhost:8000'
 const postUri = API+'/getweather';
 const postUriLatLon = API+'/basedOnLatLon';
 const ipAddressLookupAPI = 'http://ip-api.com/json';
+const getWeatherForecastAPI = API+'/forecast';
 
 
 //use this to fetch data from url
@@ -16,7 +18,6 @@ export function sendCoordinates(address){
 	    address: address
  	})
    .then((response) => {
-   		console.log(response);
      dispatch(getWeatherResultsSucceeded(response));
 	})
    .catch((error) => {
@@ -55,7 +56,6 @@ export function autoDetectCoordinates(latlng){
 	    latlng: {lat : latlng.latitude, lng: latlng.longitude, accuracy: latlng.accuracy} 
  	})
    .then((response) => {
-   		console.log(response)
      dispatch(autoResultsSucceeded(response));
 	})
    .catch((error) => {
@@ -115,5 +115,31 @@ function ipAddressLookupSuccess(latlng){
 	return{
 		type: IP_ADDRESS_LOOKUP,
 		payload: latlng
+	}
+}
+
+
+export function getForecast(latlng){
+	return (dispatch) => {
+	 dispatch(getForecastBegin())
+ 	return axios.post(getWeatherForecastAPI,{
+	    latlng: latlng 
+ 	})    
+	   .then((response) => {
+	   	if(response.status === 200){
+	   		console.log(response)
+	     }
+		})
+	   .catch((error) => {
+	   		console.log(error)
+	   		// dispatch(getForecastFailed(error));
+		});
+    };	
+}
+
+
+function getForecastBegin(){
+	return{
+		type: GET_FORECAST_BEGIN
 	}
 }

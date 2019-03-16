@@ -5,7 +5,10 @@ import {
 	AUTO_INFO_START,
 	AUTO_INFO_SUCCESS,
 	AUTO_INFO_FAILURE,
-	IP_ADDRESS_LOOKUP
+	IP_ADDRESS_LOOKUP,
+	GET_FORECAST_BEGIN,
+	GET_FORECAST_SUCCESS,
+	GET_FORECAST_FAILURE
 } from '../actions/actions';
 
 const initialState = {
@@ -14,7 +17,8 @@ const initialState = {
 	error: null,
 	is_Loading: false,
 	autodetect: false,
-	latlng: null
+	latlng: null,
+	geoResults: null
 }
 
 export default (state=initialState, action) => {
@@ -28,7 +32,8 @@ export default (state=initialState, action) => {
 				is_Loading: true,
 				error: null,
 				autodetect: false,
-				latlng: null
+				latlng: null,
+				geoResults: null
 			};
 		case WEATHER_INFO_SUCCESS:
 			return{
@@ -38,7 +43,8 @@ export default (state=initialState, action) => {
 				is_Loading: false,
 				error: null,
 				autodetect: false,
-				latlng: null
+				latlng: null,
+				geoResults: action.payload.data.geoResults
 			};
 		case WEATHER_INFO_FAILURE:
 			return{
@@ -48,7 +54,8 @@ export default (state=initialState, action) => {
 				weatherData: null,
 				is_Loading: false,
 				autodetect: false,
-				latlng: null
+				latlng: null,
+				geoResults: null
 			};
 		case AUTO_INFO_START:
 			return{
@@ -58,7 +65,8 @@ export default (state=initialState, action) => {
 				is_Loading: true,
 				error: null,
 				autodetect: true,
-				latlng: null
+				latlng: null,
+				geoResults: null
 			};
 		case AUTO_INFO_SUCCESS:
 			return{
@@ -68,7 +76,8 @@ export default (state=initialState, action) => {
 				is_Loading: false,
 				error: null,
 				autodetect: false,
-				latlng: null
+				latlng: null,
+				geoResults: action.payload.data.geoResults
 			};
 		case AUTO_INFO_FAILURE:
 			return{
@@ -78,7 +87,8 @@ export default (state=initialState, action) => {
 				weatherData: null,
 				is_Loading: false,
 				autodetect: false,
-				latlng: null
+				latlng: null,
+				geoResults: null
 			};
 		case IP_ADDRESS_LOOKUP:
 			return{

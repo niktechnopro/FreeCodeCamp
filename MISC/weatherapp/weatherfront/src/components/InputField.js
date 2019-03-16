@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { sendCoordinates, 
 		autoDetectCoordinates,
-		ipAddressLookup } from './actionCreators/actionCreators';
+		ipAddressLookup,
+		getForecast } from './actionCreators/actionCreators';
 
 
 class InputField extends Component {
@@ -107,6 +108,10 @@ class InputField extends Component {
 		}
 	}
 
+	forecastWeather = () => {
+		this.props.onGetForecast(this.props.geoResults);
+	}
+
 	render(){
 		let happening = this.state.isFirstLoad || this.props.autodetect ? 
 		<p>Detecting your Location...</p>
@@ -114,7 +119,7 @@ class InputField extends Component {
 		<p>Address That We Found:</p>;
 
 		let errorDetection = this.props.error ? <p>Try again...</p> : happening;
-		// console.log(this.props);
+		console.log(this.props);
 		return(
 			<div id="inputAreaWrapper">
 				<section id="sectionTop">
@@ -140,7 +145,7 @@ class InputField extends Component {
 				</section>}
 				{this.props.geoData && <section id="forecastButtonSection">
 					<button 
-					onClick={(e)=>console.log("get forecast", e)} 
+					onClick={this.forecastWeather} 
 					>
 					5 days forecast...
 					</button>
@@ -158,7 +163,8 @@ const mapStateToProps = (state) => {
 		autodetect: state.autodetect,
 		is_Loading: state.is_Loading,
 		error: state.error,
-		latlng: state.latlng
+		latlng: state.latlng,
+		geoResults: state.geoResults
 	}
 	
 }
@@ -167,7 +173,8 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		onSendCoordinates: (coordinates) => dispatch(sendCoordinates(coordinates)),
 		onAutoDetectCoordinates: (latlng) => dispatch(autoDetectCoordinates(latlng)),
-		onIPaddressLookup: () => dispatch(ipAddressLookup()), 
+		onIPaddressLookup: () => dispatch(ipAddressLookup()),
+		onGetForecast: (geoResults) => dispatch(getForecast(geoResults)) 
 	}
 }
 
