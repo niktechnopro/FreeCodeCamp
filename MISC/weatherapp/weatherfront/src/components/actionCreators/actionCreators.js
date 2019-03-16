@@ -16,6 +16,7 @@ export function sendCoordinates(address){
 	    address: address
  	})
    .then((response) => {
+   		console.log(response);
      dispatch(getWeatherResultsSucceeded(response));
 	})
    .catch((error) => {
@@ -54,6 +55,7 @@ export function autoDetectCoordinates(latlng){
 	    latlng: {lat : latlng.latitude, lng: latlng.longitude, accuracy: latlng.accuracy} 
  	})
    .then((response) => {
+   		console.log(response)
      dispatch(autoResultsSucceeded(response));
 	})
    .catch((error) => {

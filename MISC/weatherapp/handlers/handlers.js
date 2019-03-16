@@ -23,12 +23,16 @@ const postHandlerLatLon = (req, res, next) => {
 	let result = results.geoResultsLatLon(latlon);
 	result.then(geoData => {
 		let weather = results.weatherResults(latlon);
+		let geoResults = {
+			lat: geoData[0].latitude,
+			lng: geoData[0].longitude
+		}
 		return weather.then(weatherData => {
 			// console.log('sending back: ', geoData[0]);
 			res.status(200).json({
 	  			weatherData: weatherData.data,
 	  			geoData: geoData[0].formattedAddress,
-	 			geoResults: geoData[0]
+	 			geoResults
 			});
 		})
 		
@@ -51,7 +55,7 @@ const postHandler = (req, res, next) => {
 			res.status(200).json({
 	  			weatherData: weatherData.data,
 	  			geoData: geoData.json.results[0].formatted_address,
-	  			geoResults: geoData.json.results[0].geometry
+	  			geoResults: geoData.json.results[0].geometry.location
 			});
 		})
 	}).catch(error => {
