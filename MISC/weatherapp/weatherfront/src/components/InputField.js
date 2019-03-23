@@ -119,7 +119,6 @@ class InputField extends Component {
 		<p>Address That We Found:</p>;
 
 		let errorDetection = this.props.error ? <p>Try again...</p> : happening;
-		console.log(this.props);
 		return(
 			<div id="inputAreaWrapper">
 				<section id="sectionTop">

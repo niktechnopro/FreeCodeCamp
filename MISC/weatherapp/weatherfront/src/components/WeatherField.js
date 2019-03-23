@@ -131,7 +131,7 @@ class WeatherField extends Component{
 			{this.props.weatherForecast ? <Forecast forecast={this.props.weatherForecast} />
 			:
 			<div>
-			<p id="weatherHeadline">{this.state.weather[0] ? this.firstLetter(this.state.weather[0].description) : "Current Weather"}</p>
+			<p className="weatherHeadline">{this.state.weather[0] ? this.firstLetter(this.state.weather[0].description) : "Current Weather"}</p>
 			<div id="mainBox">
 				<div id="parameters">
 				<ul>
