@@ -128,6 +128,8 @@ class WeatherField extends Component{
 			<FirstLoadScreen isFirstLoad={this.state.isFirstLoad} />
 			{this.props.error && <ErrorScreen isError={this.props.error} />}
 			{!this.state.isFirstLoad && !this.props.error && !this.props.geoData && <SearchScreen />}
+			{this.props.weatherForecast ? <Forecast forecast={this.props.weatherForecast} />
+			:
 			<div>
 			<p id="weatherHeadline">{this.state.weather[0] ? this.firstLetter(this.state.weather[0].description) : "Current Weather"}</p>
 			<div id="mainBox">
@@ -146,7 +148,7 @@ class WeatherField extends Component{
 					{this.state.icon && <img src={`http://openweathermap.org/img/w/${this.state.icon}.png`} alt="icon" />}
 				</div>
 			</div>
-			</div>
+			</div>}
 		</div>
 	)
 	}
