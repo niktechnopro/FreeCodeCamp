@@ -72,7 +72,7 @@ const forecastHandler = (req, res, next) => {
 	result.then(weatherData => {
 		console.log(weatherData.data)
 		res.status(200).json({
-			weatherData: weatherData.data
+			weatherData: weatherData.data.list
 		})
 	})
 	result.catch(error => {

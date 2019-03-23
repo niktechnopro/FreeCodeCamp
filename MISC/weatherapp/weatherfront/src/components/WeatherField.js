@@ -152,13 +152,13 @@ class WeatherField extends Component{
 }
 
 const mapStateToProps = (state) => {
-	// console.log(state);
 	return{
 		geoData: state.geoData,
 		weatherData: state.weatherData,
 		error: state.error,
 		isLoading: state.is_Loading,
-		autodetect: state.autodetect
+		autodetect: state.autodetect,
+		weatherForecast: state.weatherForecast
 	}
 }
 

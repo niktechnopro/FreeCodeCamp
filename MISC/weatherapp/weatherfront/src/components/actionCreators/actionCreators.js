@@ -1,6 +1,6 @@
 import { WEATHER_INFO_FAILURE, WEATHER_INFO_SUCCESS, WEATHER_INFO_START,
 	AUTO_INFO_SUCCESS, AUTO_INFO_FAILURE, AUTO_INFO_START, IP_ADDRESS_LOOKUP,
-	GET_FORECAST_BEGIN, GET_FORECAST_SUCCESS, GET_FORECAST_FAILURE
+	GET_FORECAST_BEGIN, GET_FORECAST_SUCCESS, GET_FORECAST_FAILED
  } from '../actions/actions';
 import axios from 'axios';
 const API = 'http://localhost:8000'
@@ -31,7 +31,6 @@ function getWeatherResultsBegin() {
 		type: WEATHER_INFO_START
 	}
 }
-
 
 function getWeatherResultsFailed(error) {
 	return{
@@ -70,15 +69,12 @@ function autoResultsBegin() {
 	}
 }
 
-
 function autoResultsSucceeded(response) {
-	// console.log('succesful response: ',response)
 	return{
 		type: AUTO_INFO_SUCCESS,
 		payload: response
 	}
 }
-
 
 function autoResultsFailed(error) {
 	return{
@@ -126,13 +122,15 @@ export function getForecast(latlng){
 	    latlng: latlng 
  	})    
 	   .then((response) => {
-	   	if(response.status === 200){
-	   		console.log(response)
-	     }
+	   		if(response.status === 200){
+	   			let respObject = response.data.weatherData;
+	   			dispatch(getForecastSuccess(respObject));
+	     	}else{
+	     		dispatch(getForecastFailed("wrong status code"));
+	     	}
 		})
 	   .catch((error) => {
-	   		console.log(error)
-	   		// dispatch(getForecastFailed(error));
+	   		dispatch(getForecastFailed(error));
 		});
     };	
 }
@@ -143,3 +141,18 @@ function getForecastBegin(){
 		type: GET_FORECAST_BEGIN
 	}
 }
+
+function getForecastSuccess(respObject){
+	return{
+		type: GET_FORECAST_SUCCESS,
+		payload: respObject
+	}
+}
+
+function getForecastFailed(error){
+	return{
+		type: GET_FORECAST_FAILED,
+		payload: error
+	}
+}
+

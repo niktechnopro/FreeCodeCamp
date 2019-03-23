@@ -8,7 +8,7 @@ import {
 	IP_ADDRESS_LOOKUP,
 	GET_FORECAST_BEGIN,
 	GET_FORECAST_SUCCESS,
-	GET_FORECAST_FAILURE
+	GET_FORECAST_FAILED
 } from '../actions/actions';
 
 const initialState = {
@@ -18,7 +18,8 @@ const initialState = {
 	is_Loading: false,
 	autodetect: false,
 	latlng: null,
-	geoResults: null
+	geoResults: null,
+	weatherForecast: null
 }
 
 export default (state=initialState, action) => {
@@ -33,7 +34,8 @@ export default (state=initialState, action) => {
 				error: null,
 				autodetect: false,
 				latlng: null,
-				geoResults: null
+				geoResults: null,
+				weatherForecast: null
 			};
 		case WEATHER_INFO_SUCCESS:
 			return{
@@ -66,7 +68,8 @@ export default (state=initialState, action) => {
 				error: null,
 				autodetect: true,
 				latlng: null,
-				geoResults: null
+				geoResults: null,
+				weatherForecast: null
 			};
 		case AUTO_INFO_SUCCESS:
 			return{
@@ -98,18 +101,27 @@ export default (state=initialState, action) => {
 		case GET_FORECAST_BEGIN:
 			return{
 				...state,
-				geoData: null,
 				weatherData:null,
 				is_Loading: true,
 				error: null,
 				autodetect: false,
 				latlng: null,
-				geoResults: null
+				weatherForecast: null
 			}
 		case GET_FORECAST_SUCCESS:
-			console.log("get forecast success: ",action)
 			return{
-				boo: 'boo'
+				...state,
+				weatherForecast: action.payload
+			}
+		case GET_FORECAST_FAILED:
+			console.log("error happened on forecast");
+			return{
+				...state,
+				weatherData: null,
+				is_Loading: false,
+				autodetect: false,
+				weatherForecast: null,
+				error: action.payload
 			}
 		default:
 			return state;

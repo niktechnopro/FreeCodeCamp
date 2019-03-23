@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>bitbucket/trello</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Bitbucket" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="bitbucket/trello" fill-rule="nonzero" fill="#42526E">
+            <g id="trello_logo" transform="translate(3.000000, 3.000000)">
+                <path d="M0,2.25012433 C0,1.00741497 1.00794943,0 2.25012433,0 L15.7498757,0 C16.992585,0 18,1.00794943 18,2.25012433 L18,15.7498757 C18,16.992585 16.9920506,18 15.7498757,18 L2.25012433,18 C1.00741497,18 0,16.9920506 0,15.7498757 L0,2.25012433 Z M10,3.09768308 L10,8.90231689 C10,9.50860809 10.5283203,10 11.1800363,10 L14.8199637,10 C15.471486,10 16,9.50855058 16,8.90231689 L16,3.09768308 C16,2.49139187 15.4716797,2 14.8199637,2 L11.1800363,2 C10.528514,2 10,2.49144945 10,3.09768308 Z M2,3.13375542 L2,13.8662446 C2,14.4923813 2.52832026,15 3.18003633,15 L6.81996367,15 C7.47148601,15 8,14.4924004 8,13.8662446 L8,3.13375542 C8,2.5076187 7.47167974,2 6.81996367,2 L3.18003633,2 C2.52851399,2 2,2.50759959 2,3.13375542 Z" id="Combined-Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

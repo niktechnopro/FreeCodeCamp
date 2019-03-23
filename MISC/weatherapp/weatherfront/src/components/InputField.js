@@ -157,7 +157,7 @@ class InputField extends Component {
 
 
 const mapStateToProps = (state) => {
-	//console.log('data', state);
+	console.log('data', state);
 	return{
 		geoData: state.geoData,
 		autodetect: state.autodetect,
