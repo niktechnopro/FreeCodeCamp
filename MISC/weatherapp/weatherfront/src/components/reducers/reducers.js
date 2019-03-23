@@ -111,16 +111,17 @@ export default (state=initialState, action) => {
 		case GET_FORECAST_SUCCESS:
 			return{
 				...state,
+				is_Loading: false,
 				weatherForecast: action.payload
 			}
 		case GET_FORECAST_FAILED:
-			console.log("error happened on forecast");
 			return{
 				...state,
 				weatherData: null,
 				is_Loading: false,
 				autodetect: false,
 				weatherForecast: null,
+				latlng: null,
 				error: action.payload
 			}
 		default:

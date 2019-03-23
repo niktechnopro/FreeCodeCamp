@@ -143,7 +143,7 @@ class InputField extends Component {
 					{this.props.geoData ? <p>{this.props.geoData}</p> : <p />}
 					</div>
 				</section>}
-				{this.props.geoData && <section id="forecastButtonSection">
+				{!this.props.error && this.props.geoData && !this.props.weatherForecast && <section id="forecastButtonSection">
 					<button 
 					onClick={this.forecastWeather} 
 					>
@@ -157,14 +157,15 @@ class InputField extends Component {
 
 
 const mapStateToProps = (state) => {
-	console.log('data', state);
+	// console.log("state: ", state);
 	return{
 		geoData: state.geoData,
 		autodetect: state.autodetect,
 		is_Loading: state.is_Loading,
 		error: state.error,
 		latlng: state.latlng,
-		geoResults: state.geoResults
+		geoResults: state.geoResults,
+		weatherForecast: state.weatherForecast
 	}
 	
 }

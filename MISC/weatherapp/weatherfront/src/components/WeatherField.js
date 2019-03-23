@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
+import Forecast from "./Forecast";
 
 const FirstLoadScreen = (props) => {
 	return(
