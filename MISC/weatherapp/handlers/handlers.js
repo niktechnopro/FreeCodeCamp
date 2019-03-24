@@ -70,7 +70,7 @@ const forecastHandler = (req, res, next) => {
 	let latlon = req.body.latlng;
 	let result = results.fiveDaysWeatherResults(latlon);
 	result.then(weatherData => {
-		console.log(weatherData.data)
+		// console.log(weatherData.data)
 		res.status(200).json({
 			weatherData: weatherData.data.list
 		})
