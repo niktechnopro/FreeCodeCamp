@@ -22,6 +22,5 @@ app.use(cors({
 }));
 app.use(router);//has to be at the end
 
-// Setup a default catch-all route that sends back a welcome message in JSON format.
 
 module.exports = app;
