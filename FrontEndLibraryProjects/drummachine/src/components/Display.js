@@ -33,6 +33,8 @@ class Display extends Component{
 
 
 	render(){
+		let streets = (this.props.chosenMusic === "streets.mp3");
+
 		return(
 			<Fragment>
 				<div id="displaywrap">
@@ -41,7 +43,7 @@ class Display extends Component{
 					{this.props.powerOn && <audio 
 						ref='audio'
 						className="clip" id={this.props.chosenMusic} 
-						src={`./sounds/${this.props.chosenMusic}`} 
+						src={streets ? 'https://s3.amazonaws.com/ciscoscholargmailmusicboxdump/streets.mp3' : `./sounds/${this.props.chosenMusic}`} 
 						type="audio/mp3" 
 						autoPlay/
 						>}
