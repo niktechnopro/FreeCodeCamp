@@ -4,7 +4,7 @@ import { WEATHER_INFO_FAILURE, WEATHER_INFO_SUCCESS, WEATHER_INFO_START,
  } from '../actions/actions';
 import axios from 'axios';
 //const API = 'http://localhost:8000';
-const API = 'http://3.16.30.174';
+const API = 'https://wapi.niktechnopro.com';
 const postUri = API+'/getweather';
 const postUriLatLon = API+'/basedOnLatLon';
 const ipAddressLookupAPI = 'http://ip-api.com/json';
