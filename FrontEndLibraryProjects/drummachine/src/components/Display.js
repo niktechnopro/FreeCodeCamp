@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 
-
 class Display extends Component{
 	constructor(){
 		super()
@@ -33,10 +32,7 @@ class Display extends Component{
 
 
 	render(){
-		let streets = (this.props.chosenMusic === "streets.mp3");
-		let tmnt = (this.props.chosenMusic === "tmnt.mp3");
-		let nes = (this.props.chosenMusic === "nes.mp3");
-
+		const goodToPlay = (this.props.chosenMusic === "Activity Indicator") ? false : true; 
 		return(
 			<Fragment>
 				<div id="displaywrap">
@@ -45,7 +41,7 @@ class Display extends Component{
 					{this.props.powerOn && <audio 
 						ref='audio'
 						className="clip" id={this.props.chosenMusic} 
-						src={streets ? 'https://s3.amazonaws.com/ciscoscholargmailmusicboxdump/streets.mp3' : (tmnt ? "https://s3.amazonaws.com/ciscoscholargmailmusicboxdump/tmnt.mp3" : (nes ? "https://s3.amazonaws.com/ciscoscholargmailmusicboxdump/nes.mp3" : `./sounds/${this.props.chosenMusic}`))} 
+						src={goodToPlay ? `https://s3.us-east-2.amazonaws.com/drummachinemusicdump/${this.props.chosenMusic}` : ''}
 						type="audio/mp3" 
 						autoPlay/
 						>}
