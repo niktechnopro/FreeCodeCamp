@@ -119,6 +119,8 @@ class InputField extends Component {
 		<p>Address That We Found:</p>;
 
 		let errorDetection = this.props.error ? <p>Try again...</p> : happening;
+		let forecastButton = !this.props.error && !this.state.focus && this.props.geoData && !this.props.weatherForecast;
+
 		return(
 			<div id="inputAreaWrapper">
 				<section id="sectionTop">
@@ -131,9 +133,10 @@ class InputField extends Component {
 					/>
 				</section>
 				<section id="sectionMiddle">
-					<input type="button" 
-						value="Find my weather" 
-						onClick={this.handleSubmitButton} 
+					<input 
+						type={forecastButton ? "forecastBTN" : "button"} 
+						value={forecastButton ? "5 Days Forecast" : "Find my weather"} 
+						onClick={forecastButton ? this.forecastWeather : this.handleSubmitButton} 
 					/>
 				</section>
 				{!this.state.focus && <section is="sectionBottom">
@@ -141,13 +144,6 @@ class InputField extends Component {
 					{(!this.props.is_Loading || this.props.autodetect) ? errorDetection : <p>Searching...</p>}
 					{this.props.geoData ? <p>{this.props.geoData}</p> : <p />}
 					</div>
-				</section>}
-				{!this.props.error && !this.state.focus && this.props.geoData && !this.props.weatherForecast && <section id="forecastButtonSection">
-					<button 
-					onClick={this.forecastWeather} 
-					>
-					5 days forecast...
-					</button>
 				</section>}
 			</div>
 		)

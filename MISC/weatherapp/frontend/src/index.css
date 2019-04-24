@@ -65,7 +65,7 @@ code {
 }
 
 [type="button"]{
-	background-color: #008b8b;
+	 background-color: #008b8b;
     color: #fff;
     font-size: 1.5rem;
     padding: 0.5rem;
@@ -76,6 +76,22 @@ code {
     transition: all 0.3s;
     outline: none;
     cursor: pointer;
+    text-align: center;
+}
+
+[type="forecastBTN"]{
+    background-color: #5ae2e2;
+    color: #fe3a3a;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow: inset 0 0 10px #000000;
+    transition: all 0.3s;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
 }
 
 ::-webkit-input-placeholder {
