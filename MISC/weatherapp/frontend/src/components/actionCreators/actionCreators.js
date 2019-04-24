@@ -3,8 +3,8 @@ import { WEATHER_INFO_FAILURE, WEATHER_INFO_SUCCESS, WEATHER_INFO_START,
 	GET_FORECAST_BEGIN, GET_FORECAST_SUCCESS, GET_FORECAST_FAILED
  } from '../actions/actions';
 import axios from 'axios';
-//const API = 'http://localhost:8000';
-const API = 'https://wapi.niktechnopro.com';
+const API = 'http://localhost:8000';
+// const API = 'https://wapi.niktechnopro.com';
 const postUri = API+'/getweather';
 const postUriLatLon = API+'/basedOnLatLon';
 const ipAddressLookupAPI = 'http://ip-api.com/json';

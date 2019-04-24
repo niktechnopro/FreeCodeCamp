@@ -39,7 +39,7 @@ const postHandlerLatLon = (req, res, next) => {
 	}).catch(error => {
 		console.log('unsucessful georequest');
 		res.status(400).json({
-  			message: "error"
+  			message: "postHandler LatLon error"
 		});
 	})
 }
@@ -61,7 +61,7 @@ const postHandler = (req, res, next) => {
 	}).catch(error => {
 		console.log('unsucessful georequest');
 		res.status(400).json({
-  			message: "error"
+  			message: "postHandler error"
 		});
 	})
 }
@@ -78,7 +78,7 @@ const forecastHandler = (req, res, next) => {
 	result.catch(error => {
 		console.log('unsucessful georequest');
 		res.status(400).json({
-  			message: "error"
+  			message: "forecast handler error"
 		});
 	})
 }
