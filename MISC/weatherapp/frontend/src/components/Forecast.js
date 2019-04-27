@@ -14,10 +14,12 @@ const Forecast = (props) => {
 		return arrayOfDates.map((value) => {
 			let date=value.dt_txt.slice(5,10);
 			return(
-				<div key={date}>
-					<p>{date}</p>
-					{<img className="fImg" src={`http://openweathermap.org/img/w/${value.weather[0].icon}.png`} alt="icon" />}
-					<p>{value.weather[0].main}</p>
+				<div key={date} className="cardWrap">
+					<div className="singleCard">
+						<p>{date}</p>
+						{<img className="fImg" src={`http://openweathermap.org/img/w/${value.weather[0].icon}.png`} alt="icon" />}
+						<p>{value.weather[0].main}</p>
+					</div>
 				</div>
 			)
 		})
@@ -30,7 +32,7 @@ const Forecast = (props) => {
 
 	return(
 		<div id="forecastWrap">
-			<p className="weatherHeadline">Forecast for Five days</p>
+			<p className="weatherHeadline">Five days forecast</p>
 			<div className="forecast">
 				{filterForecast()}
 			</div>
