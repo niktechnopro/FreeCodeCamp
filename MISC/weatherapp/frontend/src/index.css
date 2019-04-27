@@ -229,19 +229,19 @@ button{
 }
 
 .cardWrap{
-  -moz-box-shadow: inset 0 0 2px #000000;
+  /*-moz-box-shadow: inset 0 0 2px #000000;
   -webkit-box-shadow: inset 0 0 2px #000000;
-  box-shadow: inset 0 0 2px #000000;
-  border: 1px solid black;
+  box-shadow: inset 0 0 2px #000000;*/
   border-radius: 5px;
   transition: 0.5s;
   z-index: 2;
 }
 
 .cardWrap:hover {
-  -moz-box-shadow: inset 0 0 5px #000000;
-  -webkit-box-shadow: inset 0 0 5px #000000;
-  box-shadow: inset 0 0 5px #000000;
+  -moz-box-shadow: inset 0 0 7px #000000;
+  -webkit-box-shadow: inset 0 0 7px #000000;
+  box-shadow: inset 0 0 7px #000000;
+  border-radius: 5px;
   cursor: pointer;
 }
 

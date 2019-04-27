@@ -4,6 +4,7 @@ import React from 'react';
 
 const Forecast = (props) => {
 	const { forecast } = props;
+
 	function filterForecast(){//making the forecast logic
 		//we need to filter array to specific time
 		let arrayOfDates = forecast.filter((value)=>{
@@ -13,8 +14,9 @@ const Forecast = (props) => {
 		//let's build a logic to produce these dates;
 		return arrayOfDates.map((value) => {
 			let date=value.dt_txt.slice(5,10);
+			let day=value.dt_txt.slice(0,10);
 			return(
-				<div key={date} className="cardWrap">
+				<div key={date} className="cardWrap" onClick={()=>specificDay(day)}>
 					<div className="singleCard">
 						<p>{date}</p>
 						{<img className="fImg" src={`http://openweathermap.org/img/w/${value.weather[0].icon}.png`} alt="icon" />}
@@ -26,6 +28,12 @@ const Forecast = (props) => {
 	}
 
 
+	function specificDay(day){
+		let thisDay = forecast.filter(value => {
+			return value.dt_txt.slice(0,10) === day
+		});
+		props.thisDay(thisDay);
+	}
 
 
 
