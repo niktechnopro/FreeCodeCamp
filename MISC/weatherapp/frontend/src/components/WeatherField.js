@@ -41,7 +41,8 @@ class WeatherField extends Component{
 			weather: [],
 			icon: null,
 			isFirstLoad: true,
-			error: false
+			error: false,
+			oneDayChart: []
 		}
 	}
 
@@ -121,14 +122,22 @@ class WeatherField extends Component{
     	return returnText;
     }
 
+    thisDay = (day) => {
+    	this.setState({ oneDayChart: day });
+    }
+
 	render(){
 		// console.log(this.props)
+		let daily = this.state.oneDayChart.length>0 ? true : false;
+		console.log(daily)
+
 		return(
 		<div id="weatherWrap">
 			<FirstLoadScreen isFirstLoad={this.state.isFirstLoad} />
 			{this.props.error && <ErrorScreen isError={this.props.error} />}
 			{!this.state.isFirstLoad && !this.props.error && !this.props.geoData && <SearchScreen />}
-			{this.props.weatherForecast ? <Forecast forecast={this.props.weatherForecast} />
+			{this.props.weatherForecast ? 
+			<Forecast forecast={this.props.weatherForecast} thisDay={this.thisDay} />
 			:
 			<div>
 			<p className="weatherHeadline">{this.state.weather[0] ? this.firstLetter(this.state.weather[0].description) : "Current Weather"}</p>
@@ -145,7 +154,7 @@ class WeatherField extends Component{
 				</ul>
 				</div>
 				<div id="icon">
-					{this.state.icon && <img src={`http://openweathermap.org/img/w/${this.state.icon}.png`} alt="icon" />}
+					{this.state.icon && <img src={`https://openweathermap.org/img/w/${this.state.icon}.png`} alt="icon" />}
 				</div>
 			</div>
 			</div>}

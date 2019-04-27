@@ -19,7 +19,7 @@ const Forecast = (props) => {
 				<div key={date} className="cardWrap" onClick={()=>specificDay(day)}>
 					<div className="singleCard">
 						<p>{date}</p>
-						{<img className="fImg" src={`http://openweathermap.org/img/w/${value.weather[0].icon}.png`} alt="icon" />}
+						{<img className="fImg" src={`https://openweathermap.org/img/w/${value.weather[0].icon}.png`} alt="icon" />}
 						<p>{value.weather[0].main}</p>
 					</div>
 				</div>

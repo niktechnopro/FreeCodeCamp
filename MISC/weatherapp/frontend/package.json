@@ -5,8 +5,10 @@
   "homepage": "https://www.niktechnopro.com/demos/weatherapp",
   "dependencies": {
     "axios": "^0.18.0",
+    "chart.js": "^2.8.0",
     "moment": "^2.24.0",
     "react": "^16.8.2",
+    "react-chartkick": "^0.3.0",
     "react-dom": "^16.8.2",
     "react-redux": "^6.0.0",
     "react-scripts": "2.1.5",
