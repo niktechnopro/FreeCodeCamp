@@ -11,7 +11,7 @@ const ThisDay = (props) => {
 	let keys = Object.keys(oneDayChart).sort();
 	let values = Object.values(oneDayChart);
 	let maxTemp = Math.max(...values);
-	let minTemp = Math.min(...values)-3;
+	let minTemp = Math.min(...values)-3;//just to lift it
 	console.log(keys, oneDayChart, minTemp, maxTemp);
 	return(
 		<div id="headerWrap">
