@@ -1,6 +1,6 @@
 import { WEATHER_INFO_FAILURE, WEATHER_INFO_SUCCESS, WEATHER_INFO_START,
 	AUTO_INFO_SUCCESS, AUTO_INFO_FAILURE, AUTO_INFO_START, IP_ADDRESS_LOOKUP,
-	GET_FORECAST_BEGIN, GET_FORECAST_SUCCESS, GET_FORECAST_FAILED
+	GET_FORECAST_BEGIN, GET_FORECAST_SUCCESS, GET_FORECAST_FAILED, SET_WEATHER_GRAPH_DATA
  } from '../actions/actions';
 import axios from 'axios';
 const API = 'http://localhost:8000';
@@ -154,6 +154,13 @@ function getForecastFailed(error){
 	return{
 		type: GET_FORECAST_FAILED,
 		payload: error
+	}
+}
+
+export function onTimeWeatherObject(timeWeatherObject){
+	return{
+		type: SET_WEATHER_GRAPH_DATA,
+		payload: timeWeatherObject
 	}
 }
 

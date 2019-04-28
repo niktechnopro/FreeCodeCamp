@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import moment from "moment";
 import Forecast from "./Forecast";
 import ThisDay from "./ThisDay";
+import { onTimeWeatherObject } from './actionCreators/actionCreators';
 
 const FirstLoadScreen = (props) => {
 	return(
@@ -139,15 +140,14 @@ class WeatherField extends Component{
 
     thisDay = (day) => {
     	let date = day[0].dt_txt.slice(0,10);
-    	console.log(date)
     	this.setState({ oneDayChart: day },()=>{
     		this.makingObject(this.state.oneDayChart)
     		.then(result => {
-    			console.log(result)
+    			console.log(result);
 				this.setState({
     				timeWeatherObject: result,
     				date: date 
-    			})
+    			},()=>{this.props.onTimeWeatherObject(result)});
     		})
     		.catch(error => this.setState({timeWeatherObject: {}}))
     	});
@@ -205,5 +205,11 @@ const mapStateToProps = (state) => {
 	}
 }
 
+const mapDispatchToProps = (dispatch) => {
+	return{
+		onTimeWeatherObject: (timeWeatherObject) => dispatch(onTimeWeatherObject(timeWeatherObject)),
+	}
+}
 
-export default connect(mapStateToProps, null)(WeatherField);
+
+export default connect(mapStateToProps, mapDispatchToProps)(WeatherField);
