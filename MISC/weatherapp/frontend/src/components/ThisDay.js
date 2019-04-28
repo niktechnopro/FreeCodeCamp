@@ -7,7 +7,7 @@ ReactChartkick.addAdapter(Chart)
 
 
 const ThisDay = (props) => {
-	const {oneDayChart} = props;
+	const {oneDayChart, date} = props;
 	let keys = Object.keys(oneDayChart).sort();
 	let values = Object.values(oneDayChart);
 	let maxTemp = Math.max(...values);
@@ -15,7 +15,7 @@ const ThisDay = (props) => {
 	console.log(keys, oneDayChart, minTemp, maxTemp);
 	return(
 		<div id="headerWrap">
-			<p id="header">Daily Weather for </p>
+			<p id="header">Temp for {date}</p>
 			{values.length>0 && <LineChart 
 			discrete={false} 
 			width="350px" 

@@ -45,7 +45,8 @@ class WeatherField extends Component{
 			error: false,
 			oneDayChart: [],
 			timeWeatherObject: {},
-			keys: []
+			keys: [],
+			date: ""
 		}
 	}
 
@@ -137,12 +138,15 @@ class WeatherField extends Component{
     }
 
     thisDay = (day) => {
+    	let date = day[0].dt_txt.slice(0,10);
+    	console.log(date)
     	this.setState({ oneDayChart: day },()=>{
     		this.makingObject(this.state.oneDayChart)
     		.then(result => {
     			console.log(result)
 				this.setState({
-    				timeWeatherObject: result, 
+    				timeWeatherObject: result,
+    				date: date 
     			})
     		})
     		.catch(error => this.setState({timeWeatherObject: {}}))
@@ -164,7 +168,7 @@ class WeatherField extends Component{
 				!daily && !this.state.keys.length>0 ? 
 				<Forecast forecast={this.props.weatherForecast} thisDay={this.thisDay} />
 				:
-				<ThisDay oneDayChart={this.state.timeWeatherObject} />
+				<ThisDay oneDayChart={this.state.timeWeatherObject} date={this.state.date} />
 			:
 			<div>
 			<p className="weatherHeadline">{this.state.weather[0] ? this.firstLetter(this.state.weather[0].description) : "Current Weather"}</p>
