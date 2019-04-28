@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
 import Forecast from "./Forecast";
+import ThisDay from "./ThisDay";
 
 const FirstLoadScreen = (props) => {
 	return(
@@ -42,7 +43,9 @@ class WeatherField extends Component{
 			icon: null,
 			isFirstLoad: true,
 			error: false,
-			oneDayChart: []
+			oneDayChart: [],
+			timeWeatherObject: {},
+			keys: []
 		}
 	}
 
@@ -97,7 +100,7 @@ class WeatherField extends Component{
 	}
 
 	calculateTempF = () => {
-		return (((this.state.temperature - 273.15) * 9/5 + 32).toFixed(2));
+		return ((((this.state.temperature - 273.15) * 1.8) + 32).toFixed(2));
 	}
 
 	calculateTime = (timestamp) => {
@@ -122,14 +125,35 @@ class WeatherField extends Component{
     	return returnText;
     }
 
-    thisDay = (day) => {
-    	this.setState({ oneDayChart: day });
+    makingObject = async (day) => {
+    	let timeWeatherObject = {};
+    	day.forEach(value => {
+    		let time = value.dt;
+    		let timeOfDay = moment(+time * 1000).format('LT');
+    		let temp = (((value.main.temp-273.15)*1.8)+32).toFixed(2);
+    		timeWeatherObject[timeOfDay] = temp; 
+    	})
+    	return await timeWeatherObject;
     }
+
+    thisDay = (day) => {
+    	this.setState({ oneDayChart: day },()=>{
+    		this.makingObject(this.state.oneDayChart)
+    		.then(result => {
+    			console.log(result)
+				this.setState({
+    				timeWeatherObject: result, 
+    			})
+    		})
+    		.catch(error => this.setState({timeWeatherObject: {}}))
+    	});
+    }
+
+
 
 	render(){
 		// console.log(this.props)
 		let daily = this.state.oneDayChart.length>0 ? true : false;
-		console.log(daily)
 
 		return(
 		<div id="weatherWrap">
@@ -137,7 +161,10 @@ class WeatherField extends Component{
 			{this.props.error && <ErrorScreen isError={this.props.error} />}
 			{!this.state.isFirstLoad && !this.props.error && !this.props.geoData && <SearchScreen />}
 			{this.props.weatherForecast ? 
-			<Forecast forecast={this.props.weatherForecast} thisDay={this.thisDay} />
+				!daily && !this.state.keys.length>0 ? 
+				<Forecast forecast={this.props.weatherForecast} thisDay={this.thisDay} />
+				:
+				<ThisDay oneDayChart={this.state.timeWeatherObject} />
 			:
 			<div>
 			<p className="weatherHeadline">{this.state.weather[0] ? this.firstLetter(this.state.weather[0].description) : "Current Weather"}</p>
