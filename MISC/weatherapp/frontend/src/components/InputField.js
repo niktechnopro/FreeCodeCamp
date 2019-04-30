@@ -120,6 +120,7 @@ class InputField extends Component {
 
 		let errorDetection = this.props.error ? <p>Try again...</p> : happening;
 		let forecastButton = !this.props.error && !this.state.focus && this.props.geoData && !this.props.weatherForecast;
+		const {timeWeatherObject} = this.props;
 
 		return(
 			<div id="inputAreaWrapper">
@@ -135,7 +136,7 @@ class InputField extends Component {
 				<section id="sectionMiddle">
 					<input 
 						type={forecastButton ? "forecastBTN" : "button"} 
-						value={forecastButton ? "5 Days Forecast" : "Find my weather"} 
+						value={forecastButton ? "5 Days Forecast" : timeWeatherObject ? "Back to 5 days forecast" : "Find my weather"} 
 						onClick={forecastButton ? this.forecastWeather : this.handleSubmitButton} 
 					/>
 				</section>
@@ -152,7 +153,7 @@ class InputField extends Component {
 
 
 const mapStateToProps = (state) => {
-	// console.log("state: ", state);
+	console.log("state: ", state);
 	return{
 		geoData: state.geoData,
 		autodetect: state.autodetect,
@@ -160,7 +161,8 @@ const mapStateToProps = (state) => {
 		error: state.error,
 		latlng: state.latlng,
 		geoResults: state.geoResults,
-		weatherForecast: state.weatherForecast
+		weatherForecast: state.weatherForecast,
+		timeWeatherObject: state.timeWeatherObject
 	}
 	
 }

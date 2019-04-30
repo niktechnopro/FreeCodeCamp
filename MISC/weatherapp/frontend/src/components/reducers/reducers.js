@@ -8,7 +8,8 @@ import {
 	IP_ADDRESS_LOOKUP,
 	GET_FORECAST_BEGIN,
 	GET_FORECAST_SUCCESS,
-	GET_FORECAST_FAILED
+	GET_FORECAST_FAILED,
+	SET_WEATHER_GRAPH_DATA
 } from '../actions/actions';
 
 const initialState = {
@@ -19,7 +20,8 @@ const initialState = {
 	autodetect: false,
 	latlng: null,
 	geoResults: null,
-	weatherForecast: null
+	weatherForecast: null,
+	timeWeatherObject: null
 }
 
 export default (state=initialState, action) => {
@@ -123,6 +125,12 @@ export default (state=initialState, action) => {
 				weatherForecast: null,
 				latlng: null,
 				error: action.payload
+			}
+		case SET_WEATHER_GRAPH_DATA:
+			return{
+				...state,
+				is_Loading:false,
+				timeWeatherObject: action.payload
 			}
 		default:
 			return state;
