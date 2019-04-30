@@ -44,7 +44,6 @@ class WeatherField extends Component{
 			icon: null,
 			isFirstLoad: true,
 			error: false,
-			oneDayChart: [],
 			timeWeatherObject: {},
 			keys: [],
 			date: ""
@@ -140,17 +139,15 @@ class WeatherField extends Component{
 
     thisDay = (day) => {
     	let date = day[0].dt_txt.slice(0,10);
-    	this.setState({ oneDayChart: day },()=>{
-    		this.makingObject(this.state.oneDayChart)
-    		.then(result => {
-    			console.log(result);
-				this.setState({
-    				timeWeatherObject: result,
-    				date: date 
-    			},()=>{this.props.onTimeWeatherObject(result)});
-    		})
-    		.catch(error => this.setState({timeWeatherObject: {}}))
-    	});
+    	this.makingObject(day)
+		.then(result => {
+			console.log(result);
+			this.setState({
+				timeWeatherObject: result,
+				date: date 
+			},()=>{this.props.onTimeWeatherObject(result)});
+		})
+		.catch(error => this.setState({timeWeatherObject: {}}));
     }
 
 
