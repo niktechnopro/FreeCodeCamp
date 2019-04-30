@@ -153,7 +153,6 @@ class WeatherField extends Component{
 
 
 	render(){
-		console.log(this.props)
 		let daily = this.props.timeWeatherObject ? true : false;
 
 		return(

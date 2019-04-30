@@ -114,8 +114,7 @@ class InputField extends Component {
 	}
 
 	resetTimeWeatherObject = () => {
-		console.log("nulling weather object");
-		this.props.onTimeWeatherObject(null)
+		this.props.onTimeWeatherObject(null);
 	}
 
 	render(){
@@ -159,7 +158,7 @@ class InputField extends Component {
 
 
 const mapStateToProps = (state) => {
-	console.log("state: ", state);
+	// console.log("state: ", state);
 	return{
 		geoData: state.geoData,
 		autodetect: state.autodetect,
