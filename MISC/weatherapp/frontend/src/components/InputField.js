@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { sendCoordinates, 
 		autoDetectCoordinates,
 		ipAddressLookup,
-		getForecast } from './actionCreators/actionCreators';
+		getForecast,
+		onTimeWeatherObject } from './actionCreators/actionCreators';
 
 
 class InputField extends Component {
@@ -112,6 +113,11 @@ class InputField extends Component {
 		this.props.onGetForecast(this.props.geoResults);
 	}
 
+	resetTimeWeatherObject = () => {
+		console.log("nulling weather object");
+		this.props.onTimeWeatherObject(null)
+	}
+
 	render(){
 		let happening = this.state.isFirstLoad || this.props.autodetect ? 
 		<p>Detecting your Location...</p>
@@ -137,7 +143,7 @@ class InputField extends Component {
 					<input 
 						type={forecastButton ? "forecastBTN" : "button"} 
 						value={forecastButton ? "5 Days Forecast" : timeWeatherObject ? "Back to 5 days forecast" : "Find my weather"} 
-						onClick={forecastButton ? this.forecastWeather : this.handleSubmitButton} 
+						onClick={forecastButton ? this.forecastWeather : timeWeatherObject ? this.resetTimeWeatherObject : this.handleSubmitButton} 
 					/>
 				</section>
 				{!this.state.focus && <section is="sectionBottom">
@@ -172,7 +178,8 @@ const mapDispatchToProps = (dispatch) => {
 		onSendCoordinates: (coordinates) => dispatch(sendCoordinates(coordinates)),
 		onAutoDetectCoordinates: (latlng) => dispatch(autoDetectCoordinates(latlng)),
 		onIPaddressLookup: () => dispatch(ipAddressLookup()),
-		onGetForecast: (geoResults) => dispatch(getForecast(geoResults)) 
+		onGetForecast: (geoResults) => dispatch(getForecast(geoResults)),
+		onTimeWeatherObject: (timeWeatherObject) => dispatch(onTimeWeatherObject(timeWeatherObject)),
 	}
 }
 

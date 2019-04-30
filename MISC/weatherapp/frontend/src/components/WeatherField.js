@@ -156,8 +156,8 @@ class WeatherField extends Component{
 
 
 	render(){
-		// console.log(this.props)
-		let daily = this.state.oneDayChart.length>0 ? true : false;
+		console.log(this.props)
+		let daily = this.props.timeWeatherObject ? true : false;
 
 		return(
 		<div id="weatherWrap">
@@ -165,10 +165,10 @@ class WeatherField extends Component{
 			{this.props.error && <ErrorScreen isError={this.props.error} />}
 			{!this.state.isFirstLoad && !this.props.error && !this.props.geoData && <SearchScreen />}
 			{this.props.weatherForecast ? 
-				!daily && !this.state.keys.length>0 ? 
+				!daily ? 
 				<Forecast forecast={this.props.weatherForecast} thisDay={this.thisDay} />
 				:
-				<ThisDay oneDayChart={this.state.timeWeatherObject} date={this.state.date} />
+				<ThisDay oneDayChart={this.props.timeWeatherObject} date={this.state.date} />
 			:
 			<div>
 			<p className="weatherHeadline">{this.state.weather[0] ? this.firstLetter(this.state.weather[0].description) : "Current Weather"}</p>
@@ -201,7 +201,8 @@ const mapStateToProps = (state) => {
 		error: state.error,
 		isLoading: state.is_Loading,
 		autodetect: state.autodetect,
-		weatherForecast: state.weatherForecast
+		weatherForecast: state.weatherForecast,
+		timeWeatherObject: state.timeWeatherObject
 	}
 }
 
