@@ -104,8 +104,8 @@ class InputField extends Component {
 	onFocusClear = (e) => {
 		if(!this.state.isFirstLoad || !this.props.autodetect || !this.props.is_Loading){
 			this.setState({
-			focus: true
-		})
+				focus: true
+			})
 		}
 	}
 
@@ -118,6 +118,7 @@ class InputField extends Component {
 	}
 
 	render(){
+		const {timeWeatherObject} = this.props;
 		let happening = this.state.isFirstLoad || this.props.autodetect ? 
 		<p>Detecting your Location...</p>
 		:
@@ -125,7 +126,7 @@ class InputField extends Component {
 
 		let errorDetection = this.props.error ? <p>Try again...</p> : happening;
 		let forecastButton = !this.props.error && !this.state.focus && this.props.geoData && !this.props.weatherForecast;
-		const {timeWeatherObject} = this.props;
+		let timeWeather = (!this.state.focus) && timeWeatherObject ? true : false;
 
 		return(
 			<div id="inputAreaWrapper">
@@ -141,8 +142,8 @@ class InputField extends Component {
 				<section id="sectionMiddle">
 					<input 
 						type={forecastButton ? "forecastBTN" : "button"} 
-						value={forecastButton ? "5 Days Forecast" : timeWeatherObject ? "Back to 5 days forecast" : "Find my weather"} 
-						onClick={forecastButton ? this.forecastWeather : timeWeatherObject ? this.resetTimeWeatherObject : this.handleSubmitButton} 
+						value={forecastButton ? "5 Days Forecast" : timeWeather ? "Back to 5 days forecast" : "Find my weather"} 
+						onClick={forecastButton ? this.forecastWeather : timeWeather ? this.resetTimeWeatherObject : this.handleSubmitButton} 
 					/>
 				</section>
 				{!this.state.focus && <section is="sectionBottom">
