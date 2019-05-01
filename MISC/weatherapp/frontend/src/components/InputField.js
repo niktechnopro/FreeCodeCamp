@@ -127,6 +127,7 @@ class InputField extends Component {
 		let errorDetection = this.props.error ? <p>Try again...</p> : happening;
 		let forecastButton = !this.props.error && !this.state.focus && this.props.geoData && !this.props.weatherForecast;
 		let timeWeather = (!this.state.focus) && timeWeatherObject ? true : false;
+		console.log(this.props)
 
 		return(
 			<div id="inputAreaWrapper">
@@ -146,7 +147,7 @@ class InputField extends Component {
 						onClick={forecastButton ? this.forecastWeather : timeWeather ? this.resetTimeWeatherObject : this.handleSubmitButton} 
 					/>
 				</section>
-				{!this.state.focus && <section is="sectionBottom">
+				{(!this.state.focus || timeWeatherObject) && <section is="sectionBottom">
 					<div id="response">
 					{(!this.props.is_Loading || this.props.autodetect) ? errorDetection : <p>Searching...</p>}
 					{this.props.geoData ? <p>{this.props.geoData}</p> : <p />}
