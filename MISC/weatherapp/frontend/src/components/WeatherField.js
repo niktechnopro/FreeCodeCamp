@@ -46,7 +46,10 @@ class WeatherField extends Component{
 			error: false,
 			timeWeatherObject: {},
 			keys: [],
-			date: ""
+			date: "",
+			oneDayChart: [],
+			minTemp: 0,
+			maxTemp: 0
 		}
 	}
 
@@ -98,6 +101,54 @@ class WeatherField extends Component{
 		if (prevState.isFirstLoad === true && this.state.isFirstLoad === false){
 			document.querySelector('.autodetectScreen').classList.add("transparent");
 		}
+		if (!prevProps.timeWeatherObject && this.props.timeWeatherObject){
+			let values = Object.values(this.props.timeWeatherObject);
+			let maxTemp = Math.max(...values).toFixed(2);
+			let minTemp = (Math.min(...values)-3).toFixed(2);//just to lift it
+			let data = this.timeScaleCreator(this.props.timeWeatherObject);
+			data.then(time => this.finalObjectConstructor(time, this.props.timeWeatherObject)
+			.then(res => {
+				this.setState({ 
+					oneDayChart: res,
+					minTemp,
+					maxTemp 
+				})
+			}));
+
+		}
+	}
+
+	timeScaleCreator = async (oneDayChart) => {
+		let ams = [];
+		let pms = [];
+		let keys = Object.keys(oneDayChart);
+		//let's create array with AM
+		let am = /AM/;
+		let pm = /PM/;
+		ams = keys.filter(value => {
+			return value.match(am);
+		});
+		pms = keys.filter(value => {
+			return value.match(pm);
+		})
+		if (pms.length > 0){
+			let temp = pms.map(value => Number(value.match(/^(\d+)/)[1]));
+			let onlyNumbers = temp.sort((a,b) => a-b);
+			pms = onlyNumbers.map(value => String(value) + ':00 PM');
+		}
+		let allTogether = [...ams, ...pms];
+		return await allTogether;
+	}
+
+	finalObjectConstructor = async (timeArray, oneDayChart) => {
+		let sortedData = [];
+		for (let i = 0; i<timeArray.length-1; i++){
+			let subArray = [];
+			subArray[0] = timeArray[i];
+			subArray[1] = Number(oneDayChart[timeArray[i]]);
+			sortedData.push(subArray);
+		}
+		return await sortedData;
 	}
 
 	calculateTempF = () => {
@@ -111,7 +162,6 @@ class WeatherField extends Component{
 	}
 
 	directionName = (dir) => {
-		// console.log('direction', dir)
         let q = Number((dir/45).toFixed(2)); //45deg per section
         //let find the whole
         // console.log(q, Math.floor(q));
@@ -164,7 +214,7 @@ class WeatherField extends Component{
 				!daily ? 
 				<Forecast forecast={this.props.weatherForecast} thisDay={this.thisDay} />
 				:
-				<ThisDay oneDayChart={this.props.timeWeatherObject} date={this.state.date} />
+				<ThisDay oneDayChart={this.state.oneDayChart} date={this.state.date} minTemp={this.state.minTemp} maxTemp={this.state.maxTemp} />
 			:
 			<div>
 			<p className="weatherHeadline">{this.state.weather[0] ? this.firstLetter(this.state.weather[0].description) : "Current Weather"}</p>
