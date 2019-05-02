@@ -104,7 +104,7 @@ class WeatherField extends Component{
 		if (!prevProps.timeWeatherObject && this.props.timeWeatherObject){
 			let values = Object.values(this.props.timeWeatherObject);
 			let maxTemp = Math.max(...values).toFixed(2);
-			let minTemp = (Math.min(...values)-3).toFixed(2);//just to lift it
+			let minTemp = (Math.min(...values)-4).toFixed(2);//just to lift it
 			let data = this.timeScaleCreator(this.props.timeWeatherObject);
 			data.then(time => this.finalObjectConstructor(time, this.props.timeWeatherObject)
 			.then(res => {

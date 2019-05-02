@@ -15,11 +15,12 @@ const ThisDay = (props) => {
 			<ColumnChart 
 			data={oneDayChart} 
 			width="350px" 
-			height="190px"
+			height="195px"
 			min={minTemp} 
 			max={maxTemp}
-			xtitle="Time of the Day"
-			ytitle="Temperature"
+			// xtitle="Time of the Day"
+			ytitle="Temperature, °F"
+			stacked={true}
 			/>
 		</div>
 	)
