@@ -141,7 +141,7 @@ class WeatherField extends Component{
     	let date = day[0].dt_txt.slice(0,10);
     	this.makingObject(day)
 		.then(result => {
-			console.log(result);
+			// console.log(result);
 			this.setState({
 				timeWeatherObject: result,
 				date: date 

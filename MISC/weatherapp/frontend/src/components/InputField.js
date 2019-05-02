@@ -127,7 +127,6 @@ class InputField extends Component {
 		let errorDetection = this.props.error ? <p>Try again...</p> : happening;
 		let forecastButton = !this.props.error && !this.state.focus && this.props.geoData && !this.props.weatherForecast;
 		let timeWeather = (!this.state.focus) && timeWeatherObject ? true : false;
-		console.log(this.props)
 
 		return(
 			<div id="inputAreaWrapper">
