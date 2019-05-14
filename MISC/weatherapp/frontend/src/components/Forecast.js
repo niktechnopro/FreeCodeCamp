@@ -19,9 +19,10 @@ const Forecast = (props) => {
 				<div key={date} className="cardWrap" onClick={()=>specificDay(day)}>
 					<div className="singleCard">
 						<p>{date}</p>
-						{<img className="fImg" src={`https://openweathermap.org/img/w/${value.weather[0].icon}.png`} alt="icon" />}
+						{<img className="fImg" id={value.weather[0].icon} src={thisDayImage(value.weather[0].icon)} alt="icon" />}
 						<p>{value.weather[0].main}</p>
 					</div>
+					{imgCache(value.weather[0].icon)}
 				</div>
 			)
 		})
@@ -35,7 +36,54 @@ const Forecast = (props) => {
 		props.thisDay(thisDay);
 	}
 
+	function thisDayImage(icon){
+		let url;
+		if(sessionStorage.getItem(icon)){
+			url = sessionStorage.getItem(icon);
+			console.log(url);
+		}else{
+			url = `https://openweathermap.org/img/w/${icon}.png`
+		}
+		return url;		
+	}
 
+	const canvasMaker = async (img) => {
+		console.log("inside canvasMaker", img)
+		let canv = document.createElement('canvas');
+		if(canv){
+			canv.height = img.height;
+			canv.width = img.width;
+			let ctx = canv.getContext('2d');
+			ctx.drawImage(img, 0, 0);
+			let base64String = canv.toDataURL();
+			return await base64String;
+			// return await base64String.replace(/^data:image\/(png|jpg);base64,/, "");
+		}
+		
+		// return await base64String.replace(/^data:image\/(png|jpg);base64,/, "");
+	}
+
+	function imgCache(icon){
+		if(sessionStorage.getItem(icon)===null){
+			let imgPromise = new Promise((resolve, reject) => {
+			let image = document.getElementById(icon);
+				if(image){
+					resolve(image)
+				}else{
+					reject();
+				}
+			})
+			imgPromise.then((img) => {
+				canvasMaker(img).then(data64 => {
+					console.log(data64)
+					sessionStorage.setItem(icon, data64);
+				}).catch(err => console.log(img))
+			})
+			.catch(error => console.log(error));
+		}else{
+			return
+		}	
+	}
 
 
 	return(
