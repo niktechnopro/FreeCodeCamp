@@ -40,26 +40,42 @@ const Forecast = (props) => {
 		let url;
 		if(sessionStorage.getItem(icon)){
 			url = sessionStorage.getItem(icon);
-			console.log(url);
 		}else{
 			url = `https://openweathermap.org/img/w/${icon}.png`
 		}
+		console.log(url)
 		return url;		
 	}
 
 	const canvasMaker = async (img) => {
 		console.log("inside canvasMaker", img)
-		let canv = document.createElement('canvas');
-		if(canv){
-			canv.height = img.height;
-			canv.width = img.width;
-			let ctx = canv.getContext('2d');
-			ctx.drawImage(img, 0, 0);
-			let base64String = canv.toDataURL();
-			return await base64String;
-			// return await base64String.replace(/^data:image\/(png|jpg);base64,/, "");
-		}
-		
+		var canvas = document.createElement("canvas");
+		canvas.width = img.width;
+		canvas.height = img.height;
+		img.getContext("2d").drawImage(img, 0, 0);
+		var image = new Image();
+		image.src = canvas.toDataURL("image/png");
+		console.log(image)
+
+
+
+
+
+		// let canvas = document.createElement('canvas');
+		// let ctx = canvas.getContext('2d');
+		// canvas.height = img.height;
+		// canvas.width = img.width;
+		// var image = new Image();
+		// image.src = img.src;
+		// image.onload
+		// if(canvas && image.src){
+		// 	console.log(JSON.stringify(image))
+  // 			ctx.drawImage(image, 0, 0);
+		// 	let base64String = canvas.toDataURL("image/png");
+		// 	console.log(canvas)
+		// 	return await base64String;
+		// 	// return await base64String.replace(/^data:image\/(png|jpg);base64,/, "");
+		// }
 		// return await base64String.replace(/^data:image\/(png|jpg);base64,/, "");
 	}
 
@@ -77,7 +93,7 @@ const Forecast = (props) => {
 				canvasMaker(img).then(data64 => {
 					console.log(data64)
 					sessionStorage.setItem(icon, data64);
-				}).catch(err => console.log(img))
+				}).catch(err => err)
 			})
 			.catch(error => console.log(error));
 		}else{

@@ -32,6 +32,7 @@ class InputField extends Component {
 	}
 
 	componentDidMount = () => {
+		sessionStorage.clear();//clear everything on app start
 		//mounting keyEventListeners
 		this.keyDownListener = document.addEventListener("keydown", this.buttonHandler);
 		this.keyUpListener = document.addEventListener("keyup", this.buttonUp);
