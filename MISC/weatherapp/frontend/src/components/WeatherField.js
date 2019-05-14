@@ -204,7 +204,7 @@ class WeatherField extends Component{
 
 	render(){
 		let daily = this.props.timeWeatherObject ? true : false;
-
+		
 		return(
 		<div id="weatherWrap">
 			<FirstLoadScreen isFirstLoad={this.state.isFirstLoad} />
@@ -241,6 +241,7 @@ class WeatherField extends Component{
 }
 
 const mapStateToProps = (state) => {
+	// console.log(state)
 	return{
 		geoData: state.geoData,
 		weatherData: state.weatherData,

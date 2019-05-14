@@ -37,7 +37,8 @@ export default (state=initialState, action) => {
 				autodetect: false,
 				latlng: null,
 				geoResults: null,
-				weatherForecast: null
+				weatherForecast: null,
+				timeWeatherObject: null
 			};
 		case WEATHER_INFO_SUCCESS:
 			return{
@@ -59,7 +60,8 @@ export default (state=initialState, action) => {
 				is_Loading: false,
 				autodetect: false,
 				latlng: null,
-				geoResults: null
+				geoResults: null,
+				timeWeatherObject: null
 			};
 		case AUTO_INFO_START:
 			return{
@@ -71,7 +73,8 @@ export default (state=initialState, action) => {
 				autodetect: true,
 				latlng: null,
 				geoResults: null,
-				weatherForecast: null
+				weatherForecast: null,
+				timeWeatherObject: null
 			};
 		case AUTO_INFO_SUCCESS:
 			return{
@@ -93,7 +96,8 @@ export default (state=initialState, action) => {
 				is_Loading: false,
 				autodetect: false,
 				latlng: null,
-				geoResults: null
+				geoResults: null,
+				timeWeatherObject: null
 			};
 		case IP_ADDRESS_LOOKUP:
 			return{
@@ -124,7 +128,8 @@ export default (state=initialState, action) => {
 				autodetect: false,
 				weatherForecast: null,
 				latlng: null,
-				error: action.payload
+				error: action.payload,
+				timeWeatherObject: null
 			}
 		case SET_WEATHER_GRAPH_DATA:
 			return{
