@@ -22,12 +22,12 @@ const Forecast = (props) => {
 						{<img className="fImg" id={value.weather[0].icon} src={thisDayImage(value.weather[0].icon)} alt="icon" />}
 						<p>{value.weather[0].main}</p>
 					</div>
-					{imgCache(value.weather[0].icon)}
 				</div>
 			)
 		})
 	}
 
+	// {imgCache(value.weather[0].icon)}
 
 	function specificDay(day){
 		let thisDay = forecast.filter(value => {
@@ -37,70 +37,9 @@ const Forecast = (props) => {
 	}
 
 	function thisDayImage(icon){
-		let url;
-		if(sessionStorage.getItem(icon)){
-			url = sessionStorage.getItem(icon);
-		}else{
-			url = `https://openweathermap.org/img/w/${icon}.png`
-		}
-		console.log(url)
+		let url = `https://openweathermap.org/img/w/${icon}.png`
 		return url;		
 	}
-
-	const canvasMaker = async (img) => {
-		console.log("inside canvasMaker", img)
-		var canvas = document.createElement("canvas");
-		canvas.width = img.width;
-		canvas.height = img.height;
-		img.getContext("2d").drawImage(img, 0, 0);
-		var image = new Image();
-		image.src = canvas.toDataURL("image/png");
-		console.log(image)
-
-
-
-
-
-		// let canvas = document.createElement('canvas');
-		// let ctx = canvas.getContext('2d');
-		// canvas.height = img.height;
-		// canvas.width = img.width;
-		// var image = new Image();
-		// image.src = img.src;
-		// image.onload
-		// if(canvas && image.src){
-		// 	console.log(JSON.stringify(image))
-  // 			ctx.drawImage(image, 0, 0);
-		// 	let base64String = canvas.toDataURL("image/png");
-		// 	console.log(canvas)
-		// 	return await base64String;
-		// 	// return await base64String.replace(/^data:image\/(png|jpg);base64,/, "");
-		// }
-		// return await base64String.replace(/^data:image\/(png|jpg);base64,/, "");
-	}
-
-	function imgCache(icon){
-		if(sessionStorage.getItem(icon)===null){
-			let imgPromise = new Promise((resolve, reject) => {
-			let image = document.getElementById(icon);
-				if(image){
-					resolve(image)
-				}else{
-					reject();
-				}
-			})
-			imgPromise.then((img) => {
-				canvasMaker(img).then(data64 => {
-					console.log(data64)
-					sessionStorage.setItem(icon, data64);
-				}).catch(err => err)
-			})
-			.catch(error => console.log(error));
-		}else{
-			return
-		}	
-	}
-
 
 	return(
 		<div id="forecastWrap">
