@@ -5,25 +5,29 @@ import { WEATHER_INFO_FAILURE, WEATHER_INFO_SUCCESS, WEATHER_INFO_START,
 import axios from 'axios';
 const API = 'http://localhost:8000';
 // const API = 'https://wapi.niktechnopro.com';
-const postUri = API+'/getweather';
-const postUriLatLon = API+'/basedOnLatLon';
 const ipAddressLookupAPI = 'http://ip-api.com/json';
-const getWeatherForecastAPI = API+'/forecast';
+
+const weatherAxios = axios.create({
+	baseURL: API,
+	headers: {
+		"Content-Type" : "application/json",
+	}
+})
 
 
 //use this to fetch data from url
 export function sendCoordinates(address){ 
 	return (dispatch) => {
-	 dispatch(getWeatherResultsBegin())
- 	return axios.post(postUri, {
-	    address: address
- 	})
-   .then((response) => {
-     dispatch(getWeatherResultsSucceeded(response));
-	})
-   .catch((error) => {
-     dispatch(getWeatherResultsFailed(error));
-	});
+		 dispatch(getWeatherResultsBegin())
+	 	return weatherAxios.post("/getweather", {
+		    address: address
+	 	})
+	   .then((response) => {
+	     dispatch(getWeatherResultsSucceeded(response));
+		})
+	   .catch((error) => {
+	     dispatch(getWeatherResultsFailed(error));
+		});
    };
 }
 
@@ -52,7 +56,7 @@ function getWeatherResultsSucceeded(response) {
 export function autoDetectCoordinates(latlng){ 
 	return (dispatch) => {
 	 dispatch(autoResultsBegin())
- 	return axios.post(postUriLatLon, {
+ 	return weatherAxios.post("/basedOnLatLon", {
 	    latlng: {lat : latlng.latitude, lng: latlng.longitude, accuracy: latlng.accuracy} 
  	})
    .then((response) => {
@@ -119,7 +123,7 @@ function ipAddressLookupSuccess(latlng){
 export function getForecast(latlng){
 	return (dispatch) => {
 	 dispatch(getForecastBegin())
- 	return axios.post(getWeatherForecastAPI,{
+ 	return weatherAxios.post("/forecast",{
 	    latlng: latlng 
  	})    
 	   .then((response) => {
