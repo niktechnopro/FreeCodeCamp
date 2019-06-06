@@ -4,7 +4,8 @@ import { sendCoordinates,
 		autoDetectCoordinates,
 		ipAddressLookup,
 		getForecast,
-		onTimeWeatherObject } from './actionCreators/actionCreators';
+		onTimeWeatherObject,
+		testRequest } from './actionCreators/actionCreators';
 
 
 class InputField extends Component {
@@ -53,6 +54,9 @@ class InputField extends Component {
 			});
 		}
 		this.searchButton = document.querySelector('[type="button"]');
+		this.props.onTestRequest("some crap")
+		.then(result => console.log(result))
+		.catch(error => console.log(error))
 	}
 
 	componentWillUnmount = () => {
@@ -180,6 +184,7 @@ const mapDispatchToProps = (dispatch) => {
 		onIPaddressLookup: () => dispatch(ipAddressLookup()),
 		onGetForecast: (geoResults) => dispatch(getForecast(geoResults)),
 		onTimeWeatherObject: (timeWeatherObject) => dispatch(onTimeWeatherObject(timeWeatherObject)),
+		onTestRequest: (crap) => dispatch(testRequest(crap))
 	}
 }
 

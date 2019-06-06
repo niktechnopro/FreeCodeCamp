@@ -6,13 +6,73 @@ import axios from 'axios';
 const API = 'http://localhost:8000';
 // const API = 'https://wapi.niktechnopro.com';
 const ipAddressLookupAPI = 'http://ip-api.com/json';
+let globalDispatch;
 
 const weatherAxios = axios.create({
 	baseURL: API,
 	headers: {
 		"Content-Type" : "application/json",
+		'Accept': 'application/json'
 	}
 })
+
+const testAxios = axios.create({
+	baseURL: API,
+	headers: {
+		"Content-Type" : "application/json",
+	}
+})
+
+export function testRequest(crap){
+	console.log("inside testRequest function")
+	return(dispatch) => {
+		globalDispatch = dispatch;
+		return testAxios.post("/test",
+			{data: crap}
+		)
+	}
+}
+
+//interceptors
+testAxios.interceptors.request.use(
+    request => {
+    console.log("request success: ", request)
+    return request;
+    }, error => {
+    console.log("request error: ", error)
+    return error;
+});
+    
+testAxios.interceptors.response.use(
+    response => {
+    console.log("response: ", response)
+    return response;
+    }, error => {//we are not having bugsnag in here, because the user is not defined yet
+    // console.log("error on response: ",error)
+    console.log('response: ', error.response)
+    console.log("message: ", error.message)
+    if (error.response.status === 500){
+    	let arg = JSON.parse(error.response.config.data);
+    	console.log("we need to relaunch this request again", JSON.parse(error.response.config.data));
+    	setTimeout(()=>{
+    		console.log("trying it again")
+    		globalDispatch(testRequest(arg.data));
+    	}, 3000);
+    }else{
+    	return Promise.reject(error);
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 //use this to fetch data from url
@@ -23,10 +83,11 @@ export function sendCoordinates(address){
 		    address: address
 	 	})
 	   .then((response) => {
-	     dispatch(getWeatherResultsSucceeded(response));
+	     	dispatch(getWeatherResultsSucceeded(response));
 		})
 	   .catch((error) => {
-	     dispatch(getWeatherResultsFailed(error));
+	   		console.log(error.message, error.response, error.response.status)
+	     	dispatch(getWeatherResultsFailed(error.message));
 		});
    };
 }
@@ -60,10 +121,10 @@ export function autoDetectCoordinates(latlng){
 	    latlng: {lat : latlng.latitude, lng: latlng.longitude, accuracy: latlng.accuracy} 
  	})
    .then((response) => {
-     dispatch(autoResultsSucceeded(response));
+     	dispatch(autoResultsSucceeded(response));
 	})
    .catch((error) => {
-     dispatch(autoResultsFailed(error));
+     	dispatch(autoResultsFailed(error));
 	});
    };
 }
@@ -90,7 +151,7 @@ function autoResultsFailed(error) {
 
 export function ipAddressLookup(){ 
 	return (dispatch) => {
-	 dispatch(autoResultsBegin())
+	 	dispatch(autoResultsBegin())
  	return axios.get(ipAddressLookupAPI)    
 	   .then((response) => {
 	   	if(response.status === 200){
@@ -100,7 +161,7 @@ export function ipAddressLookup(){
 	   			longitude: respObject.lon,
 	   			accuracy: 20
 	   		}
-	     dispatch(ipAddressLookupSuccess(latlng));
+	     	dispatch(ipAddressLookupSuccess(latlng));
 	     	return latlng;
 	     }
 		})
@@ -167,4 +228,46 @@ export function onTimeWeatherObject(timeWeatherObject){
 		payload: timeWeatherObject
 	}
 }
+
+
+// this works with continues re-call for faile method
+// export function testRequest(crap){
+// 	console.log("inside testRequest function")
+// 	return(dispatch) => {
+// 		globalDispatch = dispatch;
+// 		return testAxios.post("/test",
+// 			{data: crap}
+// 		)
+// 	}
+// }
+
+// //interceptors
+// testAxios.interceptors.request.use(
+//     request => {
+//     console.log("request success: ", request)
+//     return request;
+//     }, error => {
+//     console.log("request error: ", error)
+//     return error;
+// });
+    
+// testAxios.interceptors.response.use(
+//     response => {
+//     console.log("response: ", response)
+//     return response;
+//     }, error => {//we are not having bugsnag in here, because the user is not defined yet
+//     // console.log("error on response: ",error)
+//     console.log('response: ', error.response)
+//     console.log("message: ", error.message)
+//     if (error.response.status === 500){
+//     	let arg = JSON.parse(error.response.config.data);
+//     	console.log("we need to relaunch this request again", JSON.parse(error.response.config.data));
+//     	setTimeout(()=>{
+//     		console.log("trying it again")
+//     		globalDispatch(testRequest(arg.data));
+//     	}, 3000);
+//     }else{
+//     	return Promise.reject(error);
+//     }
+// });
 

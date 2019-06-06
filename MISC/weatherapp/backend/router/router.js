@@ -21,4 +21,8 @@ router.route('/getweather')
 router.route('/forecast')
 	.post(handlers.forecastHandler)
 
+router.route('/test')
+	.post(handlers.testHandler)
+	.get(handlers.testHandler)
+
 module.exports = router;

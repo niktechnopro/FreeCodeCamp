@@ -18,6 +18,13 @@ const getHandler = (req, res, next) => {
 	// })
 }
 
+const testHandler = (req, res, next) => {
+	console.log("inside the test handler", req.body.data)
+	res.status(500).json({
+  		message: "postHandler LatLon error"
+	});
+}
+
 const postHandlerLatLon = (req, res, next) => {
 	let latlon = req.body.latlng;
 	let result = results.geoResultsLatLon(latlon);
@@ -88,3 +95,4 @@ module.exports.getHandler = getHandler;
 module.exports.postHandler = postHandler;
 module.exports.postHandlerLatLon = postHandlerLatLon;
 module.exports.forecastHandler = forecastHandler;
+module.exports.testHandler = testHandler;

@@ -24,3 +24,5 @@ app.use(router);//has to be at the end
 
 
 module.exports = app;
+
+// 'Access-Control-Allow-Origin: *'
