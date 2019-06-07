@@ -20,8 +20,8 @@ const getHandler = (req, res, next) => {
 
 const testHandler = (req, res, next) => {
 	console.log("inside the test handler", req.body.data)
-	res.status(500).json({
-  		message: "postHandler LatLon error"
+	res.status(404).json({
+  		message: "response from test handler - that is a test of retry with interceptors"
 	});
 }
 
