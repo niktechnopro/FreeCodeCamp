@@ -4,7 +4,6 @@ import { WEATHER_INFO_FAILURE, WEATHER_INFO_SUCCESS, WEATHER_INFO_START,
  } from '../actions/actions';
 import axios from 'axios';
 let retryCount = 0;
-// import axiosRetry from 'axios-retry';
 
 
 const API = 'http://localhost:8000';
@@ -36,7 +35,7 @@ export function testRequest(crap){
 		return testAxios({
 			url: '/test',
 			method: 'post',
-			data: {data: crap}
+			data: {data: crap},
 		})
 	}
 }
@@ -136,7 +135,7 @@ export function autoDetectCoordinates(latlng){
 	return (dispatch) => {
 	 dispatch(autoResultsBegin())
  	return weatherAxios.post("/basedOnLatLon", {
-	    latlng: {lat : latlng.latitude, lng: latlng.longitude, accuracy: latlng.accuracy} 
+	    latlng: {lat : latlng.latitude, lng: latlng.longitude, accuracy: latlng.accuracy}
  	})
    .then((response) => {
      	dispatch(autoResultsSucceeded(response));
@@ -203,7 +202,7 @@ export function getForecast(latlng){
 	return (dispatch) => {
 	 dispatch(getForecastBegin())
  	return weatherAxios.post("/forecast",{
-	    latlng: latlng 
+	    latlng: latlng
  	})    
 	   .then((response) => {
 	   		if(response.status === 200){
@@ -291,27 +290,4 @@ export function onTimeWeatherObject(timeWeatherObject){
 
 // #define ECONNABORTED    103     // Software caused connection abort ask Alex
 
-// function axiosErrorConfig(error){//errors that trigger re-request
-// 	console.log("response from inside: ", error.response)
-// 	return axiosRetry.isNetworkError(error)
-// 	|| error.response.config.method === 'POST' 
-// 	|| error.response.config.method === "GET"
-// 	|| error.response.config.method === "PUT"
-// 	|| error.response.config.method === "DELETE" 
-// 	|| error.response.status === 404
-// 	|| error.response.status === 422
-// 	|| error.response.status >= 500
-// }
-
-
-// axiosRetry(testAxios, {
-// 	retries: 4,
-// 	retryDelay: (retryCount) => {
-// 		console.log(retryCount)
-//   		return (retryCount+1) * 1000;
-// 	},
-//   	retryCondition: (error) => { 
-//   		return axiosErrorConfig(error);
-//  	}
-// });
 

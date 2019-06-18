@@ -54,9 +54,6 @@ class InputField extends Component {
 			});
 		}
 		this.searchButton = document.querySelector('[type="button"]');
-		this.props.onTestRequest("some crap")
-		.then(result => console.log(result))
-		.catch(error => console.log(error))
 	}
 
 	componentWillUnmount = () => {
