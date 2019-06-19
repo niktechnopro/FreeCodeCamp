@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Platform} from 'react-native';
+import Buttons from './Buttons';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -8,8 +9,8 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-type Props = {};
-export default class Wrapper extends Component<Props> {
+
+export default class Wrapper extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -17,6 +18,7 @@ export default class Wrapper extends Component<Props> {
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
         <Text style={styles.instructions}>Do something else</Text>
+        <Buttons />
       </View>
     );
   }
