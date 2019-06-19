@@ -45,7 +45,7 @@ export default class Wrapper extends Component{
 const styles = StyleSheet.create({
   button: {
   	margin: 5,
-  	fontSize: 20,
+  	fontSize: 24,
   	color: '#fff',
   	fontWeight: "bold"
   },

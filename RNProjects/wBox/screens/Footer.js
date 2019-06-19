@@ -16,7 +16,9 @@ const styles = StyleSheet.create({
 		margin: 5
 	},
 	fText : {
-		fontSize: 10,
-		color: "#2980b6"
+		fontSize: 16,
+		// color: "#2980b6"
+		color: "#fff",
+		textAlign: 'center'
 	}
 });
