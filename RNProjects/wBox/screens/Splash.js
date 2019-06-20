@@ -23,7 +23,7 @@ export default class Splash extends Component {
         clearInterval(this.splashInterval);
         this.props.navigation.navigate("Wrapper");
       }
-    }, 10)
+    }, 100)
   }
 
 

@@ -14,7 +14,7 @@ const AppNavigator = createAppContainer(createSwitchNavigator(
     }
   },
   {
-    initialRouteName: 'Wrapper'
+    initialRouteName: 'Splash'
   }
 ));
 

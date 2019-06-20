@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ImageBackground, Image} from 'react-native';
+import {StyleSheet, Text, View, ImageBackground, Image, BackHandler} from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import * as Animatable from 'react-native-animatable';
 import Buttons from './Buttons';
 import Footer from './Footer';
+import CloseButton from './CloseButton';
 import quotes from '../assets/quoteBlob';
 
 const quoteArrayLength = quotes.data.quotes.length;
-const animationsIn = ["bounceIn", "bounceInDown", "bounceInUp", "bounceInLeft", "bounceInRight", "fadeIn", "fadeInDown", "fadeInDownBig", "fadeInUp", "fadeInUpBig", "fadeInLeft", "fadeInLeftBig", "fadeInRight", "fadeInRightBig"];
-const animationsOut = ["bounceOut", "bounceOutDown", "bounceOutUp", "bounceOutLeft", "bounceOutRight", "fadeOut", "fadeOutDown", "fadeOutDownBig", "fadeOutUp", "fadeOutUpBig", "fadeOutLeft", "fadeOutLeftBig", "fadeOutRight", "fadeOutRightBig"];
+const animationsIn = ["bounceIn", "bounceInDown", "bounceInUp", "bounceInLeft", "bounceInRight", "fadeIn", "fadeInDown", "fadeInDownBig", "fadeInUp", "fadeInUpBig", "fadeInLeft", "fadeInLeftBig", "fadeInRight", "fadeInRightBig", "zoomIn", "zoomInDown", "zoomInUp", "zoomInLeft", "zoomInRight"];
+const animationsOut = ["bounceOut", "bounceOutDown", "bounceOutUp", "bounceOutLeft", "bounceOutRight", "fadeOut", "fadeOutDown", "fadeOutDownBig", "fadeOutUp", "fadeOutUpBig", "fadeOutLeft", "fadeOutLeftBig", "fadeOutRight", "fadeOutRightBig", "zoomOut", "zoomOutDown", "zoomOutUp", "zoomOutLeft", "zoomOutRight"];
 const direction = ["normal", "reverse", "alternate", "alternate-reverse"];
 
 export default class Wrapper extends Component {
@@ -23,12 +25,22 @@ export default class Wrapper extends Component {
     this.buttonReady = true;
   }
 
+  componentDidMount = () => {
+    BackHandler.addEventListener('hardwareBackPress', () => true);
+  }
+
+  componentWillUnmount = () => {
+    BackHandler.removeEventListener('hardwareBackPress', () => true);
+  }
+
+  closeApp = () => {
+    BackHandler.exitApp();//to close app and put it on the background
+  }
 
   getQuote = (index) => {
     if(this.buttonReady){
       this.buttonReady = false;
       let animations = this.setAnimations();
-      console.log(animations);
       let author = ""
       try{
         let quote = quotes.data.quotes[index].quote;
@@ -78,7 +90,6 @@ export default class Wrapper extends Component {
 
 
   render() {
-    console.log(this.state)
     return (
       <View style={styles.mainContainer}>
         <ImageBackground
@@ -89,6 +100,11 @@ export default class Wrapper extends Component {
           }}
         >
           <View style={styles.container}>
+
+            <View style={styles.closeAppWrapper} >
+              <CloseButton closeApp={this.closeApp} />
+            </View>
+
              <Text style={styles.title}>
                 Wisdom Box
               </Text>
@@ -116,7 +132,6 @@ export default class Wrapper extends Component {
                     duration={850}
                     animation={this.state.autAnimation}
                     useNativeDriver={true}
-                    // direction={this.state.direction}
                     >
                     {this.state.author}
                   </Animatable.Text>
@@ -213,6 +228,12 @@ const styles = StyleSheet.create({
     width: "100%",
     bottom: 0,
     right: 0
+  },
+  closeAppWrapper : {
+    position: 'absolute',
+    width: '100%',
+    top: 0,
+    right: 0,
   }
 });
 

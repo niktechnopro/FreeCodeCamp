@@ -2,41 +2,18 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableNativeFeedback, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-let index = 0;
-
-export default class Buttons extends Component{
+export default class CloseButton extends Component{
 	constructor(props){
 		super(props)
 		this.animatedValue = new Animated.Value(1);
-		this.state = {
-			index: 0
-		}
 	}
 
 	handlePressIn = (e) => {
 		Animated.spring(this.animatedValue, {
-			toValue: 0.5,
+			toValue: 0.8,
 			friction: 5,
-			tension: 40,
 			useNativeDriver: true
-		}).start(
-			()=>{
-				this.randomIndex()
-			}
-		);
-	}
-
-	randomIndex = () => {//to make sure the index will be changed
-		index = Math.floor(Math.random()*this.props.length);
-		if(this.state.index !== index){
-			this.setState({
-				index
-			},()=>{
-				this.props.getQuote(index);
-			})
-		}else{
-			this.randomIndex();
-		}
+		}).start();
 	}
 
 	handlePressOut = (e) => {
@@ -45,7 +22,9 @@ export default class Buttons extends Component{
 			friction: 3,
 			tension: 40,
 			useNativeDriver: true
-		}).start();
+		}).start(
+			()=>{this.props.closeApp()}
+		);
 	}
 
 	render(){
@@ -58,7 +37,7 @@ export default class Buttons extends Component{
         		onPressOut={this.handlePressOut}
         		background={TouchableNativeFeedback.SelectableBackground()}>
       			<Animated.View style={[styles.buttonWrapper, animatedStyle]}>
-        			<Text style={styles.button}>Get a Quote</Text>
+        			<Icon name="closecircleo" size={40} color="#fff"/>
       			</Animated.View>
     		</TouchableNativeFeedback>
 		)
@@ -68,21 +47,17 @@ export default class Buttons extends Component{
 
 const styles = StyleSheet.create({
   button: {
-  	padding: 30,
+  	padding: 10,
   	fontSize: 30,
   	color: '#fff',
   	fontWeight: "bold",
   	textShadowColor: 'rgba(0, 0, 0, 0.75)',
 	textShadowOffset: {width: -1, height: 1},
-	textShadowRadius: 10
+	textShadowRadius: 10,
+	borderColor: '#2980b6',
   },
   buttonWrapper: {
-  	alignItems: 'center',
-  	justifyContent: 'center', 
-  	backgroundColor: 'grey',
-  	borderRadius: 50,
-  	borderColor: '#2980b6',
-  	borderWidth: 2
+  	padding: 10,
+  	alignItems: 'flex-end',
   }
-
 });
