@@ -20,37 +20,44 @@ export default class Wrapper extends Component {
       direction: "normal",
       autAnimation: null,
     }
+    this.buttonReady = true;
   }
 
 
   getQuote = (index) => {
-    let animations = this.setAnimations();
-    console.log(animations);
-    let author = ""
-    try{
-      let quote = quotes.data.quotes[index].quote;
-      let temp = quotes.data.quotes[index].author;
-      if(temp && temp.charAt(0).includes('-')){
-        author = temp.substring(0);
-      }else{
-        author = temp;
+    if(this.buttonReady){
+      this.buttonReady = false;
+      let animations = this.setAnimations();
+      console.log(animations);
+      let author = ""
+      try{
+        let quote = quotes.data.quotes[index].quote;
+        let temp = quotes.data.quotes[index].author;
+        if(temp && temp.charAt(0).includes('-')){
+          author = temp.substring(0);
+        }else{
+          author = temp;
+        }
+        this.setState({
+          animation: animations.animationsOut,
+          direction: animations.direction,
+          autAnimation: animations.autAnimationOut
+        },()=>{
+            setTimeout(()=>{
+              this.buttonReady = true;
+              this.setState({
+                quote,
+                author: " - "+author,
+                animation: animations.animationsIn,
+                autAnimation: animations.autAnimationIn,
+                ready: true})
+            },800)
+        })
+      }catch{
+        this.setState({
+          quote: "Something went wrong, try again..."
+        })
       }
-      this.setState({
-        animation: animations.animationsOut,
-        direction: animations.direction,
-        autAnimation: animations.autAnimationOut
-      },()=>{
-          setTimeout(()=>{this.setState({
-          quote,
-          author: " - "+author,
-          animation: animations.animationsIn,
-          autAnimation: animations.autAnimationIn
-        })},800)
-      })
-    }catch{
-      this.setState({
-        quote: "Something went wrong, try again..."
-      })
     }
   }
 
@@ -117,7 +124,11 @@ export default class Wrapper extends Component {
             </View>
             
             <View style={styles.buttonFrame}>
-              <Buttons getQuote={this.getQuote} length={quoteArrayLength} />
+              <Buttons 
+                getQuote={this.getQuote} 
+                length={quoteArrayLength} 
+                buttonReady={this.buttonReady}
+              />
             </View>
           
           </View>

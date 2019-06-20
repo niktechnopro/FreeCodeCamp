@@ -46,12 +46,13 @@ export default class Wrapper extends Component{
 	}
 
 	render(){
+		console.log(this.props.buttonReady);
 		const animatedStyle = {
 			transform: [{scale: this.animatedValue}]
 		}
 		return(
 			<TouchableNativeFeedback
-        		onPressIn={this.handlePressIn}
+        		onPressIn={this.props.buttonReady ? this.handlePressIn : null}
         		onPressOut={this.handlePressOut}
         		background={TouchableNativeFeedback.SelectableBackground()}>
       			<Animated.View style={[styles.buttonWrapper, animatedStyle]}>
