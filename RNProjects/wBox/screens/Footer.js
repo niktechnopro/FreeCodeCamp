@@ -16,9 +16,12 @@ const styles = StyleSheet.create({
 		margin: 5
 	},
 	fText : {
-		fontSize: 16,
+		fontSize: 31,
 		// color: "#2980b6"
 		color: "#fff",
-		textAlign: 'center'
+		textAlign: 'center',
+		textShadowColor: '#000', 
+		textShadowOffset: { width: 1.5, height: 2.5 }, 
+		textShadowRadius: 1
 	}
 });

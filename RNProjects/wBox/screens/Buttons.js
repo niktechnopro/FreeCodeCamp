@@ -44,16 +44,19 @@ export default class Wrapper extends Component{
 
 const styles = StyleSheet.create({
   button: {
-  	margin: 5,
-  	fontSize: 24,
+  	padding: 30,
+  	fontSize: 30,
   	color: '#fff',
-  	fontWeight: "bold"
+  	fontWeight: "bold",
+  	textShadowColor: 'rgba(0, 0, 0, 0.75)',
+	textShadowOffset: {width: -1, height: 1},
+	textShadowRadius: 10
   },
   buttonWrapper: {
   	alignItems: 'center',
   	justifyContent: 'center', 
   	backgroundColor: 'grey',
-  	borderRadius: 5,
+  	borderRadius: 50,
   	borderColor: '#2980b6',
   	borderWidth: 2
   }
