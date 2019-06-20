@@ -21,7 +21,7 @@ export default class Splash extends Component {
         })
       }else{
         clearInterval(this.splashInterval);
-        this.props.navigation.navigate("Wrapper");
+        setTimeout(()=>this.props.navigation.navigate("Wrapper"), 300);
       }
     }, 100)
   }
@@ -32,8 +32,9 @@ export default class Splash extends Component {
     const fullScreen = {height: Dimensions.get('window').height, width: Dimensions.get('window').width};
     return (
       <View style={styles.container}>
-      <Text style={styles.title}>Welcome</Text>
-        <Text style={styles.title}>to Wisdom Box!</Text>
+        <Text style={styles.title}>Welcome</Text>
+        <Text style={styles.title}>to</Text>
+        <Text style={styles.title}>Wisdom Box!</Text>
         <Text style={styles.description}>Your source of Wisdom is loading...</Text>
         <Progress.Bar 
         progress={this.state.progress} 
@@ -52,19 +53,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-    borderColor: 'red',
-    borderWidth: 2
   },
   title: {
-    fontSize: 40,
-    textAlign: 'center',
-    margin: 10,
+    padding: 10,
+    fontSize: 45,
+    // color: '#fff',
+    color: 'rgba(0, 122, 255, 1)',
+    fontWeight: "bold",
+    textShadowColor: 'rgba(99, 99, 99, 0.75)',
+    textShadowOffset: {width: -3, height: 2},
+    textShadowRadius: 10,
+    textAlign: 'justify'
   },
   description: {
-    fontSize: 20,
+    fontSize: 24,
     textAlign: 'center',
     margin: 10,
   },

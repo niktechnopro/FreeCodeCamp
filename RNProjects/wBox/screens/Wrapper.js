@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ImageBackground, Image, BackHandler} from 'react-native';
+import {StyleSheet, Text, View, ImageBackground, Image, BackHandler, Animated} from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import * as Animatable from 'react-native-animatable';
 import Buttons from './Buttons';
@@ -21,12 +21,20 @@ export default class Wrapper extends Component {
       animation: null,
       direction: "normal",
       autAnimation: null,
+      fadeAnimation: new Animated.Value(0),
     }
     this.buttonReady = true;
   }
 
   componentDidMount = () => {
     BackHandler.addEventListener('hardwareBackPress', () => true);
+    Animated.timing(
+      this.state.fadeAnimation,
+      {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true
+      }).start();
   }
 
   componentWillUnmount = () => {
@@ -34,7 +42,16 @@ export default class Wrapper extends Component {
   }
 
   closeApp = () => {
-    BackHandler.exitApp();//to close app and put it on the background
+    Animated.timing(
+      this.state.fadeAnimation,
+      {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true
+      }).start(
+        ()=>{BackHandler.exitApp()}
+      );
+    // BackHandler.exitApp();//to close app and put it on the background
   }
 
   getQuote = (index) => {
@@ -91,7 +108,7 @@ export default class Wrapper extends Component {
 
   render() {
     return (
-      <View style={styles.mainContainer}>
+      <Animated.View style={[styles.mainContainer, {opacity: this.state.fadeAnimation}]}>
         <ImageBackground
           source = {require("../assets/flower.jpg")}
           style = {styles.backgroundImage}
@@ -149,7 +166,7 @@ export default class Wrapper extends Component {
           </View>
           <Footer />
         </ImageBackground>
-      </View>
+      </Animated.View>
     );
   }
 }
