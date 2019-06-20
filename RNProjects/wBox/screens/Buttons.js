@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableNativeFeedback, Animated } from 'react-native';
 
+let index = 0;
+
 export default class Wrapper extends Component{
 	constructor(props){
 		super(props)
 		this.animatedValue = new Animated.Value(1);
+		this.state = {
+			index: 0
+		}
 	}
 
 	handlePressIn = (e) => {
@@ -12,8 +17,24 @@ export default class Wrapper extends Component{
 			toValue: 0.5,
 			friction: 5,
 			tension: 40
-		}).start();
-		console.log("launch and action to retrieve a new quote")
+		}).start(
+			()=>{
+				this.randomIndex()
+			}
+		);
+	}
+
+	randomIndex = () => {
+		index = Math.floor(Math.random()*this.props.length);
+		if(this.state.index !== index){
+			this.setState({
+				index
+			},()=>{
+				this.props.getQuote(index);
+			})
+		}else{
+			this.randomIndex();
+		}
 	}
 
 	handlePressOut = (e) => {

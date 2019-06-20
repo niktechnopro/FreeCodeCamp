@@ -2,9 +2,34 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, ImageBackground, Image} from 'react-native';
 import Buttons from './Buttons';
 import Footer from './Footer';
+import quotes from '../assets/quoteBlob';
+
+const quoteArrayLength = quotes.data.quotes.length;
 
 
 export default class Wrapper extends Component {
+  constructor(){
+    super()
+    this.state={
+      quote: ""
+    }
+  }
+
+
+  getQuote = (index) => {
+    console.log("index", index)
+    //let's generate a number withing the array index
+    // let index = Math.ceil(Math.random()*100);
+    // let quote = null;
+    // try{
+    //   quote = allquotes[index];
+    // }catch{
+    //   quote = 'Something went wrong, please refresh the page or comeback later'
+    // }
+}
+
+
+
   render() {
     return (
       <View style={styles.mainContainer}>
@@ -28,10 +53,13 @@ export default class Wrapper extends Component {
                 imageStyle={{
                   resizeMode: 'contain' // works only here!
                 }}/>
+                <Text style={styles.wisdomText}>
+                  {this.state.quote.length>1 ? this.state.quote : "Some test text"}
+                </Text>
             </View>
             
             <View style={styles.buttonFrame}>
-              <Buttons />
+              <Buttons getQuote={this.getQuote} length={quoteArrayLength} />
             </View>
           
           </View>
@@ -68,22 +96,32 @@ const styles = StyleSheet.create({
     height: "40%",
     borderWidth: 5,
     borderRadius: 5,
-    borderColor: "#fff"
+    borderColor: "#fff",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonFrame:{
     justifyContent: 'center',
     alignItems: 'center',
   },
   insideImage: {
+    position: 'absolute',
     width: "100%",
     height: "100%",
-    flex: 1,
   },
   title:{
     fontSize: 45,
     color: '#fff',
     fontWeight: "bold",
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10
+  },
+  wisdomText:{
+    fontSize: 25,
+    color: '#000',
+    fontWeight: "bold",
+    textShadowColor: 'rgba(255, 255, 255, 0.75)',
     textShadowOffset: {width: -1, height: 1},
     textShadowRadius: 10
   }
