@@ -1,23 +1,31 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, ImageBackground, Image} from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import Buttons from './Buttons';
 import Footer from './Footer';
 import quotes from '../assets/quoteBlob';
 
 const quoteArrayLength = quotes.data.quotes.length;
-
+const animationsIn = ["bounceIn", "bounceInDown", "bounceInUp", "bounceInLeft", "bounceInRight", "fadeIn", "fadeInDown", "fadeInDownBig", "fadeInUp", "fadeInUpBig", "fadeInLeft", "fadeInLeftBig", "fadeInRight", "fadeInRightBig"];
+const animationsOut = ["bounceOut", "bounceOutDown", "bounceOutUp", "bounceOutLeft", "bounceOutRight", "fadeOut", "fadeOutDown", "fadeOutDownBig", "fadeOutUp", "fadeOutUpBig", "fadeOutLeft", "fadeOutLeftBig", "fadeOutRight", "fadeOutRightBig"];
+const direction = ["normal", "reverse", "alternate", "alternate-reverse"];
 
 export default class Wrapper extends Component {
   constructor(){
     super()
     this.state={
       quote: "",
-      author: ""
+      author: "",
+      animation: null,
+      direction: "normal",
+      autAnimation: null,
     }
   }
 
 
   getQuote = (index) => {
+    let animations = this.setAnimations();
+    console.log(animations);
     let author = ""
     try{
       let quote = quotes.data.quotes[index].quote;
@@ -28,16 +36,38 @@ export default class Wrapper extends Component {
         author = temp;
       }
       this.setState({
-        quote,
-        author: " - "+author
+        animation: animations.animationsOut,
+        direction: animations.direction,
+        autAnimation: animations.autAnimationOut
+      },()=>{
+          setTimeout(()=>{this.setState({
+          quote,
+          author: " - "+author,
+          animation: animations.animationsIn,
+          autAnimation: animations.autAnimationIn
+        })},800)
       })
     }catch{
       this.setState({
         quote: "Something went wrong, try again..."
       })
     }
-}
+  }
 
+  setAnimations = () => {
+    let indexIn = Math.floor(Math.random()*animationsIn.length);
+    let indexOut = Math.floor(Math.random()*animationsOut.length);
+    let autIndexIn = Math.floor(Math.random()*animationsIn.length);
+    let autIndexOut = Math.floor(Math.random()*animationsOut.length);
+    let directionIndex = Math.floor(Math.random()*direction.length);
+    return {
+      animationsIn : animationsIn[indexIn],
+      animationsOut : animationsOut[indexOut],
+      autAnimationIn : animationsIn[autIndexIn],
+      autAnimationOut : animationsOut[autIndexOut],
+      direction : direction[directionIndex]
+    }
+  }
 
 
   render() {
@@ -64,14 +94,25 @@ export default class Wrapper extends Component {
                 imageStyle={{
                   resizeMode: 'contain' // works only here!
                 }}/>
-                <Text style={styles.wisdomText}>
-                  {this.state.quote ? this.state.quote : "Press 'Get a Quote' button"}
-                </Text>
+                  <Animatable.Text 
+                    style={styles.wisdomText} 
+                    animation={this.state.animation} 
+                    duration={850}
+                    useNativeDriver={true}
+                    >
+                    {this.state.quote ? this.state.quote : "Press 'Get a Quote' button"}
+                  </Animatable.Text>
 
                 <View style={styles.authorBox}>
-                  <Text style={styles.author}>
+                  <Animatable.Text 
+                    style={styles.author}
+                    duration={850}
+                    animation={this.state.autAnimation}
+                    useNativeDriver={true}
+                    // direction={this.state.direction}
+                    >
                     {this.state.author}
-                  </Text>
+                  </Animatable.Text>
                 </View>
             </View>
             
