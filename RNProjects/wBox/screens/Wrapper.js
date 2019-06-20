@@ -51,7 +51,7 @@ export default class Wrapper extends Component {
       }).start(
         ()=>{BackHandler.exitApp()}
       );
-    // BackHandler.exitApp();//to close app and put it on the background
+    //to close app and put it on the background
   }
 
   getQuote = (index) => {
@@ -248,9 +248,8 @@ const styles = StyleSheet.create({
   },
   closeAppWrapper : {
     position: 'absolute',
-    width: '100%',
     top: 0,
-    right: 0,
+    right: 0
   }
 });
 

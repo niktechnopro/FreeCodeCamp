@@ -68,7 +68,7 @@ export default class Buttons extends Component{
 
 const styles = StyleSheet.create({
   button: {
-  	padding: 25,
+  	padding: 18,
   	fontSize: 30,
   	color: '#fff',
   	fontWeight: "bold",
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   	justifyContent: 'center', 
   	backgroundColor: 'grey',
   	borderRadius: 50,
-  	borderColor: '#2980b6',
+  	borderColor: '#fff',
   	borderWidth: 2
   }
 
