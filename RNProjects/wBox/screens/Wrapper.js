@@ -177,7 +177,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   container: {
-    marginTop: 20,
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -237,7 +236,8 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(255, 255, 255, 0.75)',
     textShadowOffset: {width: -1, height: 1},
     textShadowRadius: 10,
-    textAlign: 'right'
+    textAlign: 'right',
+    fontStyle: 'italic'
   },
   authorBox:{
     position: "absolute",

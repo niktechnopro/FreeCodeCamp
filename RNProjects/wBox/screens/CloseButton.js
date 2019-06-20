@@ -10,7 +10,7 @@ export default class CloseButton extends Component{
 
 	handlePressIn = (e) => {
 		Animated.spring(this.animatedValue, {
-			toValue: 0.8,
+			toValue: 0.2,
 			friction: 5,
 			useNativeDriver: true
 		}).start();
@@ -37,7 +37,10 @@ export default class CloseButton extends Component{
         		onPressOut={this.handlePressOut}
         		background={TouchableNativeFeedback.SelectableBackground()}>
       			<Animated.View style={[styles.buttonWrapper, animatedStyle]}>
-        			<Icon name="closecircleo" size={40} color="#fff"/>
+        			<Icon 
+        			name="closecircleo" 
+        			size={40} 
+        			color="#fff"/>
       			</Animated.View>
     		</TouchableNativeFeedback>
 		)
@@ -47,7 +50,7 @@ export default class CloseButton extends Component{
 
 const styles = StyleSheet.create({
   button: {
-  	padding: 10,
+  	padding: 0,
   	fontSize: 30,
   	color: '#fff',
   	fontWeight: "bold",

@@ -68,7 +68,7 @@ export default class Buttons extends Component{
 
 const styles = StyleSheet.create({
   button: {
-  	padding: 30,
+  	padding: 25,
   	fontSize: 30,
   	color: '#fff',
   	fontWeight: "bold",
