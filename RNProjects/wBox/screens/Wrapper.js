@@ -11,26 +11,37 @@ export default class Wrapper extends Component {
   constructor(){
     super()
     this.state={
-      quote: ""
+      quote: "",
+      author: ""
     }
   }
 
 
   getQuote = (index) => {
-    console.log("index", index)
-    //let's generate a number withing the array index
-    // let index = Math.ceil(Math.random()*100);
-    // let quote = null;
-    // try{
-    //   quote = allquotes[index];
-    // }catch{
-    //   quote = 'Something went wrong, please refresh the page or comeback later'
-    // }
+    let author = ""
+    try{
+      let quote = quotes.data.quotes[index].quote;
+      let temp = quotes.data.quotes[index].author;
+      if(temp && temp.charAt(0).includes('-')){
+        author = temp.substring(0);
+      }else{
+        author = temp;
+      }
+      this.setState({
+        quote,
+        author: " - "+author
+      })
+    }catch{
+      this.setState({
+        quote: "Something went wrong, try again..."
+      })
+    }
 }
 
 
 
   render() {
+    console.log(this.state)
     return (
       <View style={styles.mainContainer}>
         <ImageBackground
@@ -54,8 +65,14 @@ export default class Wrapper extends Component {
                   resizeMode: 'contain' // works only here!
                 }}/>
                 <Text style={styles.wisdomText}>
-                  {this.state.quote.length>1 ? this.state.quote : "Some test text"}
+                  {this.state.quote ? this.state.quote : "Press 'Get a Quote' button"}
                 </Text>
+
+                <View style={styles.authorBox}>
+                  <Text style={styles.author}>
+                    {this.state.author}
+                  </Text>
+                </View>
             </View>
             
             <View style={styles.buttonFrame}>
@@ -92,8 +109,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bookFrame:{
+    padding: 2,
     width: "95%",
-    height: "40%",
+    minHeight: "40%",
     borderWidth: 5,
     borderRadius: 5,
     borderColor: "#fff",
@@ -118,12 +136,31 @@ const styles = StyleSheet.create({
     textShadowRadius: 10
   },
   wisdomText:{
+    padding: 10,
     fontSize: 25,
     color: '#000',
     fontWeight: "bold",
     textShadowColor: 'rgba(255, 255, 255, 0.75)',
     textShadowOffset: {width: -1, height: 1},
-    textShadowRadius: 10
+    textShadowRadius: 10,
+    textAlign: 'justify'
+  },
+  author:{
+    padding: 10,
+    fontSize: 20,
+    color: '#000',
+    fontWeight: "bold",
+    textShadowColor: 'rgba(255, 255, 255, 0.75)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10,
+    textAlign: 'right'
+  },
+  authorBox:{
+    position: "absolute",
+    padding: 2,
+    width: "100%",
+    bottom: 0,
+    right: 0
   }
 });
 
