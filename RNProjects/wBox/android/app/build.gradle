@@ -118,6 +118,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        resConfigs "en"//limit your language resources to just English 
     }
     splits {
         abi {
@@ -129,10 +130,11 @@ android {
     }
     buildTypes {
         release {
+            useProguard enableProguardInReleaseBuilds   // obfuscate
             minifyEnabled enableProguardInReleaseBuilds
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            shrinkResources true
             signingConfig signingConfigs.release
+            shrinkResources enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
     // applicationVariants are e.g. debug, release
