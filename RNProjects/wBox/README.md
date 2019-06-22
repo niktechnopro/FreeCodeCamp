@@ -7,4 +7,6 @@ Open development options:
 
 ### Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+APP deployed at Google Play: https://play.google.com/store/apps/details?id=com.wbox
+
+
