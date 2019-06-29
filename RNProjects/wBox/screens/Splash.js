@@ -22,8 +22,9 @@ export default class Splash extends Component {
       }else{
         clearInterval(this.splashInterval);
         setTimeout(()=>this.props.navigation.navigate("Wrapper"), 300);
+        return
       }
-    }, 100)
+    }, 300)
   }
 
 
@@ -37,11 +38,11 @@ export default class Splash extends Component {
         <Text style={styles.title}>Wisdom Box!</Text>
         <Text style={styles.description}>Your source of Wisdom is loading...</Text>
         <Progress.Bar 
-        progress={this.state.progress} 
-        width={fullScreen.width - 30} 
-        animationType="timing" 
-        height={27}
-        useNativeDriver={true}
+          progress={this.state.progress} 
+          width={fullScreen.width - 30} 
+          animationType="timing" 
+          height={27}
+          useNativeDriver={true}
         />
         <Text style={styles.description}>Quotes By Famous People On Life & Success (2019)</Text>
       </View>
@@ -75,4 +76,6 @@ const styles = StyleSheet.create({
   },
   
 });
+
+        
 
