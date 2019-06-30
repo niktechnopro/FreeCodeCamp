@@ -42,8 +42,8 @@ export default class Splash extends Component {
         <Text style={styles.title}>to</Text>
         <Text style={styles.title}>Wisdom Box!</Text>
         <View style={styles.textWithDots}>
-        <Text style={styles.description}>Source of Wisdom is loading</Text>
-        <PulsingDots />
+          <Text style={styles.description}>Wisdom Box is loading</Text>
+          <PulsingDots />
         </View>
         <Progress.Bar 
           progress={this.state.progress} 

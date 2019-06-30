@@ -11,7 +11,7 @@ export default class PulsingDots extends Component {
 	};
 
 	state = {//same as this.state
-		scales: [new Animated.Value(1), new Animated.Value(1), new Animated.Value(1)]
+		scales: [new Animated.Value(0), new Animated.Value(0), new Animated.Value(0)]
 	};
 
 
