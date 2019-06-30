@@ -18,14 +18,18 @@ export default class Splash extends Component {
     this.splashInterval = setInterval(()=>{
       if (this.state.progress < 1){
         this.setState(function(prevState){
-          return {progress : prevState.progress + 0.1}
+          return {progress : prevState.progress + 0.2}
         })
       }else{
         clearInterval(this.splashInterval);
-        // setTimeout(()=>this.props.navigation.navigate("Wrapper"), 300);
+        setTimeout(()=>this.props.navigation.navigate("Wrapper"), 300);
         return
       }
-    }, 300)
+    }, 600)
+  }
+
+  componentWillUnmount = () => {
+    this.splashInterval = null;
   }
 
 
