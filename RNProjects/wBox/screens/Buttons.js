@@ -16,7 +16,7 @@ export default class Buttons extends Component{
 	handlePressIn = (e) => {
 		Animated.spring(this.animatedValue, {
 			toValue: 0.5,
-			friction: 5,
+			friction: 6,
 			tension: 40,
 			useNativeDriver: true
 		}).start(

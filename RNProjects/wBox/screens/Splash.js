@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Dimensions} from 'react-native';
 import * as Progress from 'react-native-progress';
+import PulsingDots from './components/PulsingDots';
 
 
 export default class Splash extends Component {
@@ -21,7 +22,7 @@ export default class Splash extends Component {
         })
       }else{
         clearInterval(this.splashInterval);
-        setTimeout(()=>this.props.navigation.navigate("Wrapper"), 300);
+        // setTimeout(()=>this.props.navigation.navigate("Wrapper"), 300);
         return
       }
     }, 300)
@@ -37,6 +38,7 @@ export default class Splash extends Component {
         <Text style={styles.title}>to</Text>
         <Text style={styles.title}>Wisdom Box!</Text>
         <Text style={styles.description}>Your source of Wisdom is loading...</Text>
+        <PulsingDots />
         <Progress.Bar 
           progress={this.state.progress} 
           width={fullScreen.width - 30} 
