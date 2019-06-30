@@ -37,8 +37,10 @@ export default class Splash extends Component {
         <Text style={styles.title}>Welcome</Text>
         <Text style={styles.title}>to</Text>
         <Text style={styles.title}>Wisdom Box!</Text>
-        <Text style={styles.description}>Your source of Wisdom is loading...</Text>
+        <View style={styles.textWithDots}>
+        <Text style={styles.description}>Source of Wisdom is loading</Text>
         <PulsingDots />
+        </View>
         <Progress.Bar 
           progress={this.state.progress} 
           width={fullScreen.width - 30} 
@@ -72,11 +74,17 @@ const styles = StyleSheet.create({
     textAlign: 'justify'
   },
   description: {
-    fontSize: 24,
+    fontSize: 26,
     textAlign: 'center',
-    margin: 10,
+    color: 'rgba(0, 122, 255, 1)',
   },
-  
+  textWithDots:{
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    borderColor: 'green',
+    margin: 10,
+    fontWeight: "bold",
+  }
 });
 
         

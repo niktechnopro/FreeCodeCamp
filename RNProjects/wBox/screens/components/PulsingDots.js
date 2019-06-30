@@ -16,39 +16,47 @@ export default class PulsingDots extends Component {
 
 
 	componentDidMount() {
-		this.handleAnimationIn();
+		// this.handleAnimationIn();
+		this.animation();
 	}
 
 	componentWillUnmount() {
 		this.unmounted = true;
 	}
 
-	handleAnimationIn = (i) => {
-        Animated.timing(
-        	this.state.scales[0], {
-            toValue: 0.5,
-            duration: 500,
-            easing: Easing.ease,
-            useNativeDriver: true
-        }).start(
-        	()=>this.handleAnimationOut()
-        )
-    }
+    animation = () => {
 
-    handleAnimationOut = (i) => {
-    	Animated.timing(
-        	this.state.scales[0], {
-            toValue: 1,
-            duration: 500,
-            easing: Easing.ease,
-            useNativeDriver: true
-        }).start(
-        	()=>this.handleAnimationIn()
-        )
-    }
+		function seq(self, i) {
+			return Animated.sequence([
+				Animated.timing(self.state.scales[i], {
+					toValue: 1,
+					duration: 300,
+					delay: (i + 1) * 200,
+					useNativeDriver: true
+				}),
+				Animated.timing(self.state.scales[i], 
+					{ 
+						toValue: 0.3, 
+						duration: 300, 
+						delay: 50,
+						useNativeDriver: true 
+					}
+				)
+			])
+		}
+
+
+		//executes first
+		Animated.parallel([
+			seq(this, 0), seq(this, 1), seq(this, 2)
+		]).start(() => {
+			if (!this.unmounted)
+				this.animation();
+		});
+	};
 
     animatedComponent = (value, index) => {
-    	let offSet = index*5;
+    	let offSet = index*2;
     	return(
     		<Animated.View 
 				style={[
@@ -63,13 +71,13 @@ export default class PulsingDots extends Component {
 
 
 	render() {
+		console.log("render: ", this.props)
 		const { size, betweenSpace, color } = this.props;
 		return (
 			<View style={styles.lineOfCircles}>
 				{this.state.scales.map((value, index)=>{
 					return this.animatedComponent(value, index)
-				})
-
+					})
 				}
 			</View>
 		);
@@ -78,14 +86,13 @@ export default class PulsingDots extends Component {
 
 const styles = StyleSheet.create({
 	lineOfCircles:{
-		flexDirection: 'row'
+		flexDirection: 'row',
+		padding: 3
 	},
 	circle:{
-		width: 40,
-		height: 40,
+		width: 10,
+		height: 10,
 		borderRadius: 50,
-		borderColor: "#1e90ff",
-		borderWidth: 2,
 		backgroundColor: "#1e90ff"
 	}
 })
