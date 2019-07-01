@@ -58,7 +58,8 @@ export default class PulsingDots extends Component {
     animatedComponent = (value, index) => {
     	let offSet = index*2;
     	return(
-    		<Animated.View 
+    		<Animated.View
+    			key={offSet} 
 				style={[
 				styles.circle,
 				{left: offSet},
@@ -71,8 +72,6 @@ export default class PulsingDots extends Component {
 
 
 	render() {
-		console.log("render: ", this.props)
-		const { size, betweenSpace, color } = this.props;
 		return (
 			<View style={styles.lineOfCircles}>
 				{this.state.scales.map((value, index)=>{
@@ -87,7 +86,8 @@ export default class PulsingDots extends Component {
 const styles = StyleSheet.create({
 	lineOfCircles:{
 		flexDirection: 'row',
-		padding: 3
+		padding: 3,
+		marginBottom: 5
 	},
 	circle:{
 		width: 10,

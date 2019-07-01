@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
   textWithDots:{
     flexDirection: 'row',
     alignItems: 'flex-end',
-    borderColor: 'green',
     margin: 10,
     fontWeight: "bold",
   }
