@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
 	lineOfCircles:{
 		flexDirection: 'row',
 		padding: 3,
-		marginBottom: 5
 	},
 	circle:{
 		width: 10,
