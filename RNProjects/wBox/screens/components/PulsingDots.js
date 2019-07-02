@@ -63,13 +63,11 @@ export default class PulsingDots extends Component {
 				style={[
 				styles.circle,
 				{left: offSet},
-				{scaleX: this.state.scales[index]},
-				{scaleY: this.state.scales[index]}
+				{transform : [{scale: this.state.scales[index]}]}
 				]}
 			/>	
     	)
     }
-
 
 	render() {
 		return (
