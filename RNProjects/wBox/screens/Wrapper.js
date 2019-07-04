@@ -249,7 +249,10 @@ const styles = StyleSheet.create({
   closeAppWrapper : {
     position: 'absolute',
     top: 0,
-    right: 0
+    right: 0,
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: "green"
   }
 });
 

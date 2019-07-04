@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableNativeFeedback, Animated } from 'react-native';
+import { View, Text, StyleSheet, Animated, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import * as Animatable from 'react-native-animatable';
 
 let index = 0;
 
@@ -14,10 +15,9 @@ export default class Buttons extends Component{
 	}
 
 	handlePressIn = (e) => {
-		Animated.spring(this.animatedValue, {
-			toValue: 0.5,
-			friction: 6,
-			tension: 40,
+		Animated.timing(this.animatedValue, {
+			toValue: 0.7,
+			duration: 50,
 			useNativeDriver: true
 		}).start(
 			()=>{
@@ -40,10 +40,11 @@ export default class Buttons extends Component{
 	}
 
 	handlePressOut = (e) => {
-		Animated.spring(this.animatedValue, {
+		Animated.timing(this.animatedValue, {
 			toValue: 1,
-			friction: 3,
-			tension: 40,
+			duration: 100,
+			// friction: 6,
+			// tension: 5,
 			useNativeDriver: true
 		}).start();
 	}
@@ -53,14 +54,15 @@ export default class Buttons extends Component{
 			transform: [{scale: this.animatedValue}]
 		}
 		return(
-			<TouchableNativeFeedback
+			<TouchableOpacity
+				activeOpacity={1}
         		onPressIn={this.props.buttonReady ? this.handlePressIn : null}
         		onPressOut={this.handlePressOut}
-        		background={TouchableNativeFeedback.SelectableBackground()}>
+        		>
       			<Animated.View style={[styles.buttonWrapper, animatedStyle]}>
         			<Text style={styles.button}>Get a Quote</Text>
       			</Animated.View>
-    		</TouchableNativeFeedback>
+    		</TouchableOpacity>
 		)
 	}
 }
@@ -82,7 +84,17 @@ const styles = StyleSheet.create({
   	backgroundColor: 'grey',
   	borderRadius: 50,
   	borderColor: '#fff',
-  	borderWidth: 2
+  	borderWidth: 2,
+  	shadowRadius: 3,
+    shadowOpacity: 1,
+    alignSelf: 'center',
+    shadowColor: 'rgba(0, 0, 0, 0.7)',
+    shadowOffset: {
+      width: 0,
+      height: 1
+    },
   }
 
 });
+
+

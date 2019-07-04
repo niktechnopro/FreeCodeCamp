@@ -2,46 +2,49 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableNativeFeedback, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
+const AnimatedIcon = Animated.createAnimatedComponent(Icon)
+
 export default class CloseButton extends Component{
 	constructor(props){
 		super(props)
-		this.animatedValue = new Animated.Value(1);
+		this.animatedValue = new Animated.Value(40);
 	}
 
 	handlePressIn = (e) => {
 		Animated.spring(this.animatedValue, {
-			toValue: 0.2,
+			toValue: 20,
 			friction: 5,
+			tension: 40,
 			useNativeDriver: true
 		}).start();
 	}
 
 	handlePressOut = (e) => {
 		Animated.spring(this.animatedValue, {
-			toValue: 1,
+			toValue: 40,
 			friction: 3,
 			tension: 40,
 			useNativeDriver: true
 		}).start(
-			()=>{this.props.closeApp()}
+			// ()=>{this.props.closeApp()}
 		);
 	}
 
 	render(){
-		const animatedStyle = {
-			transform: [{scale: this.animatedValue}]
-		}
+		// const animatedStyle = {
+		// 	transform: [{size: this.animatedValue}]
+		// }
 		return(
 			<TouchableNativeFeedback
-        		onPressIn={this.props.buttonReady ? this.handlePressIn : null}
+        		onPressIn={this.handlePressIn}
         		onPressOut={this.handlePressOut}
         		background={TouchableNativeFeedback.SelectableBackground()}>
-      			<Animated.View style={[styles.buttonWrapper, animatedStyle]}>
-        			<Icon 
+      			<AnimatedIcon 
+      				style={styles.buttonWrapper}
         			name="closecircleo" 
-        			size={40} 
-        			color="#fff"/>
-      			</Animated.View>
+        			size={this.animatedValue} 
+        			color="#fff"
+        		/>
     		</TouchableNativeFeedback>
 		)
 	}
