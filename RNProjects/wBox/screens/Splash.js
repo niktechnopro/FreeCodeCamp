@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   },
   textWithDots:{
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: "center",
     margin: 10,
     fontWeight: "bold",
