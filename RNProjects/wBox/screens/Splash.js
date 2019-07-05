@@ -28,7 +28,7 @@ export default class Splash extends Component {
       easing: Easing.linear
     }).start(() => {
       this.setState({
-        done: "Done!"
+        done: "Enjoy!"
       })
       setTimeout(()=>this.props.navigation.navigate("Wrapper"), 300);
     });

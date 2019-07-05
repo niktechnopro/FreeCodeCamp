@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableNativeFeedback, Animated } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
@@ -19,17 +19,17 @@ export default class CloseButton extends Component{
 		}).start();
 	}
 
-	// handlePressOut = (e) => {
-	// 	Animated.spring(this.animatedValue, {
-	// 		toValue: 1,
-	// 		friction: 3,
-	// 		tension: 40,
-	// 		useNativeDriver: true
-	// 	}).start(
-	// 		()=>console.log("close app pressed out");
-	// 		// ()=>{this.props.closeApp()}
-	// 	);
-	// }
+	handlePressOut = (e) => {
+		Animated.spring(this.animatedValue, {
+			toValue: 1,
+			friction: 3,
+			tension: 40,
+			useNativeDriver: true
+		}).start(
+			()=>console.log("close app pressed out");
+			// ()=>{this.props.closeApp()}
+		);
+	}
 
 	render(){
 		const animatedStyle = {

@@ -251,8 +251,9 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0,
     borderRadius: 50,
-    borderWidth: 2,
-    borderColor: "green"
+    // borderWidth: 2,
+    // borderColor: "green",
+    padding: 10
   }
 });
 

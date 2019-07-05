@@ -43,8 +43,6 @@ export default class Buttons extends Component{
 		Animated.timing(this.animatedValue, {
 			toValue: 1,
 			duration: 100,
-			// friction: 6,
-			// tension: 5,
 			useNativeDriver: true
 		}).start();
 	}
