@@ -57,6 +57,13 @@ export default class CloseButton extends Component{
         			<Text style={styles.button}>Get a Quote</Text>
       			</Animated.View>
     		</TouchableNativeFeedback>
+    	{/*	<Progress.Bar 
+          progress={this.state.progress} 
+          width={fullScreen.width - 30} 
+          animationType="timing" 
+          height={27}
+          useNativeDriver={true}
+        />*/}
     		</View>
 		)
 	}
