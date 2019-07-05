@@ -6,6 +6,7 @@ import Buttons from './Buttons';
 import Footer from './Footer';
 import CloseButton from './CloseButton';
 import quotes from '../assets/quoteBlob';
+import Tts from 'react-native-tts';
 
 const quoteArrayLength = quotes.data.quotes.length;
 const animationsIn = ["bounceIn", "bounceInDown", "bounceInUp", "bounceInLeft", "bounceInRight", "fadeIn", "fadeInDown", "fadeInDownBig", "fadeInUp", "fadeInUpBig", "fadeInLeft", "fadeInLeftBig", "fadeInRight", "fadeInRightBig", "zoomIn", "zoomInDown", "zoomInUp", "zoomInLeft", "zoomInRight"];
@@ -35,6 +36,16 @@ export default class Wrapper extends Component {
         duration: 1000,
         useNativeDriver: true
       }).start();
+
+      //to check if voice is possible
+      Tts.getInitStatus().then(() => {
+        console.log("speech engine detected - you are good to go");
+      }, (err) => {
+        console.log("apeech engine is not detected - you are not good to go");
+        if (err.code === 'no_engine') {
+          Tts.requestInstallEngine();
+        }
+      });
   }
 
   componentWillUnmount = () => {
@@ -79,7 +90,12 @@ export default class Wrapper extends Component {
                 author: " - "+author,
                 animation: animations.animationsIn,
                 autAnimation: animations.autAnimationIn,
-                ready: true})
+                ready: true},()=>{
+                  console.log("run speech right here");
+                  Tts.speak(this.state.quote, { iosVoiceId: 'com.apple.ttsbundle.Moira-compact' });
+                  Tts.voices().then(voices => console.log(voices));
+                  // en-us-x-sfg#male_3-local
+                })
             },800)
         })
       }catch{
@@ -88,6 +104,10 @@ export default class Wrapper extends Component {
         })
       }
     }
+  }
+
+  componentDidUpdate = () => {
+
   }
 
   setAnimations = () => {
