@@ -312,6 +312,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     // borderWidth: 2,
     // borderColor: "green",
-    padding: 10
+    padding: 6
   } 
 });

@@ -147,7 +147,15 @@ export default class SettingsPage extends Component{
   		}
   		let toStore = JSON.stringify(tempData);
     	LocalStorage.setItem('wBoxSettings', toStore);
-    	this.props.goodToGo(false);
+    	Animated.timing(
+	    this.state.fadeAnimation,
+	    {
+	      toValue: 0,
+	      duration: 600,
+	      useNativeDriver: true
+	    }).start(
+	      ()=>{this.props.goodToGo(false)}
+	    );
 	}
 
 	resetAll = () => {
