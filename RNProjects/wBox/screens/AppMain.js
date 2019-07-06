@@ -5,6 +5,7 @@ import LocalStorage from './components/LocalStorage';
 import Buttons from './Buttons';
 import Footer from './Footer';
 import CloseButton from './CloseButton';
+import SettingsButton from './SettingsButton';
 import quotes from '../assets/quoteBlob';
 import Tts from 'react-native-tts';
 
@@ -35,30 +36,13 @@ export default class AppMain extends Component {
         toValue: 1,
         duration: 1000,
         useNativeDriver: true
-      }).start();
-
-      //to check if voice is possible
-      Tts.getInitStatus().then(() => {
-         LocalStorage.getItem('wBoxSettings')
-          .then(result => {
-            let tempData = JSON.parse(result);
-            if(tempData.ttsStatus === "Detected!"){
-              this.setState({
-                speechReady: true
-              }, ()=>{
-                Tts.setDefaultVoice(tempData.selectedVoice);
-                Tts.setDefaultRate(tempData.speechRate, true);
-                Tts.setDefaultPitch(tempData.speechPitch);
-                this.speakerTts("Press 'Get a Quote' button")
-              })
-            }
-          })
-          .catch(error => console.log("proble with asyncStorage"))
-      }, (err) => {
-        if (err.code === 'no_engine') {
-          Tts.requestInstallEngine();
+      }).start(
+        ()=>{
+          if(!this.props.isTtsReady){
+            this.initializeTts();
+          }
         }
-      });
+      );
   }
 
   closeApp = () => {
@@ -118,8 +102,38 @@ export default class AppMain extends Component {
     Tts.speak(quote);
   }
 
-  componentDidUpdate = () => {
+  initializeTts = () => {
+    Tts.getInitStatus().then(() => {
+         LocalStorage.getItem('wBoxSettings')
+          .then(result => {
+            // console.log(result)
+            let tempData = JSON.parse(result);
+            // console.log("tempData", tempData);
+            if(tempData.ttsStatus === "Detected!"){
+              this.setState({
+                speechReady: true
+              }, ()=>{
+                Tts.setDefaultVoice(tempData.selectedVoice);
+                Tts.setDefaultRate(tempData.speechRate, true);
+                Tts.setDefaultPitch(tempData.speechPitch);
+                this.speakerTts("Press 'Get a Quote' button")
+              })
+            }
+          })
+          .catch(error => console.log("proble with asyncStorage"))
+      }, (err) => {
+        if (err.code === 'no_engine') {
+          Tts.requestInstallEngine();
+        }
+      });
+  }
 
+  componentDidUpdate = (prevProps, prevState) => {
+    if(prevProps.isTtsReady && !this.props.isTtsReady){
+      // console.log("when does it trigger?")
+       //to check if voice is possible
+      this.initializeTts();
+    }
   }
 
   setAnimations = () => {
@@ -152,6 +166,10 @@ export default class AppMain extends Component {
 
             <View style={styles.closeAppWrapper} >
               <CloseButton closeApp={this.closeApp} />
+            </View>
+
+            <View style={styles.appSettingsWrapper} >
+              <SettingsButton openSettings={this.props.openSettings} />
             </View>
 
              <Text style={styles.title}>
@@ -286,5 +304,14 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
     // borderColor: "green",
     padding: 10
-  }
+  },
+  appSettingsWrapper : {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    borderRadius: 50,
+    // borderWidth: 2,
+    // borderColor: "green",
+    padding: 10
+  } 
 });

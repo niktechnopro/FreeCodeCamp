@@ -27,23 +27,36 @@ export default class Wrapper extends Component {
     })
   }
 
+  openSettings = () => {
+    this.setState({
+      settings: true
+    })
+  }
+
 
   render() {
-    // console.log("props: ", this.props)
     return (
-      <View style={{flex: 1}}>
-        {this.state.settings ?
-        <SettingsPage goodToGo = {this.goodToGo} />
-        :
-        <AppMain />
+      <View style={styles.mainContainer}>
+        {this.state.settings &&
+        <View style={styles.settingsContainer} > 
+          <SettingsPage goodToGo = {this.goodToGo} />
+        </View>
         }
+        <View style={{flex: 1, display: !this.state.settings ? null : "none"}}>
+          <AppMain openSettings = {this.openSettings} isTtsReady = {this.state.settings} />
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
- 
+  mainContainer: {
+    flex: 1
+  },
+  settingsContainer:{
+    flex: 1
+  }
 });
 
 

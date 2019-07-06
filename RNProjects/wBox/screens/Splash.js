@@ -17,7 +17,7 @@ export default class Splash extends Component {
   }
 
   componentDidMount = () => {
-    LocalStorage.clearAll();
+    // LocalStorage.clearAll();
     LocalStorage.getItem('wBoxSettings')
     .then(result => {
       let tempData = JSON.parse(result);

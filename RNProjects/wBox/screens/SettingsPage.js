@@ -35,8 +35,26 @@ export default class SettingsPage extends Component{
 	        useNativeDriver: true
 	      }
 	    ).start();
-		Tts.getInitStatus().then(() => {
-        	this.initializingTts();
+		Tts.getInitStatus().then((e) => {
+			// console.log(e);//e - detects as success
+			//let's check in Local storage if anything already saved
+			LocalStorage.getItem("wBoxSettings")
+			.then(result => {
+				if(result){
+					let tempData = JSON.parse(result);
+					this.setState({
+						selectedVoice: tempData.selectedVoice,
+						speechRate: tempData.speechRate,
+						speechPitch: tempData.speechPitch
+					},()=>{
+						this.initializingTts("en-IE", tempData.selectedVoice, tempData.speechRate, tempData.speechPitch);
+					})
+				}else{
+					this.initializingTts("en-IE", "en-US-language", this.state.speechRate, this.state.speechPitch);
+				}
+			})
+			.catch(error => console.log(error))
+        	
         	// Tts.addEventListener('tts-start', (event) => console.log("start", event));
 
 			// Tts.addEventListener('tts-finish', (event) => console.log("finish", event));
@@ -52,12 +70,12 @@ export default class SettingsPage extends Component{
       	});
 	}
 
-	initializingTts = () => {
+	initializingTts = (lang, voice, rate, pitch) => {
 		let availableVoices;
-		Tts.setDefaultLanguage('en-IE');
-		Tts.setDefaultVoice("en-US-language");
-		Tts.setDefaultRate(this.state.speechRate, true);
-    	Tts.setDefaultPitch(this.state.speechPitch);
+		Tts.setDefaultLanguage(lang);
+		Tts.setDefaultVoice(voice);
+		Tts.setDefaultRate(rate, true);
+    	Tts.setDefaultPitch(pitch);
     	Tts.setDucking(true);
     	Tts.voices()
     	.then(voices =>{
@@ -68,7 +86,7 @@ export default class SettingsPage extends Component{
         		voices: availableVoices,
         		ttsStatus: "Detected!"
       		},()=>{
-      			console.log(availableVoices);
+      			// console.log(availableVoices);
       			Tts.speak('This is how I talk');
       		});
     	})
@@ -163,7 +181,7 @@ export default class SettingsPage extends Component{
 			          <Slider
 					    style={styles.slider}
 					    minimumValue={0.01}
-					    maximumValue={0.99}
+					    maximumValue={1}
 					    value={this.state.speechRate}
 					    minimumTrackTintColor="rgba(0, 122, 255, 0.5)"
 					    maximumTrackTintColor="#000000"
