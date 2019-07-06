@@ -58,6 +58,7 @@ export default class SettingsPage extends Component{
         		voices: availableVoices,
         		ttsStatus: "Detected!"
       		},()=>{
+      			console.log(availableVoices);
       			Tts.speak('This is how I talk');
       		});
     	})
@@ -81,12 +82,19 @@ export default class SettingsPage extends Component{
 
 	setSpeechPitch = async rate => {
     	await Tts.setDefaultPitch(rate);
-    	this.setState({ speechPitch: rate });
+    	this.setState({ speechPitch: rate },()=>{
+    		Tts.stop();
+    		Tts.speak("This is how I talk");
+    	});
+
   	};
 
   	setSpeechRate = async rate => {
     	await Tts.setDefaultRate(rate);
-    	this.setState({ speechRate: rate });
+    	this.setState({ speechRate: rate },()=>{
+    		Tts.stop();
+    		Tts.speak("This is how I talk");
+    	});
   	};
 
 	renderVoiceItem = ({ item }) => {
@@ -199,22 +207,16 @@ export default class SettingsPage extends Component{
          				</View>
          			</View>
 				</View>
-				<TouchableOpacity
-                		style = {styles.saveSettings}
-                		onPress = {this.storeData}
-                	>
-            		<Text style = {styles.saveText}>
-               			Good to Go!
-            		</Text>
-            	</TouchableOpacity>
-            	<TouchableOpacity
-                		style = {styles.resetSettings}
-                		onPress = {this.resetAll}
-                	>
-            		<Text style = {styles.saveText}>
-               			Reset to defaults
-            		</Text>
-            	</TouchableOpacity>
+				<View>
+					<TouchableOpacity
+	                		style = {styles.saveSettings}
+	                		onPress = {this.storeData}
+	                	>
+	            		<Text style = {styles.saveText}>
+	               			Good to Go!
+	            		</Text>
+	            	</TouchableOpacity>
+            	</View>
 			</View>
 			</ScrollView>
 		)
@@ -332,3 +334,15 @@ const styles = StyleSheet.create({
       	color: '#fff'
     }
 })
+
+
+// <View>
+// 					<TouchableOpacity
+// 	                		style = {styles.resetSettings}
+// 	                		onPress = {this.storeData}
+// 	                	>
+// 	            		<Text style = {styles.saveText}>
+// 	               			Reset to Defaults
+// 	            		</Text>
+// 	            	</TouchableOpacity>
+//             	</View>

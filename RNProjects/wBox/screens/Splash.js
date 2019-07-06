@@ -36,19 +36,13 @@ export default class Splash extends Component {
       toValue: 1,
       easing: Easing.linear
     }).start(() => {
-      if(this.speechEngine === "Detected!"){
         this.setState({
           done: "Enjoy!"
         },()=>{
-          setTimeout(()=>this.props.navigation.navigate("Wrapper"), 300);
+          setTimeout(()=>this.props.navigation.navigate("Wrapper",{
+            engine : this.speechEngine 
+          }), 300);
         })
-      }else{
-        this.setState({
-          done: "To Settings"
-        },()=>{
-          setTimeout(()=>this.props.navigation.navigate("SettingsPage"), 2000);
-        })
-      } 
     });
   } 
 
@@ -71,9 +65,7 @@ export default class Splash extends Component {
       height: 40, //height of the progress bar
       backgroundColor: color_animation
     }
-}
-
-
+  }
 
   render() {
     const fullScreen = {height: Dimensions.get('window').height, width: Dimensions.get('window').width};
