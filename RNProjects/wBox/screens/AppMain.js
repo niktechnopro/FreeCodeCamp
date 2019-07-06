@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ImageBackground, Image, Animated} from 'react-native';
+import {StyleSheet, Text, View, ImageBackground, Image, Animated, BackHandler} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LocalStorage from './components/LocalStorage';
 import Buttons from './Buttons';

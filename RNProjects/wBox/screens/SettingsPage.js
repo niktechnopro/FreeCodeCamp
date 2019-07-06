@@ -5,7 +5,8 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Animated
 } from "react-native";
 import Slider from '@react-native-community/slider';
 import LocalStorage from './components/LocalStorage';
@@ -19,12 +20,21 @@ export default class SettingsPage extends Component{
 			voices: [],
 			ttsStatus: "initializing",
 			selectedVoice: "en-US-language",
-			speechRate: 0.7,
-			speechPitch: 1
+			speechRate: 0.5,
+			speechPitch: 1,
+			fadeAnimation: new Animated.Value(0),
 		}
 	}
 
 	componentDidMount = () => {
+		Animated.timing(
+	      this.state.fadeAnimation,
+	      {
+	        toValue: 1,
+	        duration: 1000,
+	        useNativeDriver: true
+	      }
+	    ).start();
 		Tts.getInitStatus().then(() => {
         	this.initializingTts();
         	// Tts.addEventListener('tts-start', (event) => console.log("start", event));
@@ -119,6 +129,7 @@ export default class SettingsPage extends Component{
   		}
   		let toStore = JSON.stringify(tempData);
     	LocalStorage.setItem('wBoxSettings', toStore);
+    	this.props.goodToGo(false);
 	}
 
 	resetAll = () => {
@@ -134,7 +145,7 @@ export default class SettingsPage extends Component{
 	render(){
 		return(
 			<ScrollView>
-			<View style={styles.container} >
+			<Animated.View style={[styles.container, {opacity: this.state.fadeAnimation}]}>
 				<Text style={styles.title}>Quick Set Up</Text>
 				<View style={styles.innerContainer}>
 					<Text style={styles.label}>Speech Engine: {this.state.ttsStatus}</Text>
@@ -217,7 +228,7 @@ export default class SettingsPage extends Component{
 	            		</Text>
 	            	</TouchableOpacity>
             	</View>
-			</View>
+			</Animated.View>
 			</ScrollView>
 		)
 	}
@@ -225,7 +236,7 @@ export default class SettingsPage extends Component{
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
+		flex: 2,
 		alignItems: 'center',
 		backgroundColor: "#F5FCFF",
 		paddingBottom: 50
@@ -292,9 +303,10 @@ const styles = StyleSheet.create({
       	color: '#4f603c'
    	},
    	flatlist:{
-   		height: 120,
+   		height: 120
    	},
    	flatlistBox:{
+   		height: 120,
    		marginTop: 39,
    		width: 250,
    		borderWidth:5,
@@ -334,7 +346,6 @@ const styles = StyleSheet.create({
       	color: '#fff'
     }
 })
-
 
 // <View>
 // 					<TouchableOpacity
