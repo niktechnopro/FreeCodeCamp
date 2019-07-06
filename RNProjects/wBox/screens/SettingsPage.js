@@ -3,10 +3,12 @@ import {
   Text,
   View,
   FlatList,
-  Slider,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView
 } from "react-native";
+import Slider from '@react-native-community/slider';
+import LocalStorage from './components/LocalStorage';
 import Tts from "react-native-tts";
 
 
@@ -16,33 +18,34 @@ export default class SettingsPage extends Component{
 		this.state = {
 			voices: [],
 			ttsStatus: "initializing",
-			selectedVoice: null,
-			speechRate: 0.5,
-			speechPitch: 1,
-			someText: "some test text",
+			selectedVoice: "en-US-language",
+			speechRate: 0.7,
+			speechPitch: 1
 		}
 	}
 
 	componentDidMount = () => {
-		Tts.getInitStatus()
-		.then(() => {
-			this.initializingTts();
-			// Tts.addEventListener('tts-start', (event) => console.log("start", event));
+		Tts.getInitStatus().then(() => {
+        	this.initializingTts();
+        	// Tts.addEventListener('tts-start', (event) => console.log("start", event));
 
 			// Tts.addEventListener('tts-finish', (event) => console.log("finish", event));
 
 			// Tts.addEventListener('tts-cancel', (event) => console.log("cancel", event));
-		})
-		.catch(() => {
-			this.setState({
+      	}, (err) => {
+      		this.setState({
 				ttsStatus: "Not detected!"
 			})
-		})
+	        if (err.code === 'no_engine') {
+	          Tts.requestInstallEngine();
+	        }
+      	});
 	}
 
 	initializingTts = () => {
 		let availableVoices;
 		Tts.setDefaultLanguage('en-IE');
+		Tts.setDefaultVoice("en-US-language");
 		Tts.setDefaultRate(this.state.speechRate, true);
     	Tts.setDefaultPitch(this.state.speechPitch);
     	Tts.setDucking(true);
@@ -50,33 +53,43 @@ export default class SettingsPage extends Component{
     	.then(voices =>{
     		availableVoices = voices.filter(v => !v.networkConnectionRequired && !v.notInstalled).map(v=>{
     			return { id: v.id, name: v.name, language: v.language };
-    		})
-    		console.log(availableVoices);
-    		// Tts.setDefaultVoice(availableVoices[1].id);
+    		});
     		this.setState({
         		voices: availableVoices,
         		ttsStatus: "Detected!"
       		},()=>{
-      			Tts.speak('Hello, world!');
+      			Tts.speak('This is how I talk');
       		});
     	})
     	.catch(error => {
     		console.log(error)
     		this.setState({
-        		ttsStatus: "No installed Voice"
+        		ttsStatus: "No Voice Engine"
         	})
     	})
 	}
 
 	setTheVoice = (voice) => {
-		console.log(voice)
+		Tts.stop();
+		Tts.setDefaultVoice(voice.id);
 		this.setState({
 			selectedVoice: voice.name
+		},()=>{
+			Tts.speak("This is how I talk");
 		})
 	}
 
+	setSpeechPitch = async rate => {
+    	await Tts.setDefaultPitch(rate);
+    	this.setState({ speechPitch: rate });
+  	};
+
+  	setSpeechRate = async rate => {
+    	await Tts.setDefaultRate(rate);
+    	this.setState({ speechRate: rate });
+  	};
+
 	renderVoiceItem = ({ item }) => {
-		console.log(item)
 	    return (
 	      	<TouchableOpacity
                 key = {item.id}
@@ -89,8 +102,30 @@ export default class SettingsPage extends Component{
 	   	);
   	};
 
+  	storeData = async () => {
+  		let tempData = {
+			ttsStatus: this.state.ttsStatus,
+			selectedVoice: this.state.selectedVoice,
+			speechRate: this.state.speechRate,
+			speechPitch: this.state.speechPitch
+  		}
+  		let toStore = JSON.stringify(tempData);
+    	LocalStorage.setItem('wBoxSettings', toStore);
+	}
+
+	resetAll = () => {
+		this.setState({
+			selectedVoice: "en-US-language",
+			speechRate: 0.7,
+			speechPitch: 1
+		},()=>{
+			this.initializingTts();
+		})
+	}
+
 	render(){
 		return(
+			<ScrollView>
 			<View style={styles.container} >
 				<Text style={styles.title}>Quick Set Up</Text>
 				<View style={styles.innerContainer}>
@@ -101,13 +136,22 @@ export default class SettingsPage extends Component{
 			            style={styles.label}
 			          >Speed: 
 			          </Text>
+
+			        <View style={{borderRadius: 50, overflow: 'hidden'}}>   
+			        <View style={{flexDirection: 'row', position: 'absolute'}}>
+               			 <View style={styles.sliderDummy}></View>
+            		</View>
 			          <Slider
-			            style={styles.slider}
-			            minimumValue={0.01}
-			            maximumValue={0.99}
-			            value={this.state.speechRate}
-			            onSlidingComplete={()=>console.log("do something here")}
-			          />
+					    style={styles.slider}
+					    minimumValue={0.01}
+					    maximumValue={0.99}
+					    value={this.state.speechRate}
+					    minimumTrackTintColor="rgba(0, 122, 255, 0.5)"
+					    maximumTrackTintColor="#000000"
+					    onSlidingComplete={this.setSpeechRate}
+					  />
+					</View>
+
 			        </View>
 
 			        <View style={styles.sliderContainer}>
@@ -115,16 +159,24 @@ export default class SettingsPage extends Component{
 			            style={styles.label}
 			          >Pitch: 
 			          </Text>
+
+
+			        <View style={{borderRadius: 50, overflow: 'hidden'}}>   
+			        <View style={{flexDirection: 'row', position: 'absolute'}}>
+               			 <View style={styles.sliderDummy}></View>
+            		</View>
 			          <Slider
-			            style={styles.slider}
-			            minimumValue={0.5}
-			            maximumValue={2}
-			            value={this.state.speechPitch}
-			            onSlidingComplete={()=>console.log("do something here")}
-			          />
+					    style={styles.slider}
+					    minimumValue={0.1}
+					    maximumValue={2}
+					    value={this.state.speechPitch}
+					    minimumTrackTintColor="rgba(0, 122, 255, 0.5)"
+					    maximumTrackTintColor="#000000"
+					    onSlidingComplete={this.setSpeechPitch}
+					  />
 			        </View>
 
-
+			        </View>
 			     	<View>
 			     		<Text
 			            style={styles.label}
@@ -147,17 +199,34 @@ export default class SettingsPage extends Component{
          				</View>
          			</View>
 				</View>
+				<TouchableOpacity
+                		style = {styles.saveSettings}
+                		onPress = {this.storeData}
+                	>
+            		<Text style = {styles.saveText}>
+               			Good to Go!
+            		</Text>
+            	</TouchableOpacity>
+            	<TouchableOpacity
+                		style = {styles.resetSettings}
+                		onPress = {this.resetAll}
+                	>
+            		<Text style = {styles.saveText}>
+               			Reset to defaults
+            		</Text>
+            	</TouchableOpacity>
 			</View>
+			</ScrollView>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
 	container: {
-		marginTop: 26,
 		flex: 1,
 		alignItems: 'center',
-		backgroundColor: "#F5FCFF"
+		backgroundColor: "#F5FCFF",
+		paddingBottom: 50
 	},
 	title:{
 		padding: 10,
@@ -175,7 +244,7 @@ const styles = StyleSheet.create({
 		width: "90%",
 		// borderColor: "red",
 		// borderWidth: 4,
-		alignItems: 'flex-start'
+		alignItems: 'center'
 
 	},
 	label: {
@@ -201,19 +270,23 @@ const styles = StyleSheet.create({
     	alignItems: "flex-start"
   	},
   	slider: {
-    	width: 180
+    	width: 180,
+    	height: 40,
+    	borderRadius: 50,
+    	color: "blue"
   	},
   	listBox:{
   		width: 250,
   		borderRadius: 10,
-  		padding: 10,
+  		paddingVertical: 5,
+  		paddingHorizontal: 2,
 	    marginTop: 3,
 	    backgroundColor: 'rgba(0, 122, 255, 0.1)',
 	    alignItems: 'center',
   	},
   	listText: {
   		fontWeight: "bold",
-  		fontSize: 15,
+  		fontSize: 19,
       	color: '#4f603c'
    	},
    	flatlist:{
@@ -225,5 +298,37 @@ const styles = StyleSheet.create({
    		borderWidth:5,
    		borderColor: 'rgba(0, 122, 255, 0.5)',
    		borderRadius: 10
-   	}
+   	},
+   	sliderDummy: {
+	    backgroundColor: 'rgba(0, 122, 255, 0.05)',
+	    width: 180,
+	    height:40,
+	    borderRadius: 50,
+	    position: 'absolute',                
+    },
+    saveSettings:{
+    	width: 250,
+  		borderRadius: 10,
+  		paddingVertical: 10,
+  		paddingHorizontal: 2,
+  		padding: 5,
+	    backgroundColor: 'rgba(0, 122, 255, 0.6)',
+	    alignItems: 'center',
+	    marginTop: 20
+    },
+    resetSettings:{
+    	width: 250,
+  		borderRadius: 10,
+  		paddingVertical: 10,
+  		paddingHorizontal: 2,
+  		padding: 5,
+	    backgroundColor: 'rgba(234, 121, 121, 0.8)',
+	    alignItems: 'center',
+	    marginTop: 10
+    },
+    saveText:{
+    	fontWeight: "bold",
+  		fontSize: 21,
+      	color: '#fff'
+    }
 })

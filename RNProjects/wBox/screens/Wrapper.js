@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, ImageBackground, Image, BackHandler, Animated} from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import * as Animatable from 'react-native-animatable';
+import LocalStorage from './components/LocalStorage';
 import Buttons from './Buttons';
 import Footer from './Footer';
 import CloseButton from './CloseButton';
@@ -23,6 +24,7 @@ export default class Wrapper extends Component {
       direction: "normal",
       autAnimation: null,
       fadeAnimation: new Animated.Value(0),
+      speechReady: false
     }
     this.buttonReady = true;
   }
@@ -39,9 +41,22 @@ export default class Wrapper extends Component {
 
       //to check if voice is possible
       Tts.getInitStatus().then(() => {
-        console.log("speech engine detected - you are good to go");
+         LocalStorage.getItem('wBoxSettings')
+          .then(result => {
+            let tempData = JSON.parse(result);
+            if(tempData.ttsStatus === "Detected!"){
+              this.setState({
+                speechReady: true
+              }, ()=>{
+                Tts.setDefaultVoice(tempData.selectedVoice);
+                Tts.setDefaultRate(tempData.speechRate, true);
+                Tts.setDefaultPitch(tempData.speechPitch);
+                this.speakerTts("Press 'Get a Quote' button")
+              })
+            }
+          })
+          .catch(error => console.log("proble with asyncStorage"))
       }, (err) => {
-        console.log("apeech engine is not detected - you are not good to go");
         if (err.code === 'no_engine') {
           Tts.requestInstallEngine();
         }
@@ -91,10 +106,8 @@ export default class Wrapper extends Component {
                 animation: animations.animationsIn,
                 autAnimation: animations.autAnimationIn,
                 ready: true},()=>{
-                  console.log("run speech right here");
-                  Tts.speak(this.state.quote, { iosVoiceId: 'com.apple.ttsbundle.Moira-compact' });
-                  Tts.voices().then(voices => console.log(voices));
-                  // en-us-x-sfg#male_3-local
+                  // console.log("run speech right here", this.state.quote);
+                  this.state.speechReady && this.speakerTts(this.state.quote + ". quote bY. " + this.state.author);
                 })
             },800)
         })
@@ -104,6 +117,11 @@ export default class Wrapper extends Component {
         })
       }
     }
+  }
+
+  speakerTts = (quote) => {
+    Tts.stop();
+    Tts.speak(quote);
   }
 
   componentDidUpdate = () => {

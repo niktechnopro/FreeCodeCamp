@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Dimensions, Animated, Easing} from 'react-native';
 import * as Progress from 'react-native-progress';
+import LocalStorage from './components/LocalStorage';
 import PulsingDots from './components/PulsingDots';
 
 export default class Splash extends Component {
@@ -12,9 +13,17 @@ export default class Splash extends Component {
       done: ""
     }
     this.progress = new Animated.Value(0);
+    this.speechEngine = null;
   }
 
   componentDidMount = () => {
+    LocalStorage.clearAll();
+    LocalStorage.getItem('wBoxSettings')
+    .then(result => {
+      let tempData = JSON.parse(result);
+      this.speechEngine = tempData.ttsStatus;
+    })
+    .catch(error => this.speechEngine = null)
     this.progress.setValue(0);
     // this.progress.addListener((progress) => { //listener for progress
     //   this.setState({
@@ -27,10 +36,19 @@ export default class Splash extends Component {
       toValue: 1,
       easing: Easing.linear
     }).start(() => {
-      this.setState({
-        done: "Enjoy!"
-      })
-      setTimeout(()=>this.props.navigation.navigate("Wrapper"), 300);
+      if(this.speechEngine === "Detected!"){
+        this.setState({
+          done: "Enjoy!"
+        },()=>{
+          setTimeout(()=>this.props.navigation.navigate("Wrapper"), 300);
+        })
+      }else{
+        this.setState({
+          done: "To Settings"
+        },()=>{
+          setTimeout(()=>this.props.navigation.navigate("SettingsPage"), 2000);
+        })
+      } 
     });
   } 
 
