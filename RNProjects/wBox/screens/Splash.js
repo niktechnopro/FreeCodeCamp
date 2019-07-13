@@ -10,7 +10,7 @@ export default class Splash extends Component {
     super()
     this.state={
       progress: 0,
-      done: ""
+      done: " "
     }
     this.progress = new Animated.Value(0);
     this.speechEngine = null;
@@ -93,7 +93,9 @@ export default class Splash extends Component {
           <Text style={styles.progress_status}></Text>
         </View>
         <View style={styles.doneContainer}>
-          <Text style={styles.title}>{this.state.done}</Text>
+          <View>
+            <Text style={styles.title}>{this.state.done}</Text>
+          </View>
           <Text style={styles.description}>Quotes By Famous People On Life & Success (2019)</Text>
         </View>
       </View>

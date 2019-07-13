@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ImageBackground, Image, Animated, BackHandler} from 'react-native';
+import {StyleSheet, Text, View, ImageBackground, Image, Animated, BackHandler, Switch, Dimentions} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LocalStorage from './components/LocalStorage';
 import Buttons from './Buttons';
@@ -204,6 +204,19 @@ export default class AppMain extends Component {
                   </Animatable.Text>
                 </View>
             </View>
+
+            <View style={styles.modeSwitchContainer}>
+              <Text style={styles.switchTextMode}>Manual mode</Text> 
+              <View style = {[styles.switchContainer]}>
+                <Switch
+                style={styles.switch}
+                thumbColor="red"
+                value={true}
+                onChange={(e)=>console.log("onChange", e)}
+                />
+                <Text style={styles.switchText}>Switch to {true ? "auto" : "manual"} mode</Text>
+              </View>
+            </View>
             
             <View style={styles.buttonFrame}>
               <Buttons 
@@ -312,6 +325,48 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     // borderWidth: 2,
     // borderColor: "green",
-    padding: 6
+    padding: 8
+  },
+
+
+
+  modeSwitchContainer:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: "red",
+    borderWidth: 2
+  },
+  switchContainer : {
+    flexDirection: 'row',
+    justifyContent: "space-around",
+    backgroundColor: 'rgba(0, 122, 255, 0.1)',
+    borderRadius: 50,
+    width: "95%",
+    borderColor: "green",
+    borderWidth: 2
+  },
+  switchText:{
+    padding: 5,
+    fontSize: 25,
+    color: '#fff',
+    color: '#fff',
+    fontWeight: "bold",
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10,
+    fontStyle: 'italic'
+  },
+  switchTextMode:{
+    padding: 5,
+    fontSize: 30,
+    color: '#fff',
+    fontWeight: "bold",
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10,
+    fontStyle: 'italic'
+  },
+  switch: {
+    
   } 
 });

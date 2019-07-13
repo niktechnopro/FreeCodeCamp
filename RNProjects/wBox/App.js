@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import Splash from './screens/Splash';
 import Wrapper from './screens/Wrapper';
+import AppMain from './screens/AppMain';//for develpment purposes
 
 
 const AppNavigator = createAppContainer(createSwitchNavigator(
@@ -11,11 +12,15 @@ const AppNavigator = createAppContainer(createSwitchNavigator(
     },
     Wrapper: {
       screen: Wrapper
+    },
+    AppMain: {
+      screen: AppMain
     }
   },
   {
-    initialRouteName: 'Splash'
+    // initialRouteName: 'Splash'
     // initialRouteName: 'Wrapper'
+    initialRouteName: 'AppMain'//for development purposes
   }
 ));
 
