@@ -3,8 +3,6 @@ import { View, Text, StyleSheet, Animated, TouchableOpacity, UIManager, LayoutAn
 import Icon from 'react-native-vector-icons/AntDesign';
 import * as Animatable from 'react-native-animatable';
 
-let index = 0;
-
 export default class Buttons extends Component{
 	constructor(props){
 		super(props)
@@ -16,9 +14,8 @@ export default class Buttons extends Component{
 	}
 
 	componentDidUpdate = (prevProps, prevState) => {
-		console.log("componentDidUpdate fired up in buttons");
 		if(prevProps.buttonReady !== this.props.buttonReady){
-			LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+			LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 		}
 	}
 
@@ -29,22 +26,9 @@ export default class Buttons extends Component{
 			useNativeDriver: true
 		}).start(
 			()=>{
-				this.randomIndex()
+				this.props.randomIndex();
 			}
 		);
-	}
-
-	randomIndex = () => {//to make sure the index will be changed
-		index = Math.floor(Math.random()*this.props.length);
-		if(this.state.index !== index){
-			this.setState({
-				index
-			},()=>{
-				this.props.getQuote(index);
-			})
-		}else{
-			this.randomIndex();
-		}
 	}
 
 	handlePressOut = (e) => {
@@ -66,7 +50,7 @@ export default class Buttons extends Component{
         		onPressOut={this.handlePressOut}
         		>
 	      			<Animated.View style={[styles.buttonWrapper, animatedStyle]}>
-	        			<Text style={styles.button}>{this.props.buttonReady ? "Get a Quote" : "Wait for it"}</Text>
+	        			<Text style={styles.button}>{this.props.buttonReady ? "Get a Quote" : "Disabled"}</Text>
 	      			</Animated.View>
     		</TouchableOpacity>
 		)

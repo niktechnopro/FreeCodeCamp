@@ -17,6 +17,7 @@ const quoteArrayLength = quotes.data.quotes.length;
 const animationsIn = ["bounceIn", "bounceInDown", "bounceInUp", "bounceInLeft", "bounceInRight", "fadeIn", "fadeInDown", "fadeInDownBig", "fadeInUp", "fadeInUpBig", "fadeInLeft", "fadeInLeftBig", "fadeInRight", "fadeInRightBig", "zoomIn", "zoomInDown", "zoomInUp", "zoomInLeft", "zoomInRight"];
 const animationsOut = ["bounceOut", "bounceOutDown", "bounceOutUp", "bounceOutLeft", "bounceOutRight", "fadeOut", "fadeOutDown", "fadeOutDownBig", "fadeOutUp", "fadeOutUpBig", "fadeOutLeft", "fadeOutLeftBig", "fadeOutRight", "fadeOutRightBig", "zoomOut", "zoomOutDown", "zoomOutUp", "zoomOutLeft", "zoomOutRight"];
 const direction = ["normal", "reverse", "alternate", "alternate-reverse"];
+let index = 0;
 
 export default class AppMain extends Component {
   constructor(){
@@ -43,7 +44,8 @@ export default class AppMain extends Component {
       {
         toValue: 1,
         duration: 1000,
-        useNativeDriver: true
+        useNativeDriver: true,
+        index: 0
       }).start(
         ()=>{
           if(!this.props.isTtsReady){
@@ -56,16 +58,25 @@ export default class AppMain extends Component {
   }
 
   orientationHandler = (e) => {
-    console.log("orientationHandler", e)
     const { width, height } = e.window;
     if(!this.state.showAutoSwitch && (width < height)){
-      this.setState({showAutoSwitch: true})
+      this.setState({
+        showAutoSwitch: true,
+      })
     }else if(this.state.showAutoSwitch && (width > height)){
-      this.setState({showAutoSwitch: false})
+      this.quoteTimer && clearInterval(this.quoteTimer);
+      this.quoteTimer = null;
+      this.setState({
+        showAutoSwitch: false,
+        autoMode: false,
+        buttonReady: true
+      })
     }
   }
 
   closeApp = () => {
+    this.quoteTimer && clearInterval(this.quoteTimer);
+    this.quoteTimer = null;
     Animated.timing(
       this.state.fadeAnimation,
       {
@@ -78,8 +89,21 @@ export default class AppMain extends Component {
     //to close app and put it on the background
   }
 
-  getQuote = (index) => {
-    if(this.state.buttonReady){
+  randomIndex = () => {//to make sure the index will be changed
+    index = Math.floor(Math.random()*quoteArrayLength);
+    if(this.state.index !== index){
+      this.setState({
+        index
+      },()=>{
+        this.getQuote(index);
+      })
+    }else{
+      this.randomIndex();
+    }
+  }
+
+  getQuote = () => {
+    if(this.state.buttonReady || this.state.autoMode){
       let animations = this.setAnimations();
       let author = ""
       try{
@@ -94,7 +118,7 @@ export default class AppMain extends Component {
           animation: animations.animationsOut,
           direction: animations.direction,
           autAnimation: animations.autAnimationOut,
-          buttonReady: false
+          buttonReady: false,
         },()=>{
             setTimeout(()=>{
               this.setState({
@@ -102,8 +126,7 @@ export default class AppMain extends Component {
                 author: " - "+author,
                 animation: animations.animationsIn,
                 autAnimation: animations.autAnimationIn,
-                ready: true,
-                buttonReady: true
+                buttonReady: this.state.autoMode ? false : true
               },()=>{
                   // console.log("run speech right here", this.state.quote);
                   this.state.speechReady && this.speakerTts(this.state.quote + ". quote bY. " + this.state.author);
@@ -181,12 +204,19 @@ export default class AppMain extends Component {
     },()=>{
       LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
       if (this.state.autoMode){
-        console.log("do this");
+        this.randomIndex();
+        this.quoteTimer = setInterval(this.randomIndex,12000)
       }else{
-        console.log("do that");
+        this.quoteTimer && clearInterval(this.quoteTimer);
+        this.quoteTimer = null;
       }
       
     })
+  }
+
+  componentWillUnmount = () => {
+    this.quoteTimer && clearInterval(this.quoteTimer);
+    this.quoteTimer = null;
   }
 
 
@@ -259,7 +289,7 @@ export default class AppMain extends Component {
             
             <View style={styles.buttonFrame}>
               <Buttons 
-                getQuote={this.getQuote} 
+                randomIndex={this.randomIndex} 
                 length={quoteArrayLength} 
                 buttonReady={this.state.buttonReady}
               />
@@ -393,7 +423,7 @@ const styles = StyleSheet.create({
   },
   switchTextMode:{
     padding: 5,
-    fontSize: 30,
+    fontSize: 36,
     color: '#fff',
     fontWeight: "bold",
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
