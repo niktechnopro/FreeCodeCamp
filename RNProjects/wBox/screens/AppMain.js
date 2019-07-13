@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ImageBackground, Image, Animated, BackHandler, Switch, Dimentions} from 'react-native';
+import {StyleSheet, UIManager,
+  Text, View, LayoutAnimation,
+  ImageBackground, Image, 
+  Animated, BackHandler, 
+  Switch, Dimensions} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LocalStorage from './components/LocalStorage';
 import Buttons from './Buttons';
@@ -24,9 +28,12 @@ export default class AppMain extends Component {
       direction: "normal",
       autAnimation: null,
       fadeAnimation: new Animated.Value(0),
-      speechReady: false
+      speechReady: false,
+      showAutoSwitch: true,
+      autoMode: false
     }
     this.buttonReady = true;
+    UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 
   componentDidMount = () => {
@@ -43,6 +50,18 @@ export default class AppMain extends Component {
           }
         }
       );
+
+    let dimensionListener = Dimensions.addEventListener('change', this.orientationHandler)
+  }
+
+  orientationHandler = (e) => {
+    console.log("orientationHandler", e)
+    const { width, height } = e.window;
+    if(!this.state.showAutoSwitch && (width < height)){
+      this.setState({showAutoSwitch: true})
+    }else if(this.state.showAutoSwitch && (width > height)){
+      this.setState({showAutoSwitch: false})
+    }
   }
 
   closeApp = () => {
@@ -151,8 +170,19 @@ export default class AppMain extends Component {
     }
   }
 
+  onSwitchChange = () => {
+    this.setState(function(prevState){
+      return{
+        autoMode: !prevState.autoMode
+      }
+    },()=>{
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+    })
+  }
+
 
   render() {
+    console.log(this.state.autoMode)
     return (
       <Animated.View style={[styles.mainContainer, {opacity: this.state.fadeAnimation}]}>
         <ImageBackground
@@ -205,18 +235,19 @@ export default class AppMain extends Component {
                 </View>
             </View>
 
-            <View style={styles.modeSwitchContainer}>
-              <Text style={styles.switchTextMode}>Manual mode</Text> 
+            {this.state.showAutoSwitch && 
+              <View style={styles.modeSwitchContainer}>
+              <Text style={styles.switchTextMode}>{this.state.autoMode ? "Auto mode" : "Manual mode"}</Text> 
               <View style = {[styles.switchContainer]}>
                 <Switch
                 style={styles.switch}
-                thumbColor="red"
-                value={true}
-                onChange={(e)=>console.log("onChange", e)}
+                thumbColor="#f0f0f0"
+                value={this.state.autoMode}
+                onChange={this.onSwitchChange}
                 />
-                <Text style={styles.switchText}>Switch to {true ? "auto" : "manual"} mode</Text>
+                <Text style={styles.switchText}>Switch to {!this.state.autoMode ? "auto" : "manual"} mode</Text>
               </View>
-            </View>
+            </View>}
             
             <View style={styles.buttonFrame}>
               <Buttons 
@@ -333,8 +364,6 @@ const styles = StyleSheet.create({
   modeSwitchContainer:{
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: "red",
-    borderWidth: 2
   },
   switchContainer : {
     flexDirection: 'row',
@@ -342,8 +371,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 122, 255, 0.1)',
     borderRadius: 50,
     width: "95%",
-    borderColor: "green",
-    borderWidth: 2
   },
   switchText:{
     padding: 5,
@@ -367,6 +394,6 @@ const styles = StyleSheet.create({
     fontStyle: 'italic'
   },
   switch: {
-    
+
   } 
 });
