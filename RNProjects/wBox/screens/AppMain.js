@@ -30,9 +30,10 @@ export default class AppMain extends Component {
       fadeAnimation: new Animated.Value(0),
       speechReady: false,
       showAutoSwitch: true,
-      autoMode: false
+      autoMode: false,
+      buttonReady: true
     }
-    this.buttonReady = true;
+    this.quoteTimer = null;
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 
@@ -78,8 +79,7 @@ export default class AppMain extends Component {
   }
 
   getQuote = (index) => {
-    if(this.buttonReady){
-      this.buttonReady = false;
+    if(this.state.buttonReady){
       let animations = this.setAnimations();
       let author = ""
       try{
@@ -93,16 +93,18 @@ export default class AppMain extends Component {
         this.setState({
           animation: animations.animationsOut,
           direction: animations.direction,
-          autAnimation: animations.autAnimationOut
+          autAnimation: animations.autAnimationOut,
+          buttonReady: false
         },()=>{
             setTimeout(()=>{
-              this.buttonReady = true;
               this.setState({
                 quote,
                 author: " - "+author,
                 animation: animations.animationsIn,
                 autAnimation: animations.autAnimationIn,
-                ready: true},()=>{
+                ready: true,
+                buttonReady: true
+              },()=>{
                   // console.log("run speech right here", this.state.quote);
                   this.state.speechReady && this.speakerTts(this.state.quote + ". quote bY. " + this.state.author);
                 })
@@ -172,17 +174,23 @@ export default class AppMain extends Component {
 
   onSwitchChange = () => {
     this.setState(function(prevState){
-      return{
-        autoMode: !prevState.autoMode
-      }
+        return{
+          autoMode: !prevState.autoMode,
+          buttonReady: !prevState.buttonReady
+        }
     },()=>{
       LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+      if (this.state.autoMode){
+        console.log("do this");
+      }else{
+        console.log("do that");
+      }
+      
     })
   }
 
 
   render() {
-    console.log(this.state.autoMode)
     return (
       <Animated.View style={[styles.mainContainer, {opacity: this.state.fadeAnimation}]}>
         <ImageBackground
@@ -253,7 +261,7 @@ export default class AppMain extends Component {
               <Buttons 
                 getQuote={this.getQuote} 
                 length={quoteArrayLength} 
-                buttonReady={this.buttonReady}
+                buttonReady={this.state.buttonReady}
               />
             </View>
           

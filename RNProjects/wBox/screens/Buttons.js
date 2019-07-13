@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Animated, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Animated, TouchableOpacity, UIManager, LayoutAnimation } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import * as Animatable from 'react-native-animatable';
 
@@ -11,6 +11,14 @@ export default class Buttons extends Component{
 		this.animatedValue = new Animated.Value(1);
 		this.state = {
 			index: 0
+		}
+		UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+	}
+
+	componentDidUpdate = (prevProps, prevState) => {
+		console.log("componentDidUpdate fired up in buttons");
+		if(prevProps.buttonReady !== this.props.buttonReady){
+			LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
 		}
 	}
 
@@ -57,9 +65,9 @@ export default class Buttons extends Component{
         		onPressIn={this.props.buttonReady ? this.handlePressIn : null}
         		onPressOut={this.handlePressOut}
         		>
-      			<Animated.View style={[styles.buttonWrapper, animatedStyle]}>
-        			<Text style={styles.button}>Get a Quote</Text>
-      			</Animated.View>
+	      			<Animated.View style={[styles.buttonWrapper, animatedStyle]}>
+	        			<Text style={styles.button}>{this.props.buttonReady ? "Get a Quote" : "Wait for it"}</Text>
+	      			</Animated.View>
     		</TouchableOpacity>
 		)
 	}
