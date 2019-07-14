@@ -27,7 +27,7 @@ export default class CloseButton extends Component{
     return(
       <TouchableOpacity
           onPressIn={this.handlePressIn}
-          onPressOut={this.handlePressOut}
+          // onPressOut={this.handlePressOut}
         >
             <MyIcon />
       </TouchableOpacity>

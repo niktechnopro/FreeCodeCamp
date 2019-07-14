@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {StyleSheet, UIManager,
   Text, View, LayoutAnimation,
-  ImageBackground, Image, 
-  Animated, BackHandler, 
-  Switch, Dimensions} from 'react-native';
+  ImageBackground, Image, Switch,
+  Animated, BackHandler, Dimensions} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LocalStorage from './components/LocalStorage';
 import Buttons from './Buttons';
@@ -35,6 +34,7 @@ export default class AppMain extends Component {
       buttonReady: true
     }
     this.quoteTimer = null;
+    this.inTimer = null;
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 
@@ -120,7 +120,7 @@ export default class AppMain extends Component {
           autAnimation: animations.autAnimationOut,
           buttonReady: false,
         },()=>{
-            setTimeout(()=>{
+            this.inTimer = setTimeout(()=>{
               this.setState({
                 quote,
                 author: " - "+author,
@@ -207,16 +207,30 @@ export default class AppMain extends Component {
         this.randomIndex();
         this.quoteTimer = setInterval(this.randomIndex,12000)
       }else{
-        this.quoteTimer && clearInterval(this.quoteTimer);
-        this.quoteTimer = null;
+        
       }
       
     })
   }
 
+  openSettings = () => {
+    this.quoteTimer && clearInterval(this.quoteTimer);
+    this.quoteTimer = null;
+    this.inTimer && clearInterval(this.inTimer);
+    this.inTimer = null;
+    this.setState({
+      autoMode: false,
+      buttonReady: true
+    },()=>{
+      this.props.openSettings();
+    }) 
+  }
+
   componentWillUnmount = () => {
     this.quoteTimer && clearInterval(this.quoteTimer);
     this.quoteTimer = null;
+    this.inTimer && clearInterval(this.inTimer);
+    this.inTimer = null;
   }
 
 
@@ -237,7 +251,7 @@ export default class AppMain extends Component {
             </View>
 
             <View style={styles.appSettingsWrapper} >
-              <SettingsButton openSettings={this.props.openSettings} />
+              <SettingsButton openSettings={this.openSettings} />
             </View>
 
              <Text style={styles.title}>
@@ -267,6 +281,7 @@ export default class AppMain extends Component {
                     duration={850}
                     animation={this.state.autAnimation}
                     useNativeDriver={true}
+                    value={this.state.autoMode}
                     >
                     {this.state.author}
                   </Animatable.Text>
@@ -406,14 +421,13 @@ const styles = StyleSheet.create({
   switchContainer : {
     flexDirection: 'row',
     justifyContent: "space-around",
-    backgroundColor: 'rgba(0, 122, 255, 0.1)',
+    // backgroundColor: 'rgba(0, 122, 255, 0.1)',
     borderRadius: 50,
     width: "95%",
   },
   switchText:{
     padding: 5,
-    fontSize: 25,
-    color: '#fff',
+    fontSize: 30,
     color: '#fff',
     fontWeight: "bold",
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
@@ -435,3 +449,5 @@ const styles = StyleSheet.create({
 
   } 
 });
+
+
