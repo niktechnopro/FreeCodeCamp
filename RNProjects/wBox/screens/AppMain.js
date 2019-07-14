@@ -18,6 +18,26 @@ const animationsOut = ["bounceOut", "bounceOutDown", "bounceOutUp", "bounceOutLe
 const direction = ["normal", "reverse", "alternate", "alternate-reverse"];
 let index = 0;
 
+//initial screen position (if width > height - vertical) - used in this.state
+const { width, height } = Dimensions.get("window");
+
+// let CustomLayoutOpacity = {//not in use right now
+//   duration: 500,
+//   create: {
+//     property: LayoutAnimation.Properties.opacity,
+//     type: LayoutAnimation.Types.linear,
+//   },
+//   update: {
+//       property: LayoutAnimation.Properties.opacity,
+//       type: LayoutAnimation.Types.easeInEaseOut,
+//   },
+//   delete: {
+//       duration: 150,
+//       property: LayoutAnimation.Properties.opacity,
+//       type: LayoutAnimation.Types.linear
+//   }
+// };
+
 export default class AppMain extends Component {
   constructor(){
     super()
@@ -29,7 +49,7 @@ export default class AppMain extends Component {
       autAnimation: null,
       fadeAnimation: new Animated.Value(0),
       speechReady: false,
-      showAutoSwitch: true,
+      showAutoSwitch: (width>height) ? false : true,
       autoMode: false,
       buttonReady: true
     }
@@ -257,9 +277,15 @@ export default class AppMain extends Component {
               <SettingsButton openSettings={this.openSettings} />
             </View>
 
-             <Text style={styles.title}>
-                Wisdom Box
+              <Text style={styles.title}>
+                  Wisdom Box
               </Text>
+
+              {this.state.showAutoSwitch && <View>
+                <Text style={styles.switchTextMode}>{this.state.autoMode ? "Auto mode" : "Manual mode"}</Text> 
+              </View>
+              }
+
             <View
               style = {styles.bookFrame}
             >
@@ -293,16 +319,15 @@ export default class AppMain extends Component {
 
             {this.state.showAutoSwitch && 
               <View style={styles.modeSwitchContainer}>
-              <Text style={styles.switchTextMode}>{this.state.autoMode ? "Auto mode" : "Manual mode"}</Text> 
-              <View style = {[styles.switchContainer]}>
-                <Text style={styles.switchText}>Switch to {!this.state.autoMode ? "auto" : "manual"}</Text>
-                <Switch
-                style={styles.switch}
-                thumbColor="#f0f0f0"
-                value={this.state.autoMode}
-                onChange={this.onSwitchChange}
-                />
-              </View>
+                <View style = {[styles.switchContainer]}>
+                  <Text style={styles.switchText}>Switch to {!this.state.autoMode ? "auto" : "manual"}</Text>
+                  <Switch
+                  style={styles.switch}
+                  thumbColor="#f0f0f0"
+                  value={this.state.autoMode}
+                  onChange={this.onSwitchChange}
+                  />
+                </View>
             </View>}
             
             <View style={styles.buttonFrame}>
