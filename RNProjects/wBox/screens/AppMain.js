@@ -207,7 +207,10 @@ export default class AppMain extends Component {
         this.randomIndex();
         this.quoteTimer = setInterval(this.randomIndex,12000)
       }else{
-        
+        this.quoteTimer && clearInterval(this.quoteTimer);
+        this.quoteTimer = null;
+        this.inTimer && clearInterval(this.inTimer);
+        this.inTimer = null;
       }
       
     })
@@ -292,13 +295,13 @@ export default class AppMain extends Component {
               <View style={styles.modeSwitchContainer}>
               <Text style={styles.switchTextMode}>{this.state.autoMode ? "Auto mode" : "Manual mode"}</Text> 
               <View style = {[styles.switchContainer]}>
+                <Text style={styles.switchText}>Switch to {!this.state.autoMode ? "auto" : "manual"}</Text>
                 <Switch
                 style={styles.switch}
                 thumbColor="#f0f0f0"
                 value={this.state.autoMode}
                 onChange={this.onSwitchChange}
                 />
-                <Text style={styles.switchText}>Switch to {!this.state.autoMode ? "auto" : "manual"} mode</Text>
               </View>
             </View>}
             
