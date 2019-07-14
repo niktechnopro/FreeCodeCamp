@@ -49,7 +49,7 @@ export default class AppMain extends Component {
       autAnimation: null,
       fadeAnimation: new Animated.Value(0),
       speechReady: false,
-      showAutoSwitch: (width>height) ? false : true,
+      showAutoSwitch: false,
       autoMode: false,
       buttonReady: true
     }
@@ -59,6 +59,13 @@ export default class AppMain extends Component {
   }
 
   componentDidMount = () => {
+    if(width > height){
+      !this.state.showAutoSwitch && this.setState({showAutoSwitch : false});
+    }else{
+      this.setState({showAutoSwitch : true});
+    }
+
+
     Animated.timing(
       this.state.fadeAnimation,
       {
@@ -258,6 +265,7 @@ export default class AppMain extends Component {
 
 
   render() {
+
     return (
       <Animated.View style={[styles.mainContainer, {opacity: this.state.fadeAnimation}]}>
         <ImageBackground
@@ -277,7 +285,7 @@ export default class AppMain extends Component {
               <SettingsButton openSettings={this.openSettings} />
             </View>
 
-              <Text style={styles.title}>
+              <Text style={[styles.title, { marginTop: this.state.showAutoSwitch ? 10 : 0 }]}>
                   Wisdom Box
               </Text>
 
