@@ -81,7 +81,7 @@ export default class AppMain extends Component {
         }
       );
 
-    let dimensionListener = Dimensions.addEventListener('change', this.orientationHandler)
+    Dimensions.addEventListener('change', this.orientationHandler);
   }
 
   orientationHandler = (e) => {
@@ -261,6 +261,7 @@ export default class AppMain extends Component {
     this.quoteTimer = null;
     this.inTimer && clearInterval(this.inTimer);
     this.inTimer = null;
+    Dimensions.removeEventListener('change', this.orientationHandler)
   }
 
 

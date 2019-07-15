@@ -4,13 +4,16 @@ import * as Progress from 'react-native-progress';
 import LocalStorage from './components/LocalStorage';
 import PulsingDots from './components/PulsingDots';
 
+const fullScreen = {height: Dimensions.get('window').height, width: Dimensions.get('window').width};
+
 export default class Splash extends Component {
 
   constructor(){
     super()
     this.state={
       progress: 0,
-      done: " "
+      done: " ",
+      width: fullScreen.width ? fullScreen.width : "100%",
     }
     this.progress = new Animated.Value(0);
     this.speechEngine = null;
@@ -44,6 +47,20 @@ export default class Splash extends Component {
           }), 300);
         })
     });
+
+    Dimensions.addEventListener('change', this.orientation)
+  }
+
+  orientation = (e) => {
+    const { width, height } = e.window;
+      this.setState({
+        width,
+        height
+      })
+  }
+
+  componentWillUnmount = () => {
+    Dimensions.removeEventListener('change', this.orientation)
   } 
 
   getProgressStyles = (screenWidth) => {
@@ -68,8 +85,6 @@ export default class Splash extends Component {
   }
 
   render() {
-    const fullScreen = {height: Dimensions.get('window').height, width: Dimensions.get('window').width};
-
     return (
       <View style={styles.container}>
         <View style={styles.textContainer}>
@@ -84,9 +99,9 @@ export default class Splash extends Component {
             <PulsingDots />
           </View>
         
-          <View style={[styles.progress_container, {width: fullScreen.width - 44}]}>
+          <View style={[styles.progress_container, {width: this.state.width - 44}]}>
             <Animated.View
-              style={[this.getProgressStyles(fullScreen.width)]}
+              style={[this.getProgressStyles(this.state.width)]}
             > 
             </Animated.View>
           </View>
