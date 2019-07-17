@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, UIManager,
   Text, View, LayoutAnimation,
   ImageBackground, Image, Switch,
-  Animated, BackHandler, Dimensions} from 'react-native';
+  Animated, BackHandler, Dimensions, AppState} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LocalStorage from './components/LocalStorage';
 import Buttons from './Buttons';
@@ -11,6 +11,7 @@ import CloseButton from './CloseButton';
 import SettingsButton from './SettingsButton';
 import quotes from '../assets/quoteBlob';
 import Tts from 'react-native-tts';
+import BackgroundTimer from 'react-native-background-timer';
 
 const quoteArrayLength = quotes.data.quotes.length;
 const animationsIn = ["bounceIn", "bounceInDown", "bounceInUp", "bounceInLeft", "bounceInRight", "fadeIn", "fadeInDown", "fadeInDownBig", "fadeInUp", "fadeInUpBig", "fadeInLeft", "fadeInLeftBig", "fadeInRight", "fadeInRightBig", "zoomIn", "zoomInDown", "zoomInUp", "zoomInLeft", "zoomInRight"];
@@ -36,7 +37,7 @@ const { width, height } = Dimensions.get("window");
 //       property: LayoutAnimation.Properties.opacity,
 //       type: LayoutAnimation.Types.linear
 //   }
-// };
+// 
 
 export default class AppMain extends Component {
   constructor(){
@@ -55,6 +56,7 @@ export default class AppMain extends Component {
     }
     this.quoteTimer = null;
     this.inTimer = null;
+    this.activityStatus = "";
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 
@@ -82,7 +84,21 @@ export default class AppMain extends Component {
       );
 
     Dimensions.addEventListener('change', this.orientationHandler);
+
+    //experimental - APPSTATE
+    AppState.addEventListener('change', this._handleAppStateChange);
+    AppState.addEventListener('memoryWarning', this._handleMemoryWarning);
   }
+
+  _handleAppStateChange = (appState) => {
+    console.log("appState: ", appState);
+    this.activityStatus = appState;
+  }
+
+  _handleMemoryWarning = (memoryWarning) => {
+    console.log("memory warning: ", memoryWarning);
+  } 
+
 
   orientationHandler = (e) => {
     const { width, height } = e.window;
@@ -117,12 +133,13 @@ export default class AppMain extends Component {
   }
 
   randomIndex = () => {//to make sure the index will be changed
+    console.log("random index runs here")
     index = Math.floor(Math.random()*quoteArrayLength);
     if(this.state.index !== index){
       this.setState({
         index
       },()=>{
-        this.getQuote(index);
+        this.getQuote();
       })
     }else{
       this.randomIndex();
@@ -130,12 +147,15 @@ export default class AppMain extends Component {
   }
 
   getQuote = () => {
+    console.log("start quote");
+    let quote = "";
+    let author = "";
     if(this.state.buttonReady || this.state.autoMode){
       let animations = this.setAnimations();
-      let author = ""
+      let temp = "";
       try{
-        let quote = quotes.data.quotes[index].quote;
-        let temp = quotes.data.quotes[index].author;
+        quote = quotes.data.quotes[index].quote;
+        temp = quotes.data.quotes[index].author;
         if(temp && temp.charAt(0).includes('-')){
           author = temp.substring(0);
         }else{
@@ -155,7 +175,7 @@ export default class AppMain extends Component {
                 autAnimation: animations.autAnimationIn,
                 buttonReady: this.state.autoMode ? false : true
               },()=>{
-                  // console.log("run speech right here", this.state.quote);
+                  console.log("run speech right here", this.state.quote);
                   this.state.speechReady && this.speakerTts(this.state.quote + ". quote bY. " + this.state.author);
                 })
             },800)
@@ -165,6 +185,11 @@ export default class AppMain extends Component {
           quote: "Something went wrong, try again..."
         })
       }
+    }
+    console.log(this.activityStatus)
+    console.log("end of quote: ", quote);
+    if(this.activityStatus === "background"){
+      this.speakerTts(quote + ". quote bY. " + author);
     }
   }
 
@@ -232,9 +257,12 @@ export default class AppMain extends Component {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
       if (this.state.autoMode){
         this.randomIndex();
-        this.quoteTimer = setInterval(this.randomIndex,12000)
+        // this.quoteTimer = setInterval(this.randomIndex,12000);
+        this.quoteTimer =BackgroundTimer.setInterval(this.randomIndex, 12000);
+
       }else{
-        this.quoteTimer && clearInterval(this.quoteTimer);
+        // this.quoteTimer && clearInterval(this.quoteTimer);
+        this.quoteTimer && BackgroundTimer.clearInterval(this.quoteTimer);
         this.quoteTimer = null;
         this.inTimer && clearInterval(this.inTimer);
         this.inTimer = null;
