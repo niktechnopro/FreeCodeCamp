@@ -101,7 +101,7 @@ export default class AppMain extends Component {
         showAutoSwitch: true,
       })
     }else if(this.state.showAutoSwitch && (width > height)){
-      this.quoteTimer && clearInterval(this.quoteTimer);
+      this.quoteTimer && BackgroundTimer.clearInterval(this.quoteTimer);
       this.quoteTimer = null;
       this.setState({
         showAutoSwitch: false,
@@ -112,7 +112,7 @@ export default class AppMain extends Component {
   }
 
   closeApp = () => {
-    this.quoteTimer && clearInterval(this.quoteTimer);
+    this.quoteTimer && BackgroundTimer.clearInterval(this.quoteTimer);
     this.quoteTimer = null;
     if(this.activityStatus !== "background"){
       Animated.timing(
@@ -284,7 +284,7 @@ export default class AppMain extends Component {
   }
 
   openSettings = () => {
-    this.quoteTimer && clearInterval(this.quoteTimer);
+    this.quoteTimer && BackgroundTimer.clearInterval(this.quoteTimer);
     this.quoteTimer = null;
     this.inTimer && clearInterval(this.inTimer);
     this.inTimer = null;
@@ -297,7 +297,7 @@ export default class AppMain extends Component {
   }
 
   componentWillUnmount = () => {
-    this.quoteTimer && clearInterval(this.quoteTimer);
+    this.quoteTimer && BackgroundTimer.clearInterval(this.quoteTimer);
     this.quoteTimer = null;
     this.inTimer && clearInterval(this.inTimer);
     this.inTimer = null;
