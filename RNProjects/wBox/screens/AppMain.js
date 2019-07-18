@@ -56,7 +56,8 @@ export default class AppMain extends Component {
     }
     this.quoteTimer = null;
     this.inTimer = null;
-    this.activityStatus = "";
+    this.activityStatus = "active";//start with active
+    this.longQuote = false;
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 
@@ -87,18 +88,11 @@ export default class AppMain extends Component {
 
     //experimental - APPSTATE
     AppState.addEventListener('change', this._handleAppStateChange);
-    AppState.addEventListener('memoryWarning', this._handleMemoryWarning);
   }
 
   _handleAppStateChange = (appState) => {
-    console.log("appState: ", appState);
     this.activityStatus = appState;
   }
-
-  _handleMemoryWarning = (memoryWarning) => {
-    console.log("memory warning: ", memoryWarning);
-  } 
-
 
   orientationHandler = (e) => {
     const { width, height } = e.window;
@@ -120,7 +114,8 @@ export default class AppMain extends Component {
   closeApp = () => {
     this.quoteTimer && clearInterval(this.quoteTimer);
     this.quoteTimer = null;
-    Animated.timing(
+    if(this.activityStatus !== "background"){
+      Animated.timing(
       this.state.fadeAnimation,
       {
         toValue: 0,
@@ -129,11 +124,14 @@ export default class AppMain extends Component {
       }).start(
         ()=>{BackHandler.exitApp()}
       );
+    }else{
+      BackHandler.exitApp();
+    }
     //to close app and put it on the background
   }
 
   randomIndex = () => {//to make sure the index will be changed
-    console.log("random index runs here")
+    // console.log("random index runs here")
     index = Math.floor(Math.random()*quoteArrayLength);
     if(this.state.index !== index){
       this.setState({
@@ -147,7 +145,6 @@ export default class AppMain extends Component {
   }
 
   getQuote = () => {
-    console.log("start quote");
     let quote = "";
     let author = "";
     if(this.state.buttonReady || this.state.autoMode){
@@ -156,40 +153,50 @@ export default class AppMain extends Component {
       try{
         quote = quotes.data.quotes[index].quote;
         temp = quotes.data.quotes[index].author;
+        if (quote.length > 90){
+          this.longQuote = true;
+        }else{
+          this.longQuote = false;
+        }
         if(temp && temp.charAt(0).includes('-')){
           author = temp.substring(0);
         }else{
           author = temp;
         }
-        this.setState({
-          animation: animations.animationsOut,
-          direction: animations.direction,
-          autAnimation: animations.autAnimationOut,
-          buttonReady: false,
-        },()=>{
-            this.inTimer = setTimeout(()=>{
-              this.setState({
-                quote,
-                author: " - "+author,
-                animation: animations.animationsIn,
-                autAnimation: animations.autAnimationIn,
-                buttonReady: this.state.autoMode ? false : true
-              },()=>{
-                  console.log("run speech right here", this.state.quote);
-                  this.state.speechReady && this.speakerTts(this.state.quote + ". quote bY. " + this.state.author);
-                })
-            },800)
-        })
+        if(this.activityStatus === "active"){
+          this.setState({
+            animation: animations.animationsOut,
+            direction: animations.direction,
+            autAnimation: animations.autAnimationOut,
+            buttonReady: false,
+          },()=>{
+              this.inTimer = setTimeout(()=>{
+                this.setState({
+                  quote,
+                  author: " - "+author,
+                  animation: animations.animationsIn,
+                  autAnimation: animations.autAnimationIn,
+                  buttonReady: this.state.autoMode ? false : true
+                },()=>{
+                    this.state.speechReady && this.speakerTts(this.state.quote + ". quote bY. " + this.state.author);
+                  })
+              },800)
+          })
+        }else if(this.activityStatus === "background"){
+          this.state.speechReady && this.speakerTts(quote + ". quote bY. " + author);
+        }
       }catch{
-        this.setState({
-          quote: "Something went wrong, try again..."
-        })
+        if(this.activityStatus === "active"){
+          this.setState({
+            quote: "Something went wrong, restart the app, and try again..."
+          },()=>{
+            this.state.speechReady && this.speakerTts("Something went wrong, restart the app, and try again...");
+          })
+        }else if(this.activityStatus === "background"){
+          this.state.speechReady && this.speakerTts("Something went wrong, please restart the APP");
+          this.closeApp();
+        }
       }
-    }
-    console.log(this.activityStatus)
-    console.log("end of quote: ", quote);
-    if(this.activityStatus === "background"){
-      this.speakerTts(quote + ". quote bY. " + author);
     }
   }
 
@@ -258,7 +265,12 @@ export default class AppMain extends Component {
       if (this.state.autoMode){
         this.randomIndex();
         // this.quoteTimer = setInterval(this.randomIndex,12000);
-        this.quoteTimer =BackgroundTimer.setInterval(this.randomIndex, 12000);
+
+        let speechInterval = this.longQuote ? 15000 : 12000;//first run
+        this.quoteTimer = BackgroundTimer.setInterval(()=>{
+          this.randomIndex();
+           speechInterval = this.longQuote ? 15000 : 12000;//all consequtive runs
+        }, speechInterval);
 
       }else{
         // this.quoteTimer && clearInterval(this.quoteTimer);
@@ -289,7 +301,8 @@ export default class AppMain extends Component {
     this.quoteTimer = null;
     this.inTimer && clearInterval(this.inTimer);
     this.inTimer = null;
-    Dimensions.removeEventListener('change', this.orientationHandler)
+    Dimensions.removeEventListener('change', this.orientationHandler);
+    AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
 
