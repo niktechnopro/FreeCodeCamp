@@ -114,7 +114,7 @@ export default class AppMain extends Component {
   closeApp = () => {
     this.quoteTimer && BackgroundTimer.clearInterval(this.quoteTimer);
     this.quoteTimer = null;
-    if(this.activityStatus !== "background"){
+    if(this.activityStatus === "active"){
       Animated.timing(
       this.state.fadeAnimation,
       {
@@ -182,7 +182,7 @@ export default class AppMain extends Component {
                   })
               },800)
           })
-        }else if(this.activityStatus === "background"){
+        }else{
           this.state.speechReady && this.speakerTts(quote + ". quote bY. " + author);
         }
       }catch{
@@ -192,7 +192,7 @@ export default class AppMain extends Component {
           },()=>{
             this.state.speechReady && this.speakerTts("Something went wrong, restart the app, and try again...");
           })
-        }else if(this.activityStatus === "background"){
+        }else{
           this.state.speechReady && this.speakerTts("Something went wrong, please restart the APP");
           this.closeApp();
         }
@@ -266,10 +266,10 @@ export default class AppMain extends Component {
         this.randomIndex();
         // this.quoteTimer = setInterval(this.randomIndex,12000);
 
-        let speechInterval = this.longQuote ? 15000 : 12000;//first run
+        let speechInterval = this.longQuote ? 14000 : 13000;//first run
         this.quoteTimer = BackgroundTimer.setInterval(()=>{
           this.randomIndex();
-           speechInterval = this.longQuote ? 15000 : 12000;//all consequtive runs
+           speechInterval = this.longQuote ? 14000 : 13000;//all consequtive runs
         }, speechInterval);
 
       }else{
