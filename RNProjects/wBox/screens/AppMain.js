@@ -264,7 +264,7 @@ export default class AppMain extends Component {
           autManualAnimation: "fadeOutUp"
         }
     },()=>{
-      LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
       if (this.state.autoMode){
         this.randomIndex();
         // this.quoteTimer = setInterval(this.randomIndex,12000);
