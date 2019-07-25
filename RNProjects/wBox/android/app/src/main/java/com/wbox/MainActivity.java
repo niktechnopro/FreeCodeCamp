@@ -1,4 +1,4 @@
-package com.wbox;
+package com.wbox2;
 
 import com.facebook.react.ReactActivity;
 

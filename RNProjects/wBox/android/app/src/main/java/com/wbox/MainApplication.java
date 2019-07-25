@@ -1,4 +1,4 @@
-package com.wbox;
+package com.wbox2;
 
 import android.app.Application;
 
