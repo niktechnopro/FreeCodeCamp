@@ -116,7 +116,7 @@ android {
         applicationId "com.wbox2"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 17
+        versionCode 18
         versionName "2.1"
         resConfigs "en"//limit your language resources to just English 
     }
@@ -134,7 +134,7 @@ android {
             minifyEnabled enableProguardInReleaseBuilds
             signingConfig signingConfigs.release
             shrinkResources enableProguardInReleaseBuilds
-            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             // proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
