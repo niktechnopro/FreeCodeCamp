@@ -7,9 +7,10 @@ Open development options:
 
 ### Deployment
 
-APP deployed at Google Play: https://play.google.com/store/apps/details?id=com.wbox
+APP deployed at Google Play: https://play.google.com/store/apps/details?id=com.wbox2
 
 ## Project Screenshots:
-![screenshot 1](screenshots/one.png "project screenshot")
-![screenshot 2](screenshots/two.png "project screenshot")
-![screenshot 3](screenshots/three.png "project screenshot")
+![screenshot 1](screenshots/splash.png "project screenshot")
+![screenshot 2](screenshots/settings.png "project screenshot")
+![screenshot 3](screenshots/one.png "project screenshot")
+![screenshot 3](screenshots/two.png "project screenshot")
