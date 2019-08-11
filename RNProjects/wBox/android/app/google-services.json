@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "133296858814",
+    "firebase_url": "https://wbox-d2fe5.firebaseio.com",
+    "project_id": "wbox-d2fe5",
+    "storage_bucket": "wbox-d2fe5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133296858814:android:01b6113d28c0942d",
+        "android_client_info": {
+          "package_name": "com.wbox2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133296858814-ugvh47ocdk79t43idut145tt6gdftm93.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU_q_UXBapD4h_K1Ifp3LHjFQ_S7dZs1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133296858814-ugvh47ocdk79t43idut145tt6gdftm93.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

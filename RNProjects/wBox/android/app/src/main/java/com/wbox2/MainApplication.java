@@ -29,12 +29,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new BackgroundTimerPackage(),
-            new AsyncStoragePackage(),
-            new ReactSliderPackage(),
-            new TextToSpeechPackage(),
-            new VectorIconsPackage(),
-            new RNGestureHandlerPackage()
+          new BackgroundTimerPackage(),
+          new AsyncStoragePackage(),
+          new ReactSliderPackage(),
+          new TextToSpeechPackage(),
+          new VectorIconsPackage(),
+          new RNGestureHandlerPackage()
       );
     }
 
