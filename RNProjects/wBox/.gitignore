@@ -56,4 +56,4 @@ buck-out/
 *.jsbundle
 
 #google-services
-google-services.json
+*/google-services.json
