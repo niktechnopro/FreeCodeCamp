@@ -4,30 +4,31 @@ import * as Progress from 'react-native-progress';
 import LocalStorage from './components/LocalStorage';
 import PulsingDots from './components/PulsingDots';
 
-const fullScreen = {height: Dimensions.get('window').height, width: Dimensions.get('window').width};
-
 export default class Splash extends Component {
 
   constructor(){
     super()
     this.state={
       progress: 0,
-      done: " ",
-      width: fullScreen.width ? fullScreen.width : "100%",
+      done: false,
+      width: Dimensions.get("window").width - 44,
+      height: Dimensions.get("window").height - 15
     }
     this.progress = new Animated.Value(0);
     this.speechEngine = null;
+    this.navTimer = null;
   }
 
   componentDidMount = () => {
     // LocalStorage.clearAll();
+    Dimensions.addEventListener('change', this.orientation)
     LocalStorage.getItem('wBoxSettings')
     .then(result => {
       let tempData = JSON.parse(result);
       this.speechEngine = tempData.ttsStatus;
     })
     .catch(error => this.speechEngine = null)
-    this.progress.setValue(0);
+    // this.progress.setValue(0);
     // this.progress.addListener((progress) => { //listener for progress
     //   this.setState({
     //     progress: parseInt(progress.value) + '%'
@@ -40,31 +41,37 @@ export default class Splash extends Component {
       easing: Easing.linear
     }).start(() => {
         this.setState({
-          done: "Enjoy!"
+          done: true
         },()=>{
-          setTimeout(()=>this.props.navigation.navigate("Wrapper",{
-            engine : this.speechEngine 
-          }), 300);
+          this.navTimer = setTimeout(()=>{
+            this.props.navigation.navigate("Wrapper",{
+            engine : this.speechEngine })
+          }, 2300);
         })
     });
-
-    Dimensions.addEventListener('change', this.orientation)
   }
 
   orientation = (e) => {
     const { width, height } = e.window;
+    this.getProgressStyles()
       this.setState({
-        width,
-        height
+        width: width - 44,
+        height: height - 15
       })
   }
 
   componentWillUnmount = () => {
-    Dimensions.removeEventListener('change', this.orientation)
+    Dimensions.removeEventListener('change', this.orientation);
+    this.navTimer && clearInterval(this.navTimer);
+    this.navTimer = null;
+    this.setState({
+      progress: 0,
+      done: false
+    })
   } 
 
-  getProgressStyles = (screenWidth) => {
-    let available_width = screenWidth - 40 - 16;
+  getProgressStyles = () => {
+    let available_width = Dimensions.get("window").width - 40 - 16;
 
 
     let animated_width = this.progress.interpolate({
@@ -79,14 +86,13 @@ export default class Splash extends Component {
    
     return {
       width: animated_width,
-      height: 40, //height of the progress bar
       backgroundColor: color_animation
     }
   }
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, {height: this.state.height}]}>
         <View style={styles.textContainer}>
           <Text style={styles.title}>Welcome</Text>
           <Text style={styles.title}>to</Text>
@@ -99,17 +105,16 @@ export default class Splash extends Component {
             <PulsingDots />
           </View>
         
-          <View style={[styles.progress_container, {width: this.state.width - 44}]}>
+          <View style={[styles.progress_container, {width: this.state.width}]}>
             <Animated.View
-              style={[this.getProgressStyles(this.state.width)]}
+              style={[this.getProgressStyles(), {height: 40}]}
             > 
             </Animated.View>
           </View>
-          <Text style={styles.progress_status}></Text>
         </View>
         <View style={styles.doneContainer}>
           <View>
-            <Text style={styles.title}>{this.state.done}</Text>
+            <Text style={[styles.title, {opacity: this.state.done ? 1 : 0}]}>Enjoy</Text>
           </View>
           <Text style={styles.description}>Quotes By Famous People On Life & Success (2019)</Text>
         </View>
@@ -120,8 +125,8 @@ export default class Splash extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'space-around',
+    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   textContainer: {
@@ -158,25 +163,24 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 10,
     fontWeight: "bold",
+    height: 26
   },
   containerOne: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    height: 120,
+    margin: 5
   },
   progress_container: {
     borderWidth: 6,
     borderColor: '#1299C5',
     backgroundColor: '#ccc',
     borderRadius: 5,
-  },
-  progress_status: {
-    color: '#333',
-    fontSize: 20,
-    fontWeight: 'bold',
-    alignSelf: 'center'
+    height: 52
   }
 });
+
 
 
 

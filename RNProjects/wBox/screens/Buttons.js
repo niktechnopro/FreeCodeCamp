@@ -49,9 +49,9 @@ export default class Buttons extends Component{
         		onPressIn={this.props.buttonReady ? this.handlePressIn : null}
         		onPressOut={this.handlePressOut}
         		>
-	      			<Animated.View style={[styles.buttonWrapper, animatedStyle]}>
-	        			<Text style={styles.button}>{this.props.buttonReady ? "Get a Quote" : "Disabled"}</Text>
-	      			</Animated.View>
+      			<Animated.View style={[styles.buttonWrapper, animatedStyle]}>
+        			<Text style={styles.button}>{this.props.buttonReady ? "Get a Quote" : "Disabled"}</Text>
+      			</Animated.View>
     		</TouchableOpacity>
 		)
 	}

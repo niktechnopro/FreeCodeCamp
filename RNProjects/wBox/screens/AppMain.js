@@ -19,26 +19,6 @@ const animationsOut = ["bounceOut", "bounceOutDown", "bounceOutUp", "bounceOutLe
 const direction = ["normal", "reverse", "alternate", "alternate-reverse"];
 let index = 0;
 
-//initial screen position (if width > height - vertical) - used in this.state
-const { width, height } = Dimensions.get("window");
-
-// let CustomLayoutOpacity = {//not in use right now
-//   duration: 500,
-//   create: {
-//     property: LayoutAnimation.Properties.opacity,
-//     type: LayoutAnimation.Types.linear,
-//   },
-//   update: {
-//       property: LayoutAnimation.Properties.opacity,
-//       type: LayoutAnimation.Types.easeInEaseOut,
-//   },
-//   delete: {
-//       duration: 150,
-//       property: LayoutAnimation.Properties.opacity,
-//       type: LayoutAnimation.Types.linear
-//   }
-// 
-
 export default class AppMain extends Component {
   constructor(){
     super()
@@ -63,13 +43,11 @@ export default class AppMain extends Component {
   }
 
   componentDidMount = () => {
-    if(width > height){
-      !this.state.showAutoSwitch && this.setState({showAutoSwitch : false});
-    }else{
+    //initial screen position (if width > height - vertical) - used in this.state
+    const { width, height } = Dimensions.get("screen");
+    if(width < height){
       this.setState({showAutoSwitch : true});
     }
-
-
     Animated.timing(
       this.state.fadeAnimation,
       {
@@ -97,11 +75,11 @@ export default class AppMain extends Component {
 
   orientationHandler = (e) => {
     const { width, height } = e.window;
-    if(!this.state.showAutoSwitch && (width < height)){
+    if(width < height){
       this.setState({
         showAutoSwitch: true,
       })
-    }else if(this.state.showAutoSwitch && (width > height)){
+    }else if(width > height){
       this.quoteTimer && BackgroundTimer.clearInterval(this.quoteTimer);
       this.quoteTimer = null;
       this.setState({
@@ -268,12 +246,9 @@ export default class AppMain extends Component {
       if (this.state.autoMode){
         this.randomIndex();
         // this.quoteTimer = setInterval(this.randomIndex,12000);
-
-        let speechInterval = this.longQuote ? 14000 : 13000;//first run
         this.quoteTimer = BackgroundTimer.setInterval(()=>{
           this.randomIndex();
-           speechInterval = this.longQuote ? 14000 : 13000;//all consequtive runs
-        }, speechInterval);
+        }, 13000);//13 sec interval
 
       }else{
         // this.quoteTimer && clearInterval(this.quoteTimer);
@@ -306,6 +281,19 @@ export default class AppMain extends Component {
     this.inTimer = null;
     Dimensions.removeEventListener('change', this.orientationHandler);
     AppState.removeEventListener('change', this._handleAppStateChange);
+    this.setState({
+      quote: "",
+      author: "",
+      animation: null,
+      direction: "normal",
+      autAnimation: null,
+      fadeAnimation: new Animated.Value(0),
+      speechReady: false,
+      showAutoSwitch: false,
+      autoMode: false,
+      buttonReady: true,
+      autManualAnimation: null
+    })
   }
 
 
@@ -499,9 +487,6 @@ const styles = StyleSheet.create({
     // borderColor: "green",
     padding: 8
   },
-
-
-
   modeSwitchContainer:{
     justifyContent: 'center',
     alignItems: 'center',

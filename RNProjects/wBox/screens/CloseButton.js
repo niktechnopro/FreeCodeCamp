@@ -15,7 +15,6 @@ class MyIcon extends Component {
 	}
 }
 
-
 export default class CloseButton extends Component{
 	
 
