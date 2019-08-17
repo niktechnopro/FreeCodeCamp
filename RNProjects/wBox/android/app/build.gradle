@@ -113,7 +113,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.wbox2"
+        applicationId "com.wbox"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 18

@@ -7,7 +7,7 @@ Open development options:
 
 ### Deployment
 
-APP deployed at Google Play: https://play.google.com/store/apps/details?id=com.wbox2
+APP deployed at Google Play: https://play.google.com/store/apps/details?id=com.wbox
 
 ## Project Screenshots:
 ![screenshot 1](screenshots/splash.png "project screenshot")
