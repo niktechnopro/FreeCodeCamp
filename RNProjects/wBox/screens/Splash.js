@@ -46,7 +46,7 @@ export default class Splash extends Component {
           this.navTimer = setTimeout(()=>{
             this.props.navigation.navigate("Wrapper",{
             engine : this.speechEngine })
-          }, 2300);
+          }, 1200);
         })
     });
   }

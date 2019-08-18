@@ -116,8 +116,8 @@ android {
         applicationId "com.wbox"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 19
-        versionName "2.01"
+        versionCode 27
+        versionName "2.1"
         resConfigs "en"//limit your language resources to just English 
     }
     splits {
