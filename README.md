@@ -32,7 +32,7 @@ One project also uses Bootstrap and two a touch of JavaScript.
    * Telephone Number Validator
    * Cash Register
 
-## (Under construction) Third section - responsive webdesign projects hosted on my personal page www.niktechnopro.com:
+## (temprorarily under reconstruction) Third section - responsive webdesign projects hosted on my personal page www.niktechnopro.com:
 * **Programming Languages**:
     * JavaScript
 * **Frameworks**:
