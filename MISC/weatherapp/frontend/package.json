@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://www.niktechnopro.com/demos/weatherapp",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "chart.js": "^2.8.0",
     "moment": "^2.24.0",
     "react": "^16.8.2",
